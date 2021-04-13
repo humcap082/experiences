@@ -145,21 +145,13 @@ app.dependency_overrides[get_settings] = override_get_settings
 
 <details><summary>state</summary>
 
-### 備考
-
-<details><summary>値を保持する</summary>
-
-appインスタンスに値を紐づけることができ、シングルトンなインスタンスを保持できる。
-
-`Request`の`app`から取り出しができる。
-
-</details>
-
-***
-
 ### 例
 
-<details><summary>データベースプールを保持する</summary>
+<details><summary>値を保持して使用する</summary>
+
+appインスタンスに好きな値を紐づけることができ、シングルトンなインスタンスを保持できる。
+
+`Request`の`app`から取り出しができる。
 
 
 ```python
@@ -768,18 +760,6 @@ def on_event(self, event_type: str) -> typing.Callable:
 |shutdown|アプリケーション終了|
 
 </details>
-
-</details>
-
-***
-
-## 備考
-
-<details><summary>description - get(), post(), put(), patch(), delete()</summary>
-
-代わりにdocstringを利用できる。
-
-マークダウン方式で書くことができる。
 
 </details>
 
