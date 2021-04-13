@@ -47,6 +47,148 @@ class FastAPI(Starlette):
 |dependency_overrides|Dict[Callable, Callable]|`Depend`された関数の辞書|
 |state|State|カスタムな値を保持する。|
 
+## 属性
+
+<details><summary>openapi_url</summary>
+
+### 備考
+
+<details><summary>スキーマを無効にする</summary>
+
+`None`を設定することでスキーマが無効になり、ドキュメンテーションインターフェースも無効になります。
+
+</details>
+
+***
+
+</details>
+
+***
+
+<details><summary>openapi_tags</summary>
+
+### 備考
+
+<details><summary>リストのフォーマット</summary>
+
+タグの情報が入った辞書を要素として持つリストを渡す。
+
+それぞれの辞書の属性は次のようになる。
+
+- `name`: タグの名前
+- `description`: タグの説明、マークダウンを使用できます。
+- `externalDocs`: 外部のドキュメントについての情報の辞書
+    - `description`: 外部のドキュメントの説明、マークダウンを使用できます。
+    - `url`: 外部のドキュメントのurl、externalDocsの必須のパラメータ
+
+</details>
+
+***
+
+</details>
+
+***
+
+<details><summary>docs_url</summary>
+
+### 備考
+
+<details><summary>ドキュメントを無効にする</summary>
+
+`None`でドキュメントを無効にする。
+
+</details>
+
+***
+
+</details>
+
+***
+
+<details><summary>redoc_url</summary>
+
+### 備考
+
+<details><summary>ドキュメントを無効にする</summary>
+
+`None`でドキュメントを無効にする。
+
+</details>
+
+***
+
+</details>
+
+***
+
+<details><summary>dependency_overrides</summary>
+
+### 例
+
+<details><summary>`Depends`に渡される関数を上書きする</summary>
+
+```python
+def override_get_settings():
+    return TestSettings()
+
+
+app.dependency_overrides[get_settings] = override_get_settings
+```
+
+</details>
+
+***
+
+</details>
+
+***
+
+<details><summary>state</summary>
+
+### 備考
+
+<details><summary>値を保持する</summary>
+
+appインスタンスに値を紐づけることができ、シングルトンなインスタンスを保持できる。
+
+`Request`の`app`から取り出しができる。
+
+</details>
+
+***
+
+### 例
+
+<details><summary>データベースプールを保持する</summary>
+
+
+```python
+@app.on_event('startup')
+async def startup():
+    app.state.pool = await asyncpg.create_pool(settings.database_url)
+
+
+@app.on_event('shutdown')
+async def shutdown():
+    app.state.pool.terminate()
+
+
+@app.get('/users/user_id')
+async def get_users(request: Request, user_id: uuid.UUID = Path(...)):
+    async with request.app.state.pool.aquire as db:
+        async with db.transaction():
+            user = db.fetchrow('SELECT * FROM users WHERE id = ?;', user_id)
+            return user
+```
+
+</details>
+
+***
+
+</details>
+
+***
+
 ## メソッド
 
 <details><summary>get()</summary>
@@ -102,6 +244,8 @@ def get(
 
 </details>
 
+***
+
 <details><summary>post()</summary>
 
 POSTメソッドを処理するエンドポイントをルーティングするデコレーターメソッド。
@@ -154,6 +298,9 @@ def post(
 |response_model_exclude_none|bool|False|response_modelのなかでNoneの出力を無視するかどうか|
 
 </details>
+
+***
+
 <details><summary>put()</summary>
 
 PUTメソッドを処理するエンドポイントをルーティングするデコレーターメソッド。
@@ -206,6 +353,9 @@ def put(
 |response_model_exclude_none|bool|False|response_modelのなかでNoneの出力を無視するかどうか|
 
 </details>
+
+***
+
 <details><summary>patch()</summary>
 
 PATCHメソッドを処理するエンドポイントをルーティングするデコレーターメソッド。
@@ -258,6 +408,9 @@ def patch(
 |response_model_exclude_none|bool|False|response_modelのなかでNoneの出力を無視するかどうか|
 
 </details>
+
+***
+
 <details><summary>delete()</summary>
 
 DELETEメソッドを処理するエンドポイントをルーティングするデコレーターメソッド。
@@ -310,6 +463,9 @@ def delete(
 |response_model_exclude_none|bool|False|response_modelのなかでNoneの出力を無視するかどうか|
 
 </details>
+
+***
+
 <details><summary>exception_handler()</summary>
 
 エラーハンドリングするメソッド。新しい例外の作成、既存の例外を上書きする。
@@ -324,333 +480,7 @@ def exception_handler(
 |:---|:---|:---|:---|
 |exc_class_or_status_code|Union[int, Type[Excption]]|なし|ハンドラにするエラークラス、もしくはステータスコード|
 
-</details>
-<details><summary>middleware()</summary>
-
-リクエストとエンドポイント、エンドポイントとレスポンスの間の処理を行う
-
-ミドルウェアを実装する。
-
-```python
-def middleware(self, middleware_type: str) -> typing.callable:
-```
-
-|引数|型|デフォルト|説明|
-|:---|:---|:---|:---|
-|middleware_type|str|なし|ミドルウェアのタイプを指定する|
-
-</details>
-<details><summary>add_middleware()</summary>
-
-定義されているミドルウェアを追加する。
-
-```python
-def add_middleware(self, middleware_class: type, **options: typing.Any) -> None:
-```
-
-|引数|型|デフォルト|接見目|
-|:---|:---|:---|:---|
-|middleware_class|type|なし|設定するミドルウェア|
-|**options|Any|なし|ミドルウェアに渡すパラメータ|
-
-</details>
-<details><summary>include_router()</summary>
-
-APIRouterで定義したエンドポイントを結合する。
-
-```python
-def include_router(
-        self,
-        router: routing.APIRouter,
-        *,
-        prefix: str = "",
-        tags: List[str] = None,
-        dependencies: Sequence[Depends] = None,
-        responses: Dict[Union[int, str], Dict[str, Any]] = None,
-        default_response_class: Optional[Type[Response]] = None,
-    ) -> None:
-```
-
-|引数|型|デフォルト|説明|
-|:---|:---|:---|:---|
-|router|APIRouter|なし|追加するルータ|
-|prefix|str|''|ルータが定義したすべてのパス操作関数のパスの手前に追加するパス|
-|tags|List[str]|None|ルータが定義したすべてのパス操作関数に追加するタグ|
-|dependendies|Sequence[Depends]|None|ルータが定義したすべてのパス操作関数のdependeciesに追加する依存関係|
-|responses|Dict[Union[int, str], Dict[str, Any]]|None|ルータが定義したすべてのresponsesに追加するレスポンス|
-
-</details>
-<details><summary>mount()</summary>
-
-指定のパスにアプリケーションなどをマウントするメソッド
-
-```python
-def mount(self, path: str, app: ASGIApp, name: str = None) -> None:
-```
-
-|引数|型|デフォルト|説明|
-|:---|:---|:---|:---|
-|path|str|なし|アプリケーションをマウントするパス|
-|app|ASGIApp|なし|マウントするアプリケーションのインスタンス|
-|name|str|None|メインのアプリケーションからの名前|
-
-</details>
-<details><summary>on_event()</summary>
-
-特定のイベント時に処理する関数を定義できる。
-
-```python
-def on_event(self, event_type: str) -> typing.Callable:
-```
-
-#### パラメータ
-
-|引数|型|デフォルト|説明|
-|:---|:---|:---|:---|
-|evnet_type|str|required|リッスンするイベント|
-
-</details>
-
-## 備考
-
-<details><summary>openapi_url</summary>
-
-`None`を設定することでスキーマが無効になり、ドキュメンテーションインターフェースも無効になります。
-
-</details>
-
-<details><summary>openapi_tags</summary>
-
-タグの情報が入った辞書を要素として持つリストを渡す。
-
-それぞれの辞書の属性は次のようになる。
-
-- `name`: タグの名前
-- `description`: タグの説明、マークダウンを使用できます。
-- `externalDocs`: 外部のドキュメントについての情報の辞書
-    - `description`: 外部のドキュメントの説明、マークダウンを使用できます。
-    - `url`: 外部のドキュメントのurl、externalDocsの必須のパラメータ
-
-</details>
-
-<details><summary>docs_url</summary>
-
-`None`で無効。
-
-</details>
-
-<details><summary>redoc_url</summary>
-
-`None`で無効
-
-</details>
-
-<details><summary>dependency_overrides</summary>
-
-`Depend`に渡される関数を上書きできる。
-
-</details>
-
-<details><summary>state</summary>
-
-appインスタンスに値を紐づけることができ、シングルトンなインスタンスを保持できる。
-
-`Request`の`app`から取り出しができる。
-
-</details>
-
-<details><summary>description - get(), post(), put(), patch(), delete()</summary>
-
-代わりにdocstringを利用できる。
-
-マークダウン方式で書くことができる。
-
-</details>
-
-<details><summary>event_type - on_event()</summary>
-
-|event_type|説明|
-|:---|:---|
-|startup|アプリケーション起動|
-|shutdown|アプリケーション終了|
-
-</details>
-
-## 例
-
-<details><summary>dependency_overrides</summary>
-
-```python
-def override_get_settings():
-    return TestSettings()
-
-
-app.dependency_overrides[get_settings] = override_get_settings
-```
-
-</details>
-
-<details><summary>state</summary>
-
-```python
-@app.on_event('startup')
-async def startup():
-    app.state.pool = await asyncpg.create_pool(settings.database_url)
-
-```
-
-</details>
-<details><summary>列挙パラメータ</summary>
-
-```python
-from enum import Enum
-from fastapi import FastAPI
-
-class ModelName(str, Enum):
-    alexnet = 'alexnet'
-    resnet = 'resnet'
-    lenet = 'lenet'
-
-app = FastAPI()
-
-@app.get('/model/{model_name}')
-async def get_model(model_name: ModelName):
-    return {'model_name': model_name}
-```
-
-</details>
-
-<details><summary>パスを含むパスパラメータ</summary>
-
-```python
-from fastapi import FastAPI
-app = FastAPI()
-
-@app.get('/files/{file_path:path}')
-async def read_file(file_path: str):
-    return {'file_path': file_path}
-```
-
-</details>
-
-<details><summary>description - get(), post(), put(), patch(), delete()</summary>
-
-代わりにdocstringを利用できる。
-
-マークダウン方式で書くことができる。
-
-```python
-from typing import Optional, Set
-from fastapi import FastAPI
-from pydantic import BaseModel
-
-app = FastAPI()
-
-
-class Item(BaseModel):
-    name: str
-    description: Optional[str] = None
-    price: float
-    tax: Optional[float] = None
-    tags: Set[str] = []
-
-@app.post(
-    '/items/',
-    response_model=Item,
-    summary='Create an Item',
-)
-async def create_item(item: Item):
-    """Create an item with all the information.
-    - **name**: each item must have a name
-    - **description**: a long description
-    - **price**: required
-    - **tax**: if the item doesn't have tax, you can omit this
-    - **tags**: a set of unique tag strings for this item
-    """
-    return item
-```
-
-</details>
-
-<details><summary>response_model_include, response_model_exclude - get(), post(), put(), patch(), delete()</summary>
-
-```python
-from typing import Optional
-from fastapi import FastAPI
-from pydantic import BaseModel
-
-app = FastAPI()
-
-class Item(BaseModel):
-    name: str
-    description: Optional[str] = None
-    price: float
-    tax: float = 10.5
-
-items = {
-    'foo': {'name': 'Foo', 'price': 50.2},
-    'bar': {'name': 'Bar', 'description': 'The Bar fighters', 'price': 62, 'tax': 20.2},
-    'baz': {
-        'name': 'Baz',
-        'description': 'There goes my baz',
-        'price': 50.2,
-        'tax': 10.5,
-    },
-}
-
-@app.get(
-    '/items/{item_id}/name',
-    response_model=Item,
-    response_model_include={'name', 'description'},
-)
-async def read_item_name(item_id: str):
-    return items[item_id]
-
-@app.get('/items/{item_id}/public', response_model=Item, response_model_exclude={'tax'})
-async def read_item_public_data(item_id: str):
-    return items[item_id]
-```
-
-</details>
-
-<details><summary>response_model_exclude_unset - get(), post(), put(), patch(), delete()</summary>
-
-```python
-from typing import List, Optional
-from fastapi import FastAPI
-from pydantic import BaseModel
-app = FastAPI()
-
-class Item(BaseModel):
-    name: str
-    description: Optional[str] = None
-    price: float
-    tax: float = 10.5
-    tags: List[str] = []
-
-items = {
-    'foo': {'name': 'Foo', 'price': 50.2},
-    'bar': {'name': 'Bar', 'description': 'The bartenders', 'price': 62, 'tax': 20.2},
-    'baz': {'name': 'Baz', 'description': None, 'price': 50.2, 'tax': 10.5, 'tags': []}
-}
-
-@app.get('/items/{item_id}', response_model=Item, response_model_exclude_unset=True)
-async def read_item(item_id: str):
-    return items[item_id]
-```
-
-この場合、`http://127.0.0.1:8000/items/foo`を叩くと
-
-次のように、指定してないデフォルトの値はかえってきません。
-
-```python
-{
-  "name": "Foo",
-  "price": 50.2
-}
-```
-
-</details>
+### 例
 
 <details><summary>新規エラーを作成</summary>
 
@@ -680,6 +510,8 @@ async def read_unicorn(name: str):
 
 </details>
 
+***
+
 <details><summary>既存のエラーを上書き</summary>
 
 ```python
@@ -706,7 +538,43 @@ async def read_item(item_id: int):
 
 </details>
 
+***
+
+</details>
+
+***
+
 <details><summary>middleware()</summary>
+
+リクエストとエンドポイント、エンドポイントとレスポンスの間の処理を行う
+
+ミドルウェアを実装するデコレータ。
+
+```python
+def middleware(self, middleware_type: str) -> typing.callable:
+```
+
+|引数|型|デフォルト|説明|
+|:---|:---|:---|:---|
+|middleware_type|str|なし|ミドルウェアのタイプを指定する|
+
+### 備考
+
+<details><summary>関数が受け取れる引数</summary>
+
+- `request`
+- `call_next`: `request`をパラメータとして受け取る関数
+    - この関数は`request`を対応するパス操作関数に渡します
+    - そして、パス操作関数が作成したレスポンスを返します。
+    - そしてさらにレスポンスを修正して返すことができます。
+
+</details>
+
+***
+
+### 例
+
+<details><summary>実行時間ヘッダを付与</summary>
 
 ```python
 import time
@@ -722,17 +590,59 @@ async def add_process_time_header(request: Request, call_next):
     return response
 ```
 
-ミドルウェア関数は以下を受け取ります。
+</details>
 
-- `request`
-- `call_next`: `request`をパラメータとして受け取る関数
-    - この関数は`request`を対応するパス操作関数に渡します
-    - そして、パス操作関数が作成したレスポンスを返します。
-    - そしてさらにレスポンスを修正して返すことができます。
+***
 
 </details>
 
+***
+
+<details><summary>add_middleware()</summary>
+
+定義されているミドルウェアを追加する。
+
+```python
+def add_middleware(self, middleware_class: type, **options: typing.Any) -> None:
+```
+
+|引数|型|デフォルト|接見目|
+|:---|:---|:---|:---|
+|middleware_class|type|なし|設定するミドルウェア|
+|**options|Any|なし|ミドルウェアに渡すパラメータ|
+
+</details>
+
+***
+
 <details><summary>include_router()</summary>
+
+APIRouterで定義したエンドポイントを結合する。
+
+```python
+def include_router(
+        self,
+        router: routing.APIRouter,
+        *,
+        prefix: str = "",
+        tags: List[str] = None,
+        dependencies: Sequence[Depends] = None,
+        responses: Dict[Union[int, str], Dict[str, Any]] = None,
+        default_response_class: Optional[Type[Response]] = None,
+    ) -> None:
+```
+
+|引数|型|デフォルト|説明|
+|:---|:---|:---|:---|
+|router|APIRouter|なし|追加するルータ|
+|prefix|str|''|ルータが定義したすべてのパス操作関数のパスの手前に追加するパス|
+|tags|List[str]|None|ルータが定義したすべてのパス操作関数に追加するタグ|
+|dependendies|Sequence[Depends]|None|ルータが定義したすべてのパス操作関数のdependeciesに追加する依存関係|
+|responses|Dict[Union[int, str], Dict[str, Any]]|None|ルータが定義したすべてのresponsesに追加するレスポンス|
+
+### 例
+
+<details><summary>ルーターを結合する。</summary>
 
 - app
     - \_\_init\_\_.py
@@ -812,4 +722,229 @@ app.include_router(
 
 </details>
 
+***
 
+</details>
+
+***
+
+<details><summary>mount()</summary>
+
+指定のパスにアプリケーションなどをマウントするメソッド
+
+```python
+def mount(self, path: str, app: ASGIApp, name: str = None) -> None:
+```
+
+|引数|型|デフォルト|説明|
+|:---|:---|:---|:---|
+|path|str|なし|アプリケーションをマウントするパス|
+|app|ASGIApp|なし|マウントするアプリケーションのインスタンス|
+|name|str|None|メインのアプリケーションからの名前|
+
+</details>
+
+***
+
+<details><summary>on_event()</summary>
+
+特定のイベント時に処理する関数を定義できる。
+
+```python
+def on_event(self, event_type: str) -> typing.Callable:
+```
+
+|引数|型|デフォルト|説明|
+|:---|:---|:---|:---|
+|evnet_type|str|required|リッスンするイベント|
+
+### 備考
+
+<details><summary>event_type</summary>
+
+|event_type|説明|
+|:---|:---|
+|startup|アプリケーション起動|
+|shutdown|アプリケーション終了|
+
+</details>
+
+</details>
+
+***
+
+## 備考
+
+<details><summary>description - get(), post(), put(), patch(), delete()</summary>
+
+代わりにdocstringを利用できる。
+
+マークダウン方式で書くことができる。
+
+</details>
+
+***
+
+## 例
+
+<details><summary>列挙パラメータ</summary>
+
+```python
+from enum import Enum
+from fastapi import FastAPI
+
+class ModelName(str, Enum):
+    alexnet = 'alexnet'
+    resnet = 'resnet'
+    lenet = 'lenet'
+
+app = FastAPI()
+
+@app.get('/model/{model_name}')
+async def get_model(model_name: ModelName):
+    return {'model_name': model_name}
+```
+
+</details>
+
+***
+
+<details><summary>パスを含むパスパラメータ</summary>
+
+```python
+from fastapi import FastAPI
+app = FastAPI()
+
+@app.get('/files/{file_path:path}')
+async def read_file(file_path: str):
+    return {'file_path': file_path}
+```
+
+</details>
+
+***
+
+<details><summary>docstringを使用</summary>
+
+`get(), post(), put(), patch(), delete()`の`description`は代わりにdocstringを利用できる。
+
+マークダウン方式で書くことができる。
+
+```python
+from typing import Optional, Set
+from fastapi import FastAPI
+from pydantic import BaseModel
+
+app = FastAPI()
+
+
+class Item(BaseModel):
+    name: str
+    description: Optional[str] = None
+    price: float
+    tax: Optional[float] = None
+    tags: Set[str] = []
+
+@app.post(
+    '/items/',
+    response_model=Item,
+    summary='Create an Item',
+)
+async def create_item(item: Item):
+    """Create an item with all the information.
+    - **name**: each item must have a name
+    - **description**: a long description
+    - **price**: required
+    - **tax**: if the item doesn't have tax, you can omit this
+    - **tags**: a set of unique tag strings for this item
+    """
+    return item
+```
+
+</details>
+
+***
+
+<details><summary>指定した属性でレスポンスをフィルタリング</summary>
+
+```python
+from typing import Optional
+from fastapi import FastAPI
+from pydantic import BaseModel
+
+app = FastAPI()
+
+class Item(BaseModel):
+    name: str
+    description: Optional[str] = None
+    price: float
+    tax: float = 10.5
+
+items = {
+    'foo': {'name': 'Foo', 'price': 50.2},
+    'bar': {'name': 'Bar', 'description': 'The Bar fighters', 'price': 62, 'tax': 20.2},
+    'baz': {
+        'name': 'Baz',
+        'description': 'There goes my baz',
+        'price': 50.2,
+        'tax': 10.5,
+    },
+}
+
+@app.get(
+    '/items/{item_id}/name',
+    response_model=Item,
+    response_model_include={'name', 'description'},
+)
+async def read_item_name(item_id: str):
+    return items[item_id]
+
+@app.get('/items/{item_id}/public', response_model=Item, response_model_exclude={'tax'})
+async def read_item_public_data(item_id: str):
+    return items[item_id]
+```
+
+</details>
+
+***
+
+<details><summary>セットされていない属性を排除</summary>
+
+```python
+from typing import List, Optional
+from fastapi import FastAPI
+from pydantic import BaseModel
+app = FastAPI()
+
+class Item(BaseModel):
+    name: str
+    description: Optional[str] = None
+    price: float
+    tax: float = 10.5
+    tags: List[str] = []
+
+items = {
+    'foo': {'name': 'Foo', 'price': 50.2},
+    'bar': {'name': 'Bar', 'description': 'The bartenders', 'price': 62, 'tax': 20.2},
+    'baz': {'name': 'Baz', 'description': None, 'price': 50.2, 'tax': 10.5, 'tags': []}
+}
+
+@app.get('/items/{item_id}', response_model=Item, response_model_exclude_unset=True)
+async def read_item(item_id: str):
+    return items[item_id]
+```
+
+この場合、`http://127.0.0.1:8000/items/foo`を叩くと
+
+次のように、指定してないデフォルトの値はかえってきません。
+
+```python
+{
+  "name": "Foo",
+  "price": 50.2
+}
+```
+
+</details>
+
+***
