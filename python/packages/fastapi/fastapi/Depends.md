@@ -11,11 +11,31 @@ def Depends(  # noqa: N802
 ) -> Any:
 ```
 
-|引数|型|デフォルト|説明|
-|:---|:---|:---|:---|
-|dependency|Callable|None|引数を受け取り、引数を返す関数やクラスなどを指定する|
-|use_cache|bool|True|一度受け取ったパラメータの戻り値をキャッシュするかどうか|
+## 引数
 
+<details><summary>dependency</summary>
+
+引数を受け取り、引数を返す関数やクラスなどを指定する
+
+```python
+dependency: Callable = None
+```
+
+</details>
+
+***
+
+<details><summary>use_cache</summary>
+
+引数を受け取り、引数を返す関数やクラスなどを指定する
+
+```python
+use_cache: bool = True
+```
+
+</details>
+
+***
 
 ### 例
 

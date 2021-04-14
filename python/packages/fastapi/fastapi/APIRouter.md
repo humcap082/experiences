@@ -50,24 +50,6 @@ def get(
 ) -> Callable:
 ```
 
-|引数|型|デフォルト|説明|
-|:---|:---|:---|:---|
-|path|str|なし|唯一の位置引数、ルーティングするパスをいれる|
-|response_model|Type[Any]|None|レスポンスボディの型を定義する|
-|status_code|int|200|返されるステータスコード|
-|tags|List[str]|None|タグをつけられる。通常は1個だけつける|
-|dependencies|Sequence[Depends]|None|複数の依存関係を指定できる。|
-|summary|str|None|要約|
-|description|str|None|説明文|
-|response_description|str|'Successful Response'|レスポンスモデルの説明文|
-|responses|Dict[Union[int, str], Dit[str, Any]]|None|デフォルトのレスポンス|
-|deprecated|bool|None|非推奨の関数かどうか|
-|response_model_include|Union[SetIntStr, DictIntStrAny]|None|response_modelのなかで出力する属性を指定する|
-|response_model_exclude|Union[SetIntStr, DictIntStrAny]|set()|response_modelのなかで無視する属性を指定する|
-|response_model_exclude_unset|bool|False|response_modelのなかでセット指定されなかったデフォルトの値の出力を無視するかどうかするかどうか|
-|response_model_exclude_defaults|bool|False|response_modelのなかでデフォルトのままの値の出力を無視するかどうか|
-|response_model_exclude_none|bool|False|response_modelのなかでNoneの出力を無視するかどうか|
-
 </details>
 
 ***
@@ -104,24 +86,6 @@ def post(
         callbacks: List[routing.APIRoute] = None,
     ) -> Callable:
 ```
-
-|引数|型|デフォルト|説明|
-|:---|:---|:---|:---|
-|path|str|なし|唯一の位置引数、ルーティングするパスをいれる|
-|response_model|Type[Any]|None|レスポンスボディの型を定義する|
-|status_code|int|200|返されるステータスコード|
-|tags|List[str]|None|タグをつけられる。通常は1個だけつける|
-|dependencies|Sequence[Depends]|None|複数の依存関係を指定できる。|
-|summary|str|None|要約|
-|description|str|None|説明文|
-|response_description|str|'Successful Response'|レスポンスモデルの説明文|
-|responses|Dict[Union[int, str], Dit[str, Any]]|None|デフォルトのレスポンス|
-|deprecated|bool|None|非推奨の関数かどうか|
-|response_model_include|Union[SetIntStr, DictIntStrAny]|None|response_modelのなかで出力する属性を指定する|
-|response_model_exclude|Union[SetIntStr, DictIntStrAny]|set()|response_modelのなかで無視する属性を指定する|
-|response_model_exclude_unset|bool|False|response_modelのなかでセット指定されなかったデフォルトの値の出力を無視するかどうかするかどうか|
-|response_model_exclude_defaults|bool|False|response_modelのなかでデフォルトのままの値の出力を無視するかどうか|
-|response_model_exclude_none|bool|False|response_modelのなかでNoneの出力を無視するかどうか|
 
 </details>
 
@@ -160,24 +124,6 @@ def put(
     ) -> Callable:
 ```
 
-|引数|型|デフォルト|説明|
-|:---|:---|:---|:---|
-|path|str|なし|唯一の位置引数、ルーティングするパスをいれる|
-|response_model|Type[Any]|None|レスポンスボディの型を定義する|
-|status_code|int|200|返されるステータスコード|
-|tags|List[str]|None|タグをつけられる。通常は1個だけつける|
-|dependencies|Sequence[Depends]|None|複数の依存関係を指定できる。|
-|summary|str|None|要約|
-|description|str|None|説明文|
-|response_description|str|'Successful Response'|レスポンスモデルの説明文|
-|responses|Dict[Union[int, str], Dit[str, Any]]|None|デフォルトのレスポンス|
-|deprecated|bool|None|非推奨の関数かどうか|
-|response_model_include|Union[SetIntStr, DictIntStrAny]|None|response_modelのなかで出力する属性を指定する|
-|response_model_exclude|Union[SetIntStr, DictIntStrAny]|set()|response_modelのなかで無視する属性を指定する|
-|response_model_exclude_unset|bool|False|response_modelのなかでセット指定されなかったデフォルトの値の出力を無視するかどうかするかどうか|
-|response_model_exclude_defaults|bool|False|response_modelのなかでデフォルトのままの値の出力を無視するかどうか|
-|response_model_exclude_none|bool|False|response_modelのなかでNoneの出力を無視するかどうか|
-
 </details>
 
 ***
@@ -215,24 +161,6 @@ def patch(
     ) -> Callable:
 ```
 
-|引数|型|デフォルト|説明|
-|:---|:---|:---|:---|
-|path|str|なし|唯一の位置引数、ルーティングするパスをいれる|
-|response_model|Type[Any]|None|レスポンスボディの型を定義する|
-|status_code|int|200|返されるステータスコード|
-|tags|List[str]|None|タグをつけられる。通常は1個だけつける|
-|dependencies|Sequence[Depends]|None|複数の依存関係を指定できる。|
-|summary|str|None|要約|
-|description|str|None|説明文|
-|response_description|str|'Successful Response'|レスポンスモデルの説明文|
-|responses|Dict[Union[int, str], Dit[str, Any]]|None|デフォルトのレスポンス|
-|deprecated|bool|None|非推奨の関数かどうか|
-|response_model_include|Union[SetIntStr, DictIntStrAny]|None|response_modelのなかで出力する属性を指定する|
-|response_model_exclude|Union[SetIntStr, DictIntStrAny]|set()|response_modelのなかで無視する属性を指定する|
-|response_model_exclude_unset|bool|False|response_modelのなかでセット指定されなかったデフォルトの値の出力を無視するかどうかするかどうか|
-|response_model_exclude_defaults|bool|False|response_modelのなかでデフォルトのままの値の出力を無視するかどうか|
-|response_model_exclude_none|bool|False|response_modelのなかでNoneの出力を無視するかどうか|
-
 </details>
 
 ***
@@ -269,24 +197,6 @@ def delete(
         callbacks: List[routing.APIRoute] = None,
     ) -> Callable:
 ```
-
-|引数|型|デフォルト|説明|
-|:---|:---|:---|:---|
-|path|str|なし|唯一の位置引数、ルーティングするパスをいれる|
-|response_model|Type[Any]|None|レスポンスボディの型を定義する|
-|status_code|int|200|返されるステータスコード|
-|tags|List[str]|None|タグをつけられる。通常は1個だけつける|
-|dependencies|Sequence[Depends]|None|複数の依存関係を指定できる。|
-|summary|str|None|要約|
-|description|str|None|説明文|
-|response_description|str|'Successful Response'|レスポンスモデルの説明文|
-|responses|Dict[Union[int, str], Dit[str, Any]]|None|デフォルトのレスポンス|
-|deprecated|bool|None|非推奨の関数かどうか|
-|response_model_include|Union[SetIntStr, DictIntStrAny]|None|response_modelのなかで出力する属性を指定する|
-|response_model_exclude|Union[SetIntStr, DictIntStrAny]|set()|response_modelのなかで無視する属性を指定する|
-|response_model_exclude_unset|bool|False|response_modelのなかでセット指定されなかったデフォルトの値の出力を無視するかどうかするかどうか|
-|response_model_exclude_defaults|bool|False|response_modelのなかでデフォルトのままの値の出力を無視するかどうか|
-|response_model_exclude_none|bool|False|response_modelのなかでNoneの出力を無視するかどうか|
 
 </details>
 

@@ -30,26 +30,52 @@ class FastAPI(Starlette):
     ) -> None:
 ```
 
-|コンストラクタ引数|型|デファルト|説明|
-|:---|:---|:---|:---|
-|title|str|'FastAPI'|アプリケーションのタイトル|
-|description|str|''|アプリケーションの説明|
-|version|str|'0.1.0'|アプリケーションのバージョン|
-|openapi_url|Optional[str]|'/openapi.json'|openapiのスキーマを保持するパス。|
-|openapi_tags|Optional[List[Dict[str, Any]]]|None|パス操作関数をグループ化するタグに情報をつける|
-|docs_url|Optional[str]|'/docs'|`Swagger UI`のパス|
-|redoc_url|Optional[str]|'/redoc'|`ReDoc`のパス|
-|on_startup|Sequence[Callable]|None|サーバーを立ち上げたときに実行する関数の配列|
-|on_shutdown|Sequence[Callable]|None|サーバーを閉じたときに実行する関数の配列|
+## コンストラクタ引数
 
-|属性|型|説明|
-|:---|:---|:---|
-|dependency_overrides|Dict[Callable, Callable]|`Depend`された関数の辞書|
-|state|State|カスタムな値を保持する。|
+<details><summary>title</summary>
 
-## 属性
+アプリケーションのタイトル
+
+```python
+title: str = "FastAPI",
+```
+
+</details>
+
+***
+
+<details><summary>description</summary>
+
+アプリケーションの説明
+
+```python
+description: str = "",
+```
+
+</details>
+
+***
+
+<details><summary>version</summary>
+
+アプリケーションのバージョン
+
+```python
+version: str = "0.1.0",
+```
+
+</details>
+
+***
 
 <details><summary>openapi_url</summary>
+
+
+`openapi`のスキーマを保持するパス。
+
+```python
+openapi_url: Optional[str] = "/openapi.json",
+```
 
 ### 備考
 
@@ -66,6 +92,12 @@ class FastAPI(Starlette):
 ***
 
 <details><summary>openapi_tags</summary>
+
+パス操作関数をグループ化するタグに情報をつける。
+
+```python
+openapi_tags: Optional[List[Dict[str, Any]]] = None,
+```
 
 ### 備考
 
@@ -91,6 +123,8 @@ class FastAPI(Starlette):
 
 <details><summary>docs_url</summary>
 
+`Swagger UI`ドキュメントのパス
+
 ### 備考
 
 <details><summary>ドキュメントを無効にする</summary>
@@ -107,6 +141,12 @@ class FastAPI(Starlette):
 
 <details><summary>redoc_url</summary>
 
+`ReDoc`のパス
+
+```python
+redoc_url: Optional[str] = "/redoc",
+```
+
 ### 備考
 
 <details><summary>ドキュメントを無効にする</summary>
@@ -121,7 +161,15 @@ class FastAPI(Starlette):
 
 ***
 
+## 属性
+
 <details><summary>dependency_overrides</summary>
+
+`Depends()`によって渡された関数を保持する辞書
+
+```python
+self.dependency_overrides: Dict[Callable[..., Any], Callable[..., Any]] = {}
+```
 
 ### 例
 
@@ -144,6 +192,12 @@ app.dependency_overrides[get_settings] = override_get_settings
 ***
 
 <details><summary>state</summary>
+
+カスタムな値を保持する。
+
+```python
+self.state: State = State()
+```
 
 ### 例
 
@@ -216,24 +270,6 @@ def get(
 ) -> Callable:
 ```
 
-|引数|型|デフォルト|説明|
-|:---|:---|:---|:---|
-|path|str|なし|唯一の位置引数、ルーティングするパスをいれる|
-|response_model|Type[Any]|None|レスポンスボディの型を定義する|
-|status_code|int|200|返されるステータスコード|
-|tags|List[str]|None|タグをつけられる。通常は1個だけつける|
-|dependencies|Sequence[Depends]|None|複数の依存関係を指定できる。|
-|summary|str|None|要約|
-|description|str|None|説明文|
-|response_description|str|'Successful Response'|レスポンスモデルの説明文|
-|responses|Dict[Union[int, str], Dit[str, Any]]|None|デフォルトのレスポンス|
-|deprecated|bool|None|非推奨の関数かどうか|
-|response_model_include|Union[SetIntStr, DictIntStrAny]|None|response_modelのなかで出力する属性を指定する|
-|response_model_exclude|Union[SetIntStr, DictIntStrAny]|set()|response_modelのなかで無視する属性を指定する|
-|response_model_exclude_unset|bool|False|response_modelのなかでセット指定されなかったデフォルトの値の出力を無視するかどうかするかどうか|
-|response_model_exclude_defaults|bool|False|response_modelのなかでデフォルトのままの値の出力を無視するかどうか|
-|response_model_exclude_none|bool|False|response_modelのなかでNoneの出力を無視するかどうか|
-
 </details>
 
 ***
@@ -270,24 +306,6 @@ def post(
         callbacks: List[routing.APIRoute] = None,
     ) -> Callable:
 ```
-
-|引数|型|デフォルト|説明|
-|:---|:---|:---|:---|
-|path|str|なし|唯一の位置引数、ルーティングするパスをいれる|
-|response_model|Type[Any]|None|レスポンスボディの型を定義する|
-|status_code|int|200|返されるステータスコード|
-|tags|List[str]|None|タグをつけられる。通常は1個だけつける|
-|dependencies|Sequence[Depends]|None|複数の依存関係を指定できる。|
-|summary|str|None|要約|
-|description|str|None|説明文|
-|response_description|str|'Successful Response'|レスポンスモデルの説明文|
-|responses|Dict[Union[int, str], Dit[str, Any]]|None|デフォルトのレスポンス|
-|deprecated|bool|None|非推奨の関数かどうか|
-|response_model_include|Union[SetIntStr, DictIntStrAny]|None|response_modelのなかで出力する属性を指定する|
-|response_model_exclude|Union[SetIntStr, DictIntStrAny]|set()|response_modelのなかで無視する属性を指定する|
-|response_model_exclude_unset|bool|False|response_modelのなかでセット指定されなかったデフォルトの値の出力を無視するかどうかするかどうか|
-|response_model_exclude_defaults|bool|False|response_modelのなかでデフォルトのままの値の出力を無視するかどうか|
-|response_model_exclude_none|bool|False|response_modelのなかでNoneの出力を無視するかどうか|
 
 </details>
 
@@ -326,24 +344,6 @@ def put(
     ) -> Callable:
 ```
 
-|引数|型|デフォルト|説明|
-|:---|:---|:---|:---|
-|path|str|なし|唯一の位置引数、ルーティングするパスをいれる|
-|response_model|Type[Any]|None|レスポンスボディの型を定義する|
-|status_code|int|200|返されるステータスコード|
-|tags|List[str]|None|タグをつけられる。通常は1個だけつける|
-|dependencies|Sequence[Depends]|None|複数の依存関係を指定できる。|
-|summary|str|None|要約|
-|description|str|None|説明文|
-|response_description|str|'Successful Response'|レスポンスモデルの説明文|
-|responses|Dict[Union[int, str], Dit[str, Any]]|None|デフォルトのレスポンス|
-|deprecated|bool|None|非推奨の関数かどうか|
-|response_model_include|Union[SetIntStr, DictIntStrAny]|None|response_modelのなかで出力する属性を指定する|
-|response_model_exclude|Union[SetIntStr, DictIntStrAny]|set()|response_modelのなかで無視する属性を指定する|
-|response_model_exclude_unset|bool|False|response_modelのなかでセット指定されなかったデフォルトの値の出力を無視するかどうかするかどうか|
-|response_model_exclude_defaults|bool|False|response_modelのなかでデフォルトのままの値の出力を無視するかどうか|
-|response_model_exclude_none|bool|False|response_modelのなかでNoneの出力を無視するかどうか|
-
 </details>
 
 ***
@@ -380,24 +380,6 @@ def patch(
         callbacks: List[routing.APIRoute] = None,
     ) -> Callable:
 ```
-
-|引数|型|デフォルト|説明|
-|:---|:---|:---|:---|
-|path|str|なし|唯一の位置引数、ルーティングするパスをいれる|
-|response_model|Type[Any]|None|レスポンスボディの型を定義する|
-|status_code|int|200|返されるステータスコード|
-|tags|List[str]|None|タグをつけられる。通常は1個だけつける|
-|dependencies|Sequence[Depends]|None|複数の依存関係を指定できる。|
-|summary|str|None|要約|
-|description|str|None|説明文|
-|response_description|str|'Successful Response'|レスポンスモデルの説明文|
-|responses|Dict[Union[int, str], Dit[str, Any]]|None|デフォルトのレスポンス|
-|deprecated|bool|None|非推奨の関数かどうか|
-|response_model_include|Union[SetIntStr, DictIntStrAny]|None|response_modelのなかで出力する属性を指定する|
-|response_model_exclude|Union[SetIntStr, DictIntStrAny]|set()|response_modelのなかで無視する属性を指定する|
-|response_model_exclude_unset|bool|False|response_modelのなかでセット指定されなかったデフォルトの値の出力を無視するかどうかするかどうか|
-|response_model_exclude_defaults|bool|False|response_modelのなかでデフォルトのままの値の出力を無視するかどうか|
-|response_model_exclude_none|bool|False|response_modelのなかでNoneの出力を無視するかどうか|
 
 </details>
 
@@ -436,24 +418,6 @@ def delete(
     ) -> Callable:
 ```
 
-|引数|型|デフォルト|説明|
-|:---|:---|:---|:---|
-|path|str|なし|唯一の位置引数、ルーティングするパスをいれる|
-|response_model|Type[Any]|None|レスポンスボディの型を定義する|
-|status_code|int|200|返されるステータスコード|
-|tags|List[str]|None|タグをつけられる。通常は1個だけつける|
-|dependencies|Sequence[Depends]|None|複数の依存関係を指定できる。|
-|summary|str|None|要約|
-|description|str|None|説明文|
-|response_description|str|'Successful Response'|レスポンスモデルの説明文|
-|responses|Dict[Union[int, str], Dit[str, Any]]|None|デフォルトのレスポンス|
-|deprecated|bool|None|非推奨の関数かどうか|
-|response_model_include|Union[SetIntStr, DictIntStrAny]|None|response_modelのなかで出力する属性を指定する|
-|response_model_exclude|Union[SetIntStr, DictIntStrAny]|set()|response_modelのなかで無視する属性を指定する|
-|response_model_exclude_unset|bool|False|response_modelのなかでセット指定されなかったデフォルトの値の出力を無視するかどうかするかどうか|
-|response_model_exclude_defaults|bool|False|response_modelのなかでデフォルトのままの値の出力を無視するかどうか|
-|response_model_exclude_none|bool|False|response_modelのなかでNoneの出力を無視するかどうか|
-
 </details>
 
 ***
@@ -468,9 +432,20 @@ def exception_handler(
     ) -> typing.Callable:
 ```
 
-|引数|型|デフォルト|説明|
-|:---|:---|:---|:---|
-|exc_class_or_status_code|Union[int, Type[Excption]]|なし|ハンドラにするエラークラス、もしくはステータスコード|
+### 引数
+
+<details><summary>exc_class_or_status_code</summary>
+
+ハンドラにするエラークラス、もしくはステータスコード
+
+```python
+exc_class_or_status_code: typing.Union[int, typing.Type[Exception]]
+```
+
+</details>
+
+***
+
 
 ### 例
 
@@ -546,9 +521,20 @@ async def read_item(item_id: int):
 def middleware(self, middleware_type: str) -> typing.callable:
 ```
 
-|引数|型|デフォルト|説明|
-|:---|:---|:---|:---|
-|middleware_type|str|なし|ミドルウェアのタイプを指定する|
+### 引数
+
+<details><summary>middleware_type</summary>
+
+ミドルウェアのタイプを指定する
+
+```python
+middleware_type: str
+```
+
+</details>
+
+***
+
 
 ### 備考
 
@@ -598,10 +584,32 @@ async def add_process_time_header(request: Request, call_next):
 def add_middleware(self, middleware_class: type, **options: typing.Any) -> None:
 ```
 
-|引数|型|デフォルト|接見目|
-|:---|:---|:---|:---|
-|middleware_class|type|なし|設定するミドルウェア|
-|**options|Any|なし|ミドルウェアに渡すパラメータ|
+### 引数
+
+<details><summary>middleware_class</summary>
+
+設定するミドルウェア
+
+```python
+middleware_class: type
+```
+
+</details>
+
+***
+
+<details><summary>**options</summary>
+
+ミドルウェアに渡すパラメータ
+
+```python
+**options: typing.Any
+```
+
+</details>
+
+***
+
 
 </details>
 
@@ -624,13 +632,68 @@ def include_router(
     ) -> None:
 ```
 
-|引数|型|デフォルト|説明|
-|:---|:---|:---|:---|
-|router|APIRouter|なし|追加するルータ|
-|prefix|str|''|ルータが定義したすべてのパス操作関数のパスの手前に追加するパス|
-|tags|List[str]|None|ルータが定義したすべてのパス操作関数に追加するタグ|
-|dependendies|Sequence[Depends]|None|ルータが定義したすべてのパス操作関数のdependeciesに追加する依存関係|
-|responses|Dict[Union[int, str], Dict[str, Any]]|None|ルータが定義したすべてのresponsesに追加するレスポンス|
+### 引数
+
+<details><summary>router</summary>
+
+追加するルータ
+
+```python
+router: routing.APIRouter,
+```
+
+</details>
+
+***
+
+<details><summary>prefix</summary>
+
+ルータが定義したすべてのパス操作関数のパスの手前に追加するパス
+
+```python
+prefix: str = "",
+```
+
+</details>
+
+***
+
+<details><summary>tags</summary>
+
+ルータが定義したすべてのパス操作関数に追加するタグ
+
+```python
+tags: List[str] = None,
+```
+
+</details>
+
+***
+
+<details><summary>dependencies</summary>
+
+ルータが定義したすべてのパス操作関数のdependenciesに追加する依存関係
+
+```python
+dependencies: Sequence[Depends] = None,
+```
+
+</details>
+
+***
+
+<details><summary>responses</summary>
+
+ルータが定義したすべてのresponsesに追加するレスポンス
+
+```python
+default_response_class: Optional[Type[Response]] = None,
+```
+
+</details>
+
+***
+
 
 ### 例
 
@@ -728,11 +791,43 @@ app.include_router(
 def mount(self, path: str, app: ASGIApp, name: str = None) -> None:
 ```
 
-|引数|型|デフォルト|説明|
-|:---|:---|:---|:---|
-|path|str|なし|アプリケーションをマウントするパス|
-|app|ASGIApp|なし|マウントするアプリケーションのインスタンス|
-|name|str|None|メインのアプリケーションからの名前|
+### 引数
+
+<details><summary>path</summary>
+
+アプリケーションをマウントするパス
+
+```python
+path: str
+```
+
+</details>
+
+***
+
+<details><summary>app</summary>
+
+マウントするアプリケーションのインスタンス
+
+```python
+app: ASGIApp
+```
+
+</details>
+
+***
+
+<details><summary>name</summary>
+
+メインのアプリケーションからの名前
+
+```python
+name: str = None
+```
+
+</details>
+
+***
 
 </details>
 
@@ -746,11 +841,7 @@ def mount(self, path: str, app: ASGIApp, name: str = None) -> None:
 def on_event(self, event_type: str) -> typing.Callable:
 ```
 
-|引数|型|デフォルト|説明|
-|:---|:---|:---|:---|
-|evnet_type|str|required|リッスンするイベント|
-
-### 備考
+### 引数
 
 <details><summary>event_type</summary>
 
@@ -761,33 +852,27 @@ def on_event(self, event_type: str) -> typing.Callable:
 
 </details>
 
+***
+
 </details>
 
 ***
 
-## 例
+## 備考
 
-<details><summary>列挙パラメータ</summary>
+<details><summary>ルーティングメソッドに共通する引数</summary>
+
+`get(), post(), put(), patch()`に共通する引数。
+
+<details><summary>path</summary>
+
+唯一の位置引数、ルーティングするパスをいれる
 
 ```python
-from enum import Enum
-from fastapi import FastAPI
-
-class ModelName(str, Enum):
-    alexnet = 'alexnet'
-    resnet = 'resnet'
-    lenet = 'lenet'
-
-app = FastAPI()
-
-@app.get('/model/{model_name}')
-async def get_model(model_name: ModelName):
-    return {'model_name': model_name}
+path: str,
 ```
 
-</details>
-
-***
+### 例
 
 <details><summary>パスを含むパスパラメータ</summary>
 
@@ -804,9 +889,84 @@ async def read_file(file_path: str):
 
 ***
 
-<details><summary>docstringを使用</summary>
+</details>
 
-`get(), post(), put(), patch(), delete()`の`description`は代わりにdocstringを利用できる。
+***
+
+<details><summary>response_model</summary>
+
+レスポンスボディの型を定義する
+
+```python
+response_model: Type[Any] = None,
+```
+
+</details>
+
+***
+
+<details><summary>status_code</summary>
+
+返されるステータスコード
+
+```python
+status_code: int = 200,
+```
+
+</details>
+
+***
+
+<details><summary>tags</summary>
+
+タグをつけられる。通常は1個だけつける
+
+```python
+tags: List[str] = None,
+```
+
+</details>
+
+***
+
+<details><summary>dependencies</summary>
+
+複数の依存関係を指定できる。
+
+```python
+dependencies: Sequence[Depends] = None,
+
+```
+
+</details>
+
+***
+
+<details><summary>summary</summary>
+
+要約
+
+```python
+summary: str = None,
+```
+
+</details>
+
+***
+
+<details><summary>description</summary>
+
+説明文
+
+```python
+description: str = None,
+```
+
+### 例
+
+<details><summary>docstringの使用</summary>
+
+`description`の代わりに`docstring`をしようすることができる。
 
 マークダウン方式で書くことができる。
 
@@ -845,6 +1005,97 @@ async def create_item(item: Item):
 
 ***
 
+</details>
+
+***
+
+<details><summary>response_description</summary>
+
+レスポンスモデルの説明分
+
+```python
+response_description: str = "Successful Response",
+```
+
+</details>
+
+***
+
+<details><summary>responses</summary>
+
+デフォルトのレスポンス
+
+```python
+responses: Dict[Union[int, str], Dict[str, Any]] = None,
+```
+
+### 例
+
+<details><summary>デフォルトのレスポンスを設定する。</summary>
+
+```python
+from typing import Optional
+
+from fastapi import FastAPI
+from fastapi.responses import FileResponse
+from pydantic import BaseModel
+
+
+class Item(BaseModel):
+    id: str
+    value: str
+
+
+app = FastAPI()
+
+
+@app.get(
+    "/items/{item_id}",
+    response_model=Item,
+    responses={
+        200: {
+            "content": {"image/png": {}},
+            "description": "Return the JSON item or an image.",
+        }
+    },
+)
+async def read_item(item_id: str, img: Optional[bool] = None):
+    if img:
+        return FileResponse("image.png", media_type="image/png")
+    else:
+        return {"id": "foo", "value": "there goes my hero"}
+```
+
+</details>
+
+***
+
+</details>
+
+***
+
+<details><summary>deprecated</summary>
+
+非推奨の関数かどうか
+
+```python
+deprecated: bool = None,
+```
+
+</details>
+
+***
+
+<details><summary>response_model_include</summary>
+
+response_modelのなかで出力する属性を指定する
+
+```python
+response_model_include: Union[SetIntStr, DictIntStrAny] = None,
+```
+
+### 例
+
 <details><summary>指定した属性でレスポンスをフィルタリング</summary>
 
 ```python
@@ -871,13 +1122,55 @@ items = {
     },
 }
 
-@app.get(
-    '/items/{item_id}/name',
-    response_model=Item,
-    response_model_include={'name', 'description'},
-)
-async def read_item_name(item_id: str):
+@app.get('/items/{item_id}/public', response_model=Item, response_model_exclude={'tax'})
+async def read_item_public_data(item_id: str):
     return items[item_id]
+```
+
+</details>
+
+***
+
+</details>
+
+***
+
+<details><summary>response_model_exclude</summary>
+
+response_modelのなかで無視する属性を指定する
+
+```python
+response_model_exclude: Union[SetIntStr, DictIntStrAny] = set(),
+```
+
+### 例
+
+<details><summary>指定した属性をレスポンスから排除</summary>
+
+```python
+from typing import Optional
+from fastapi import FastAPI
+from pydantic import BaseModel
+
+app = FastAPI()
+
+class Item(BaseModel):
+    name: str
+    description: Optional[str] = None
+    price: float
+    tax: float = 10.5
+
+items = {
+    'foo': {'name': 'Foo', 'price': 50.2},
+    'bar': {'name': 'Bar', 'description': 'The Bar fighters', 'price': 62, 'tax': 20.2},
+    'baz': {
+        'name': 'Baz',
+        'description': 'There goes my baz',
+        'price': 50.2,
+        'tax': 10.5,
+    },
+}
+
 
 @app.get('/items/{item_id}/public', response_model=Item, response_model_exclude={'tax'})
 async def read_item_public_data(item_id: str):
@@ -887,6 +1180,21 @@ async def read_item_public_data(item_id: str):
 </details>
 
 ***
+
+
+</details>
+
+***
+
+<details><summary>response_model_exclude_unset</summary>
+
+response_modelのなかでセット指定されなかったデフォルトの値の出力を無視するかどうかするかどうか
+
+```python
+response_model_exclude_unset: bool = False,
+```
+
+### 例
 
 <details><summary>セットされていない属性を排除</summary>
 
@@ -923,6 +1231,62 @@ async def read_item(item_id: str):
   "name": "Foo",
   "price": 50.2
 }
+```
+
+</details>
+
+***
+
+</details>
+
+***
+
+<details><summary>response_model_exclude_defaults</summary>
+
+response_modelのなかでデフォルトのままの値の出力を無視するかどうか
+
+```python
+response_model_exclude_defaults: bool = False,
+```
+
+</details>
+
+***
+
+<details><summary>response_model_exclude_none</summary>
+
+response_modelのなかでNoneの出力を無視するかどうか
+
+```python
+response_model_exclude_none: bool = False,
+```
+
+</details>
+
+***
+
+</details>
+
+***
+
+## 例
+
+<details><summary>列挙パラメータ</summary>
+
+```python
+from enum import Enum
+from fastapi import FastAPI
+
+class ModelName(str, Enum):
+    alexnet = 'alexnet'
+    resnet = 'resnet'
+    lenet = 'lenet'
+
+app = FastAPI()
+
+@app.get('/model/{model_name}')
+async def get_model(model_name: ModelName):
+    return {'model_name': model_name}
 ```
 
 </details>
