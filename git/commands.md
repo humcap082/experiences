@@ -152,12 +152,10 @@ git pull [options] [repository] [branch]
 
 <details><summary>fetch</summary>
 
-リモートブランチを保持するローカルのリモート追跡ブランチ　
-
-`origin/main`を更新
+リモートブランチを保持するローカルのリモート追跡ブランチを更新
 
 ```bash
-git fetch
+git fetch [url_alias]
 ```
 
 </details>
@@ -310,6 +308,8 @@ git branch -m old_branch_name new_branch_name
 
 </details>
 
+***
+
 <details><summary>-d</summary>
 
 マージ済みブランチを削除
@@ -334,9 +334,17 @@ git branch -D branch_name
 
 ***
 
+<details></summary>-a</summary>
+
+追跡レポジトリも含め、表示
+
+```bash
+git branch -a
+```
+
+</details>
 
 ***
-
 
 </details>
 
