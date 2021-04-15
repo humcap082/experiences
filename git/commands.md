@@ -138,7 +138,7 @@ git pull [options] [repository] [branch]
 
 <details><summary>fetch</summary>
 
-リモートブランチを保持するローカルのブランチ　
+リモートブランチを保持するローカルのリモート追跡ブランチ　
 
 `origin/main`を更新
 
@@ -284,6 +284,46 @@ git reset --hard [commit_id] [path]
 git branch [options] [branch_name]
 ```
 
+### オプション
+
+<details><summary>-m</summary>
+
+ブランチ名を変更する。
+
+```bash
+git branch -m old_branch_name new_branch_name
+```
+
+</details>
+
+<details><summary>-d</summary>
+
+マージ済みブランチを削除
+
+```bash
+git branch -d branch_name
+```
+
+</details>
+
+***
+
+<details><summary>-D</summary>
+
+マージされているかにかかわらずブランチを削除。
+
+```bash
+git branch -D branch_name
+```
+
+</details>
+
+***
+
+
+***
+
+
 </details>
 
 ***
@@ -337,4 +377,3 @@ git remote add [remote_url] [alias]
 </details>
 
 ***
-
