@@ -108,6 +108,20 @@ git push -U url_alias branch_name
 
 ***
 
+<details></summary>-f</summary>
+
+`git reset`でプッシュ以前のコミットに戻したときに、
+
+強制的にリモートにプッシュする。
+
+```bash
+git push -f url_alias master
+```
+
+</details>
+
+***
+
 </details>
 
 ***
