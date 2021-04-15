@@ -65,13 +65,28 @@ createdb -o user_name db_name
 
 ***
 
-<details><summary>create_user</summary>
+<details><summary>createuser</summary>
 
 ユーザーアカウントを作成する。
 
 ```bash
-create_user [options] user_name
+createuser [options] user_name
 ```
+
+### オプション
+
+<details><summary>-P</summary>
+
+新しいパスワードを設定する。
+
+```bash
+createuser -P user_name
+```
+
+</details>
+
+***
+
 
 </details>
 
@@ -117,10 +132,12 @@ psql [options] -U user_name [dbname]
 
 <details><summary> \d </summary>
 
-ディメンションテーブル一覧
+ディメンションテーブル一覧もしくは、
+
+テーブルの定義を見る。
 
 ```sql
-\d
+\d [table_name]
 ```
 
 </details>
