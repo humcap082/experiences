@@ -14,6 +14,8 @@ extract(field FROM source)
 
 部分フィールドを指定します。
 
+|field|説明|
+|:---|:---|
 |CENTURY|世紀|
 |DAY|日にち|
 |DECADE|年フィールドを10で割ったもの|
