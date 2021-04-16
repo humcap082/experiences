@@ -1,22 +1,32 @@
+<style>details {padding-left: 2em;}</style>
+
 # DELETE
 
 行を削除する
 
 ```sql
-DELETE FROM table_name
+DELETE FROM table_name [AS]
     [WHERE]
     [RETURNING]
 ```
 
-## 句
 
-<details><summary>FROM</summary>
+## パラメータ
 
-列を取り出す対象のテーブルや集合を指定する。
+<details><summary>table_name</summary>
 
-```sql
-FROM table_name;
-```
+行を削除するテーブルの名前
+
 </details>
 
-***
+## 句
+
+<details><summary>AS</summary>
+
+対象のテーブルや集合に名前をつける。
+
+```sql
+AS alias
+```
+
+</details>
