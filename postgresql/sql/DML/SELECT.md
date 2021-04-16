@@ -1,3 +1,4 @@
+
 <style>details {padding-left: 2em;}</style>
 
 # SELECT
