@@ -10,8 +10,6 @@ CHAR(bytes)
 
 </details>
 
-***
-
 <details><summary>INT4RANGE</summary>
 
 `int4`の範囲型
@@ -45,8 +43,6 @@ int4range(lower, upper, 'pattern')
 
 </details>
 
-***
-
 #### 例
 
 <details><summary>以上、未満</summary>
@@ -57,8 +53,6 @@ SELECT INT4RANGE(3, 7, '[)')::int4range;
 
 </details>
 
-***
-
 <details><summary>大なり、未満</summary>
 
 ```sql
@@ -67,11 +61,7 @@ SELECT INT4RANGE(4, 9, '()')::int4range;
 
 </details>
 
-***
-
 </details>
-
-***
 
 ### 備考
 
@@ -94,8 +84,6 @@ SELECT '[3,7)'::int4range;
 
 </details>
 
-***
-
 <details><summary>大なり、未満</summary>
 
 ```sql
@@ -103,8 +91,6 @@ SELECT '(3,7)'::int4range;
 ```
 
 </details>
-
-***
 
 <details><summary>以上、以下</summary>
 
@@ -114,8 +100,6 @@ SELECT '[4,4]'::int4range;
 
 </details>
 
-***
-
 <details><summary>emptyに正規化される状態</summary>
 
 ```sql
@@ -124,15 +108,9 @@ SELECT '[4,4)'::int4range;
 
 </details>
 
-***
-
 </details>
 
-***
-
 </details>
-
-***
 
 <details><summary>JSONB</summary>
 
@@ -141,12 +119,10 @@ SELECT '[4,4)'::int4range;
 基本的には`JSONB`を使用する。 
 
 ```sql
-
+JSONB
 ```
 
 </details>
-
-***
 
 <details><summary>SMALLINT</summary>
 
@@ -158,8 +134,6 @@ SMALLINT
 
 </details>
 
-***
-
 <details><summary>TEXT</summary>
 
 可変長で制限のない文字列型
@@ -169,8 +143,6 @@ TEXT
 ```
 
 </details>
-
-***
 
 <details><summary>TIMESTAMPTZ</summary>
 
@@ -182,8 +154,6 @@ TIMESTAMPTZ
 
 </details>
 
-***
-
 <details><summary>TIMESTAMP</summary>
 
 タイムゾーンが関係ない日時型、`TIMESTAMP WITHOUT TIME ZONE`の省略形
@@ -193,8 +163,6 @@ TIMESTAMP
 ```
 
 </details>
-
-***
 
 <details><summary>UUID</summary>
 
@@ -206,8 +174,6 @@ UUID
 
 </details>
 
-***
-
 <details><summary>VARCHAR</summary>
 
 可変長の文字列型
@@ -217,8 +183,6 @@ VARCHAR(max_bytes)
 ```
 
 </details>
-
-***
 　
 <details><summary>DATE</summary>
 
@@ -230,8 +194,6 @@ DATE
 
 </details>
 
-***
-
 <details><summary>TIME</summary>
 
 時間のデータ型
@@ -242,7 +204,6 @@ TIME
 
 ### 例
 
-
 <details><summary>加算、減算、比較</summary>
 
 ```sql
@@ -251,8 +212,4 @@ created_at < (now() AT TIME ZONE 'utc') - TIME '00:10';
 
 </details>
 
-***
-
 </details>
-
-***

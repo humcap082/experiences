@@ -20,7 +20,7 @@ pg_ctl start [options]
 
 </details>
 
-***
+
 
 <details><summary>stop</summary>
 
@@ -32,11 +32,11 @@ pg_ctl stop [options]
 
 </details>
 
-***
+
 
 </details>
 
-***
+
 
 <details><summary>createdb</summary>
 
@@ -58,12 +58,12 @@ createdb -o user_name db_name
 
 </details>
 
-***
+
 
 
 </details>
 
-***
+
 
 <details><summary>createuser</summary>
 
@@ -85,12 +85,12 @@ createuser -P user_name
 
 </details>
 
-***
+
 
 
 </details>
 
-***
+
 
 
 <details><summary>psql</summary>
@@ -113,7 +113,7 @@ psql -l [options]
 
 </details>
 
-***
+
 
 <details><summary>-U</summary>
 
@@ -125,7 +125,7 @@ psql [options] -U user_name [dbname]
 
 </details>
 
-***
+
 
 
 ### 接続後のコマンド
@@ -142,7 +142,7 @@ psql [options] -U user_name [dbname]
 
 </details>
 
-***
+
 
 <details><summary>\q</summary>
 
@@ -154,7 +154,7 @@ psql [options] -U user_name [dbname]
 
 </details>
 
-***
+
 
 <details><summary>\i</summary>
 
@@ -166,11 +166,11 @@ psql [options] -U user_name [dbname]
 
 </details>
 
-***
+
 
 
 </details>
 
-***
+
 
 

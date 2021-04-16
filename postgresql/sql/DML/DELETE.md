@@ -1,5 +1,3 @@
-<link href="./default.css" rel="stylesheet">
-
 # DELETE
 
 行を削除する

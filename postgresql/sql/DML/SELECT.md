@@ -1,5 +1,3 @@
-<link href="./default.css" rel="stylesheet">
-
 # SELECT
 
 行や値を取り出す。　
