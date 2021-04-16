@@ -5,7 +5,7 @@
 これは`SQL`標準ですが、`postgresql`独自関数の`date_part()`も同様。
 
 ```sql
-extract(field FROM source)
+extract(<field> FROM <source>)
 ```
 
 ## 引数
@@ -38,17 +38,10 @@ extract(field FROM source)
 
 </details>
 
-***
-
 <details><summary>source</summary>
 
 抽出される対象の時間。
 
-```sql
-{TIME | TIMESTAMP | INTERVAL} source
-```
+`TIME, TIMESTAMP, INTERVAL`のいずれかの型でなければならない。
 
 </details>
-
-***
-

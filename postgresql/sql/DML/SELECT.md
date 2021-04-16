@@ -29,6 +29,113 @@ SELECT
 
 ## 句
 
+<details><summary>WITH</summary>
+
+メインクエリで参照可能なサブクエリを指定できる。
+
+このサブクエリはこの文で一時テーブルとし提供され、
+
+メインクエリで複数回使用される場合も、計算は
+
+最初の一度のみになります。また`RETURNING`を
+
+使用したサブクエリはここに記述する必要があります。
+
+サブクエリは複数指定でき、
+
+```sql
+WITH {TABLE | [RECURSIVE] <with_query_name> AS}[,...]
+```
+
+### パラメータ
+
+<details><summary>with_query_name</summary>
+
+サブクエリの名前を指定する。
+
+指定した名前を使ってメインクエリで参照できる。
+
+</details>
+
+### 句
+
+<details><summary>TABLE</summary>
+
+テーブルを対象とする。
+
+```sql
+TABLE table_name
+```
+
+</details>
+
+
+<details><summary>AS</summary>
+
+サブクエリを指定する
+
+```sql
+AS [MATERIALIZED] (sub_query)
+```
+
+#### パラメータ
+
+<details><summary>sub_query</summary>
+
+サブクエリ
+
+##### 備考
+
+<details><summary>自己結合</summary>
+
+`RECURSIVE`が指定されたときに使用できる自己結合の式。
+
+```sql
+non_recursive_term UNION [ ALL | DISTINCT ] recursive_term
+```
+
+</details>
+
+</details>
+
+#### 句
+
+<details><summary>MATERIALIZED</summary>
+
+最初の一度だけ計算される。デフォルトなので、省略可能。
+
+```sql
+[NOT] MATERIALIZED
+```
+
+##### 句
+
+<details><summary>NOT</summary>
+
+つけることで呼ばれるたびに計算させる。
+
+```sql
+NOT
+```
+
+</details>
+
+</details>
+
+
+</details>
+
+<details><summary>RECURSIVE</summary>
+
+サブクエリが自己結合できるようになる。
+
+```sql
+RECRUSIVE
+```
+
+</details>
+
+</details>
 <details><summary>AS</summary>
 
 出力するテーブルの列に列名を指定する。
@@ -73,8 +180,6 @@ ON (<column_name>[,...])
 ```sql
 FROM {<expression> [AS] [JOIN]}[, ...];
 ```
-
-
 
 ### 句
 
@@ -349,6 +454,8 @@ HAVING condition
 
 指定した`SELECT`文との和集合になります。
 
+指定する文の結果の列と型は同じである必要がある。
+
 ```sql
 UNION [ALL | [DISTINCT]] <select_statement>
 ```
@@ -396,6 +503,8 @@ DISTINCT
 <details><summary>INTERSECT</summary>
 
 指定した`SELECT`文との積集合になる。
+
+指定する文の結果の列と型は同じである必要がある。
 
 ```sql
 INTERSECT [ALL | [DISTINCT]] select_statement
@@ -447,6 +556,8 @@ DISTINCT
 
 指定した`SELECT`文との差集合になります。
 
+指定する文の結果の列と型は同じである必要がある。
+
 ```sql
 EXCEPT [ALL | [DISTINCT]] <select_statement>
 ```
@@ -486,6 +597,143 @@ ALL
 ```sql
 DISTINCT
 ```
+
+</details>
+
+</details>
+
+<details><summary>ORDER BY</summary>
+
+指定した式にしたがってソートする。
+
+```sql
+ORDER BY <expression> [[[ASC] | DESC | USING] [NULLS]][, ...]]
+```
+
+### パラメータ
+
+<details><summary>expression</summary>
+
+出力列の名前、または序数、あるいは入力列値から形成される任意の式
+
+</details>
+
+### 句
+
+<details><summary>ASC</summary>
+
+昇順にする。デフォルトなので省略が可能。
+
+```sql
+ASC
+```
+
+</details>
+
+<details><summary>DESC</summary>
+
+降順にする。
+
+```sql
+DESC
+```
+
+</details>
+
+<details><summary>USING</summary>
+
+記号で昇順、降順を指定する。
+
+```sql
+USING {< | >}
+```
+
+</details>
+
+<details><summary>NULLS</summary>
+
+`NULL`の値を最初にもってくるか、後ろに持ってくるかを指定する。
+
+指定されてない場合、`ASC`のときは最後、`DESC`が指定された時は、
+
+最初にきます。
+
+```sql
+NULLS {FIRST | LAST}
+```
+
+#### 句
+
+
+<details><summary>FIRST</summary>
+
+最初に`NULL`をもってくる。
+
+```sql
+FIRST
+```
+
+</details>
+
+<details><summary>LAST</summary>
+
+最後に`NULL`をもってくる。
+
+```sql
+LAST
+```
+
+</details>
+
+</details>
+
+</details>
+
+<details><summary>LIMIT</summary>
+
+返される行の最大値を指定する。
+
+`ORDER BY`と併用することが推奨される。
+
+```sql
+LIMIT {<count> | ALL}
+```
+
+### パラメータ
+
+<details><summary>count</summary>
+
+行の最大値。`NULL`が渡された時は制限なし。
+
+</details>
+
+### 句
+
+<details><summary>ALL</summary>
+
+制限なし
+
+```sql
+ALL
+```
+
+</details>
+
+</details>
+
+<details><summary>OFFSET</summary>
+
+ 指定した行数分、とばされる。
+
+```sql
+OFFSET <start>
+```
+
+### パラメータ
+
+<details><summary>start</summary>
+
+とばす行数
 
 </details>
 

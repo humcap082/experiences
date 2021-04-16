@@ -1,6 +1,6 @@
 /*
 IntelliJ:
-    1. ctrl + Alt + S
+    1. ctrl + Alt + S or cmd + .
     2. language & framework > markdown
     3. add css file url or write custom css
 VSCode:
@@ -12,4 +12,3 @@ VSCode:
 details {
     padding-left: 2em;
 }
-

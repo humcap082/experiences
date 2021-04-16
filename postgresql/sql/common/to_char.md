@@ -3,7 +3,7 @@
 日付や数値をフォーマットする。
 
 ```sql
-to_char(expression, 'format')
+to_char(<expression>, '<format>')
 ```
 
 ## 引数
@@ -43,8 +43,6 @@ to_char(expression, 'format')
 
 </details>
 
-***
-
 <details><summary>数値のフォーマットの部品</summary>
 
 |文字|説明|
@@ -56,12 +54,7 @@ to_char(expression, 'format')
 
 </details>
 
-***
-
-
 </details>
-
-***
 
 ## 例
 
@@ -72,7 +65,3 @@ SELECT to_char(sal, '9,999,999,999.99') FROM employee;
 ```
 
 </details>
-
-***
-
-

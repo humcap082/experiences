@@ -183,7 +183,7 @@ VARCHAR(max_bytes)
 ```
 
 </details>
-　
+
 <details><summary>DATE</summary>
 
 日付型

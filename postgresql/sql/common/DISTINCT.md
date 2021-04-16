@@ -3,7 +3,7 @@
 テーブルや集合の重複した行を1行にする。
 
 ```sql
-DISTINCT [ON (column_name[,...])]
+DISTINCT [ON]
 ```
 
 ### 句
@@ -13,12 +13,10 @@ DISTINCT [ON (column_name[,...])]
 `SELECT`中に使用でき、特定の列の重複を1行にする。
 
 ```sql
-DISTINCT ON (column_name[,...])
+DISTINCT ON (<column_name>[,...])
 ```
 
 </details>
-
-***
 
 ### 例
 
@@ -33,6 +31,3 @@ jsonb_agg(DISTINCT column_name);
 ```
 
 </details>
-
-***
-
