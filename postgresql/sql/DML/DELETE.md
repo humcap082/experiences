@@ -1,5 +1,4 @@
-
-<style>details {padding-left: 2em;}</style>
+<link href="./default.css" rel="stylesheet">
 
 # DELETE
 
