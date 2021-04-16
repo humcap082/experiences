@@ -3,7 +3,7 @@
 行や値を取り出す。　
 
 ```sql
-SELECT [DISTINCT] [expression [AS]][, ...] [FROM]
+SELECT [DISTINCT [ON] (column_name[, ...])] [expression][, ...] [FROM expression]
     [JOIN]
     [WHERE]
     [GROUP BY]
@@ -15,20 +15,22 @@ SELECT [DISTINCT] [expression [AS]][, ...] [FROM]
     [FETCH]
     [FOR]
 ```
+<dl>
 
-## 句
+<dt><h2>句</h2></dt>
 
-<details><summary>DISTINCT</summary>
+<dd><details><summary>DISTINCT</summary>
 
 重複した行を1行にする。
 
 ```sql
 DISTINCT [ON (column_name[,...])]
 ```
+<dl>
 
-### 句
+<dt><h3>句</h3></dt>
 
-<details><summary>ON</summary>
+<dd><details><summary>ON</summary>
 
 特定の列の重複を1行にする。
 
@@ -36,29 +38,13 @@ DISTINCT [ON (column_name[,...])]
 DISTINCT ON (column_name[,...])
 ```
 
-</details>
+</details></dd>
 
-***
+</dl>
 
-</details>
+</details></dd>
 
-***
-
-<details><summary>AS</summary>
-
-テーブルや列や集合にエイリアスをつける。
-
-省略も可能
-
-```sql
-something [AS] alias;
-```
-
-</details>
-
-***
-
-<details><summary>FROM</summary>
+<dd><details><summary>FROM</summary>
 
 列を取り出す対象のテーブルや集合を指定する。
 
@@ -66,12 +52,9 @@ something [AS] alias;
 FROM table_name [AS alias];
 ```
 
-</details>
+</details></dd>
 
-***
-
-
-<details><summary>JOIN</summary>
+<dd><details><summary>JOIN</summary>
 
 テーブルの結合
 
@@ -80,9 +63,11 @@ FROM table_name [AS alias];
     ON (boolean_expression)}[...]
 ```
 
-### 句
+<dl>
 
-<details><summary>INNER</summary>
+<dt><h3>句</h3></dt>
+
+<dd><details><summary>INNER</summary>
 
 デフォルトであり、内部結合を表す。
 
@@ -92,11 +77,9 @@ FROM table_name [AS alias];
 INNER JOIN table_name ON (boolean_expression);
 ```
 
-</details>
+</details></dd>
 
-***
-
-<details><summary>OUTER</summary>
+<dd><details><summary>OUTER</summary>
 
 外部結合を表す。(省略可能だが手前にLEFTまたはRIGHTまたはFULLをつける)
 
@@ -104,11 +87,9 @@ INNER JOIN table_name ON (boolean_expression);
 {LEFT | RIGHT | FULL} [OUTER] JOIN table_name ON (boolean_expression);
 ```
 
-</details>
+</details></dd>
 
-***
-
-<details><summary>LEFT</summary>
+<dd><details><summary>LEFT</summary>
 
 左外部結合
 
@@ -122,12 +103,9 @@ INNER JOIN table_name ON (boolean_expression);
 LEFT [OUTER] JOIN table_name ON (boolean_expression);
 ```
 
-</details>
+</details></dd>
 
-***
-
-<details><summary>RIGHT</summary>
-
+<dd><details><summary>RIGHT</summary>
 
 右外部結合
 
@@ -141,11 +119,10 @@ LEFT [OUTER] JOIN table_name ON (boolean_expression);
 RIGHT [OUTER] JOIN table_name ON (boolean_expression);
 ```
 
-</details>
+</details></dd>
 
-***
 
-<details><summary>FULL</summary>
+<dd><details><summary>FULL</summary>
 
 
 完全外部結合
@@ -156,14 +133,11 @@ RIGHT [OUTER] JOIN table_name ON (boolean_expression);
 FULL [OUTER] JOIN table_name ON (boolean_expression);
 ```
 
-</details>
+</details></dd>
 
-***
+<dt><h3>例</h3></dt>
 
-
-### 例
-
-<details><summary>二つ以上の結合</summary>
+<dd><details><summary>二つ以上の結合</summary>
 
 JOINをふたつ以上結合した上で集合関数を使用すると、行が重複する可能性があるため、
 
@@ -173,16 +147,13 @@ JOINをふたつ以上結合した上で集合関数を使用すると、行が�
 jsonb_agg(DISTINCT column_name);
 ```
 
-</details>
+</details></dd>
 
-***
+</dl>
 
+</details></dd>
 
-</details>
-
-***
-
-<details><summary>GROUP BY</summary>
+<dd><details><summary>GROUP BY</summary>
 
 集計関数などを使用する時に対象となる列を選ぶ、対象となった列は
 
@@ -192,27 +163,26 @@ jsonb_agg(DISTINCT column_name);
 GROUP BY column_name[,...]
 ```
 
-### 備考
+<dl>
 
-<details><summary>射影</summary>
+<dt><h3>備考</h3></dt>
+
+<dd><details><summary>射影</summary>
 
 集計関数の値と列の値を同時に
 
 射影する場合は射影する列の値もGROUP BYに指定する必要がある。
 
-</details>
+</details></dd>
 
-***
-
-<details><summary>集計関数を用いた条件式</summary>
+<dd><details><summary>集計関数を用いた条件式</summary>
 
 集計関数を使用した条件はHAVINGに指定する。
 
-</details>
+</details></dd>
 
-***
+</dl>
 
-</details>
+</details></dd>
 
-***
-
+</dl>
