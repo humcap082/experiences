@@ -1,10 +1,24 @@
 # DISTINCT
 
-`SELECT`の中以外でもテーブルや集合の重複した行を1行にする。
+テーブルや集合の重複した行を1行にする。
 
 ```sql
-DISTINCT records;
+DISTINCT [ON (column_name[,...])]
 ```
+
+### 句
+
+<details><summary>ON</summary>
+
+`SELECT`中に使用でき、特定の列の重複を1行にする。
+
+```sql
+DISTINCT ON (column_name[,...])
+```
+
+</details>
+
+***
 
 ### 例
 
@@ -17,3 +31,8 @@ JOINをふたつ以上結合した上で集合関数を使用すると、行が�
 ```sql
 jsonb_agg(DISTINCT column_name);
 ```
+
+</details>
+
+***
+

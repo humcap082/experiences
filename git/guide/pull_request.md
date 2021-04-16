@@ -3,6 +3,9 @@
 1. `github`で対象のレポジトリを`fork`
 2. `fork`したレポジトリを`clone`
     - `git clone url`
+3. 本家のレポジトリを追跡するため追跡リポジトリ`upstream`を用意
+    - `git remote add upstream url`
+    - `git fetch upstream`
 3. 新しいブランチを作成し、移動
     - `git branch branch_name`
     - `git checkout branch_name`
@@ -11,7 +14,7 @@
     - `git add`
     - `git commit`
 6. リモート追跡ブランチを更新
-    - `git fetch`
+    - `git fetch upstream/main`
 7. リモート追跡ブランチを結合
     - `git rebase origin/main` 
 8. 衝突が発生した場合、衝突箇所を修正して、`rebase`
