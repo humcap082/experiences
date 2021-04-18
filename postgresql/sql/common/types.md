@@ -5,7 +5,7 @@
 固定長の文字列の型
 
 ```sql
-CHAR(bytes)
+CHAR(<bytes>)
 ```
 
 </details>
@@ -25,7 +25,7 @@ INT4RANGE
 値を返す。
 
 ```sql
-int4range(lower, upper, 'pattern')
+int4range(<lower>, <upper>, '<pattern>')
 ```
 
 #### 備考
@@ -179,7 +179,7 @@ UUID
 可変長の文字列型
 
 ```sql
-VARCHAR(max_bytes)
+VARCHAR(<max_bytes>)
 ```
 
 </details>

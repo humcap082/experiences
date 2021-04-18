@@ -51,7 +51,7 @@ INSERT INTO <table_name> [AS] [(<column_name>[, ...])]
 
 使用したサブクエリはここに記述する必要があります。
 
-サブクエリは複数指定でき、
+サブクエリは複数指定でき、後に続くクエリは左のクエリを参照できる。
 
 ```sql
 WITH {TABLE | [RECURSIVE] <with_query_name> AS}[,...]
