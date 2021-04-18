@@ -64,7 +64,7 @@ WITH {TABLE | [RECURSIVE] <with_query_name> AS}[,...]
 テーブルを対象とする。
 
 ```sql
-TABLE table_name
+TABLE <table_name>
 ```
 
 </details>
@@ -75,7 +75,7 @@ TABLE table_name
 サブクエリを指定する
 
 ```sql
-AS [MATERIALIZED] (sub_query)
+AS [MATERIALIZED] (<sub_query>)
 ```
 
 #### パラメータ
@@ -91,7 +91,7 @@ AS [MATERIALIZED] (sub_query)
 `RECURSIVE`が指定されたときに使用できる自己結合の式。
 
 ```sql
-non_recursive_term UNION [ ALL | DISTINCT ] recursive_term
+<non_recursive_term> UNION [ ALL | DISTINCT ] <recursive_term>
 ```
 
 </details>
@@ -130,12 +130,13 @@ NOT
 サブクエリが自己結合できるようになる。
 
 ```sql
-RECRUSIVE
+RECURSIVE
 ```
 
 </details>
 
 </details>
+
 <details><summary>AS</summary>
 
 出力するテーブルの列に列名を指定する。
@@ -155,7 +156,6 @@ RECRUSIVE
 ```sql
 DISTINCT [ON]
 ```
-    
 
 ### 句
 
@@ -168,8 +168,6 @@ ON (<column_name>[,...])
 ```
 
 </details> 
-
-
 
 </details>
 
@@ -204,8 +202,6 @@ FROM {<expression> [AS] [JOIN]}[, ...];
     JOIN <from_item> [AS]
     {ON | USING}[...]
 ```
-
-
 
 #### パラメータ
 

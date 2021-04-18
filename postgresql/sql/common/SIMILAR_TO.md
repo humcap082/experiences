@@ -1,4 +1,4 @@
-# SIMILAR_TO
+# SIMILAR TO
 
 `LIKE`の上位互換で、正規表現にマッチしたとき真を返す。
 

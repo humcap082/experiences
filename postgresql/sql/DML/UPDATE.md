@@ -1,20 +1,20 @@
-# DELETE
+# UPDATE
 
-行を削除する
+指定したテーブルの行を更新する。
 
 ```sql
 [WITH]
-DELETE FROM <table_name> [AS]
-    [WHERE]
-    [RETURNING]
+UPDATE <table_name> SET
+[FROM]
+[WHERE]
+[RETURNING]
 ```
-
 
 ## パラメータ
 
 <details><summary>table_name</summary>
 
-行を削除するテーブルの名前
+更新する対象のテーブル
 
 </details>
 
@@ -59,7 +59,6 @@ TABLE <table_name>
 ```
 
 </details>
-
 
 <details><summary>AS</summary>
 
@@ -120,7 +119,7 @@ NOT
 サブクエリが自己結合できるようになる。
 
 ```sql
-RECRUSIVE
+RECURSIVE
 ```
 
 </details>
@@ -129,17 +128,91 @@ RECRUSIVE
 
 <details><summary>AS</summary>
 
-対象のテーブルや集合に名前をつける。
+更新する対象のテーブルのエイリアスをつける。
 
 ```sql
-AS alias
+[AS] <alias>
 ```
+
+</details>
+
+<details><summary>SET</summary>
+
+更新する列名と値を指定する。
+
+```sql
+SET {
+    <column_name> = {<expression> | DEFAULT}
+    | (<column_name>[, ...]) = {<expression> | DEFAULT}
+    | (<column_name>[, ...]) = (<sub_query>)
+}[, ...]
+```
+
+### パラメータ
+
+<details><summary>column_name</summary>
+
+列名を指定する。
+
+</details>
+
+<details><summary>expression</summary>
+
+更新の値をいれる。複数の列目を指定した場合は、
+
+同じ順番で同じ数だけ値を指定する。
+
+</details>
+
+<details><summary>sub_query</summary>
+
+指定した列名と同じ順番で同じかずの列を返すサブクエリ。
+
+</details>
+
+### 句
+
+<details><summary>DEFAULT</summary>
+
+デフォルトの値
+
+```sql
+DEFAULT
+```
+
+</details>
+
+</details>
+
+<details><summary>FROM</summary>
+
+他のテーブルの列を参照できる。
+
+`WHERE`で結合するときに、行が1対1になるように指定する必要がある。
+
+```sql
+FROM {<expression> [AS]}[, ...];
+```
+
+<details><summary>AS</summary>
+
+対象のテーブルにエイリアスをつける。
+
+省略可能。
+
+```sql
+[AS] <alias>
+```
+
+</details>
+
+### パラメータ
 
 </details>
 
 <details><summary>WHERE</summary>
 
-削除する行の条件を付与する。
+条件を付与する。
 
 ```sql
 WHERE {<condition> | CURRENT OF}
@@ -152,7 +225,6 @@ WHERE {<condition> | CURRENT OF}
 真偽値を返す条件式。
 
 </details>
-
 
 ### 句
 
@@ -170,7 +242,7 @@ CURRENT OF <cursor_name>
 
 <details><summary>RETURNING</summary>
 
-削除した行の集合を返す。
+挿入または更新した行の集合を返す。
 
 ```sql
 RETURNING {<output_expression> [AS]}[,...]
