@@ -3,8 +3,8 @@
 新しいテーブルを作成する。
 
 ```sql
-CREATE [TEMP | UNLOGGED] TABLE [IF NOT EXISTS] <table_name> [PARTITION | OF] [(
-    {
+CREATE [TEMP | UNLOGGED] TABLE [IF NOT EXISTS] <table_name> {
+    ({
         {
             <column_name> {<data_type> | WITH OPTIONS} [COLLATE]
                 [CONSTRAINT] [NULL] [CHECK] [DEFAULT] [GENERATED]
@@ -21,8 +21,9 @@ CREATE [TEMP | UNLOGGED] TABLE [IF NOT EXISTS] <table_name> [PARTITION | OF] [(
         [, DEFERRABLE]
         [, INITIALLY]
         | LIKE
-    }
-)] [FOR VALUES]
+    })
+    | PARTITION OF
+}
 [INHERITS]
 [PARTITION BY]
 [USING]
@@ -333,7 +334,7 @@ INCLUDE (<column_name>[, ...])
 
 <details><summary>REFERENCES</summary>
 
-外部キー制約を設ける。
+外部キー制約を設ける。一時テーブルとの間に外部キー制約を設けることはできない。
 
 ```sql
 REFERENCES <ref_table> [(<ref_column>)] [MATCH] [ON DELETE] [ON UPDATE]
@@ -341,6 +342,383 @@ REFERENCES <ref_table> [(<ref_column>)] [MATCH] [ON DELETE] [ON UPDATE]
 
 ### パラメータ
 
+<details><summary>ref_table</summary>
+
+被参照テーブル。
+
+</details>
+
+<details><summary>ref_column</summary>
+
+被参照列。省略した場合は、被参照テーブルの主キーになる。
+
+被参照列は主キー制約もしくは一意性制約が設けられてる必要があります。
+
+</details>
+
 ### 句
+
+<details><summary>MATCH</summary>
+
+照合型を指定する。
+
+```MATCH
+MATCH {FULL | PARTIAL | SIMPLE}
+```
+
+#### 句
+
+<details><summary>FULL</summary>
+
+複数、外部キーがあるとき、一部が`NULL`であることを許可しない。
+
+全ての外部キーが`NULL`であるときは、被参照テーブルを参照できないものとして
+
+許可される。
+
+```sql
+FULL
+```
+
+</details>
+
+<details><summary>SIMPLE</summary>
+
+外部キーに`NULL`があることを許可します。これがデフォルトです。
+
+外部キーに`NULL`があるとき、その行は被参照テーブルを参照できません。
+
+```sql
+SIMPLE
+```
+
+</details>
+
+<details><summary>PARTIAL</summary>
+
+まだ実装されていません。
+
+</details>
+
+</details>
+
+<details><summary>ON DELETE</summary>
+
+被参照行が削除された場合の動作を指定する。
+
+```sql
+ON DELETE {NO ACTION | RESTRICT | CASCADE | SET NULL | SET DEFAULT}
+```
+
+### 句
+
+<details><summary>NO ACTION</summary>
+
+エラーを発生させる。デフォルトの動作。制約の検査と同時に行われる。
+
+```sql
+NO ACTION
+```
+
+</details>
+
+<details><summary>RESTRICT</summary>
+
+エラーを発生させる。制約の検査を同時に行われるが、検査を遅延することはできない。
+
+```sql
+RESTRICT
+```
+
+</details>
+
+<details><summary>CASCADE</summary>
+
+被参照行が削除されたとき、参照している行すべてを削除する。
+
+```sql
+CASCADE
+```
+
+</details>
+
+<details><summary>SET NULL</summary>
+
+外部キー列を`NULL`にします。
+
+```sql
+SET NULL
+```
+
+</details>
+
+<details><summary>SET DEFAULT</summary>
+
+外部キー列をデフォルト値にします。設定されたデフォルトの値が
+
+被参照テーブルに存在しない場合は、操作が失敗します。
+
+```sql
+SET DEFAULT
+```
+
+</details>
+
+</details>
+
+<details><summary>ON UPDATE</summary>
+
+被参照列が更新された場合の動作を指定する。
+
+```sql
+ON DELETE {NO ACTION | RESTRICT | CASCADE | SET NULL | SET DEFAULT}
+```
+
+#### 句
+
+<details><summary>RESTRICT</summary>
+
+エラーを発生させる。制約の検査を同時に行われるが、検査を遅延することはできない。
+
+```sql
+RESTRICT
+```
+
+</details>
+
+<details><summary>CASCADE</summary>
+
+値を更新します。
+
+```sql
+CASCADE
+```
+
+</details>
+
+<details><summary>SET NULL</summary>
+
+外部キー列を`NULL`にします。
+
+```sql
+SET NULL
+```
+
+</details>
+
+<details><summary>SET DEFAULT</summary>
+
+外部キー列をデフォルト値にします。設定されたデフォルトの値が
+
+被参照テーブルに存在しない場合は、操作が失敗します。
+
+```sql
+SET DEFAULT
+```
+
+</details>
+
+</details>
+
+</details>
+
+<details><summary>DEFERRABLE</summary>
+
+制約を遅延させることが可能になる。
+
+遅延は`SET CONSTRAINTS`コマンドでトランザクション終了まで
+
+遅延させることができます。検査制約と非ナル値制約は遅延させることができません。
+
+また、`INSERT`の`ON CONFLICT DO UPDATE`の競合解決に使用することはできません。
+
+```sql
+[NOT] DEFERRABLE
+```
+
+### 句
+
+<details><summary>NOT</summary>
+
+制約を遅延させることができなくなる。これがデフォルトです。
+
+```sql
+NOT
+```
+
+</details>
+
+</details>
+
+<details><summary>INITIALLY</summary>
+
+制約が遅延可能なとき、制約検査を行うデフォルトのタイミングを指定します。
+
+```sql
+INITIALLY {IMMEDIATE | DEFERRED}
+```
+
+### 句
+
+<details><summary>IMMEDIATE</summary>
+
+各文の実行後すぐに検査します。これがデフォルトです。
+
+```sql
+IMMEDIATE
+```
+
+</details>
+
+<details><summary>DEFERRED</summary>
+
+トランザクションの終了時に検査されます。
+
+```sql
+DEFERRED
+```
+
+</details>
+
+</details>
+
+<details><summary>EXCLUDE</summary>
+
+吐いた制約を設けます。
+
+任意の2行について指定した列、または指定した式を使用して比較した時、
+
+比較の結果がすべて`FALSE`を返すことを保証します。一意性制約や検査制約で
+
+制御できないものを制御します。
+
+```sql
+EXCLUDE [USING] ({<exclude_element> WITH}[, ...]) <index_parameters> [WHERE]
+```
+
+### 句
+
+<details><summary>USING</summary>
+
+```sql
+USING <index_method>
+```
+
+</details>
+
+<details><summary>WITH</summary>
+
+```sql
+WITH <operator>[, ...]
+```
+
+</details>
+
+<details><summary>WHERE</summary>
+
+```sql
+WHERE (<predicate>)
+```
+
+</details>
+
+</details>
+
+<details><summary>INHERITS</summary>
+
+テーブルの全ての列を継承する。通常のテーブルと外部テーブルを指定できます。
+
+親のスキーマ変更は子にも伝播します。デフォルトでは親の操作結果には
+
+子テーブルのデータも含まれます。複数の親テーブルに同名の列が存在する場合、
+
+同じデータ型である必要があります。`IDENTITY`列だけは継承されないので、
+
+子テーブルにも宣言が必要です。
+
+```sql
+INHERITS (<parent_table>[, ...])
+```
+
+</details>
+
+<details><summary>PARTITION BY</summary>
+
+パーティションキーを作成します。
+
+別に`CREATE TABLE PARTITION OF`コマンドで
+
+パーティションキーで副テーブルを作成します。
+
+```sql
+PARTITION BY {RANGE | LIST | HASH}
+    ({{<column_name> | (<expression>)} [<op_class>]}[, ...])
+```
+
+### パラメータ
+
+<details><summary>column_name</summary>
+
+パーティションキーに含める列
+
+</details>
+
+<details><summary>expression</summary>
+
+パーティションキーに含める式
+
+</details>
+
+<details><summary>op_class</summary>
+
+インデックスメソッド。省略した場合、`btree`インデックスになる。
+
+</details>
+
+### 句
+
+<details><summary>RANGE</summary>
+
+範囲パーティション。異なるパーティションの範囲が被らないようにある。
+
+インデックスには少なくともひとつ`btree`インデックスを必要とします。
+
+```sql
+RANGE
+```
+
+</details>
+
+<details><summary>LIST</summary>
+
+リストパーティション。指定した列だけでパーティションを作成する。
+
+インデックスには少なくともひとつ`btree`インデックスを必要とします。
+
+```sql
+LIST
+```
+
+</details>
+
+<details><summary>HASH</summary>
+
+ハッシュパーティション。ハッシュインデックスを使用します。
+
+```sql
+HASH
+```
+
+</details>
+
+</details>
+
+<details><summary>PARTITION OF</summary>
+
+指定した親テーブルのパーティションとしてテーブルを作成する。
+
+```sql
+PARTITION OF <parent_table> {FOR VALUES | DEFAULT}
+```
 
 </details>
