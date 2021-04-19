@@ -6,7 +6,7 @@
 CREATE [TEMP | UNLOGGED] TABLE [IF NOT EXISTS] <table_name> {
     ({
         {
-            <column_name> {<data_type> | WITH OPTIONS} [COLLATE]
+            <column_name> <data_type> [COLLATE]
                 [CONSTRAINT] [NULL] [CHECK] [DEFAULT] [GENERATED]
                 [UNIQUE] [PRIMARY KEY] [REFERENCES] [DEFERRABLE]
                 [INITIALLY]
@@ -22,12 +22,14 @@ CREATE [TEMP | UNLOGGED] TABLE [IF NOT EXISTS] <table_name> {
         [, INITIALLY]
         | LIKE
     })
+    | AS
+    | OF
     | PARTITION OF
 }
 [INHERITS]
 [PARTITION BY]
 [USING]
-[WITH | WITHOUT OIDS]
+[WITH]
 [ON COMMIT]
 [TABLESPACE]
 ```
@@ -98,7 +100,7 @@ IF NOT EXISTS
 
 文字列の比較やソートの照合順を指定します。`text, varchar, char`などの文字列の列に定義できます。
 
-デフォルトは`"default`でそのローカルの言語に依存します。
+デフォルトは`"default`でデータベースの`lc_collate`に依存します。
 
 ```sql
 COLLATE "<collation>"
@@ -624,6 +626,29 @@ WHERE (<predicate>)
 
 </details>
 
+<details><summary>FOREIGN KEY</summary>
+
+外部キーを複数の列をセットで指定するとき、テーブル制約の
+
+この句を使用する。
+
+```sql
+FOREIGN KEY (<column_name>[, ...])
+    REFERENCES <ref_table> [(<ref_column>[, ...])]
+```
+
+### パラメータ
+
+<details><summary>ref_column</summary>
+
+非参照列キー、指定しなかった場合は、主キーが自動的に
+
+割り当てられる。
+
+</details>
+
+</details>
+
 <details><summary>INHERITS</summary>
 
 テーブルの全ての列を継承する。通常のテーブルと外部テーブルを指定できます。
@@ -713,12 +738,271 @@ HASH
 
 </details>
 
-<details><summary>PARTITION OF</summary>
+<details><summary>AS</summary>
 
-指定した親テーブルのパーティションとしてテーブルを作成する。
+問い合わせ文の結果からテーブルを作成します。
+
+テーブルの構造とともに、データもコピーされます。
 
 ```sql
-PARTITION OF <parent_table> {FOR VALUES | DEFAULT}
+AS <query> [WITH DATA]
+```
+
+### 句
+
+<details><summary>WITH DATA</summary>
+
+データも一緒に新しいテーブルにコピーします。
+
+デフォルトはコピーします。
+
+```sql
+WITH [NO] DATA
+```
+
+#### 句
+
+<details><summary>NO</summary>
+
+データはコピーせず、構造だけコピーします。
+
+```sql
+NO
+```
+
+</details>
+
+</details>
+
+</details>
+
+<details><summary>PARTITION OF</summary>
+
+指定した親テーブルのパーティションテーブルを作成する。
+
+```sql
+PARTITION OF <parent_table>
+    [(
+        {
+            <column_name> WITH OPTIONS [COLLATE]
+                [CONSTRAINT] [NULL] [CHECK] [DEFAULT] [GENERATED]
+                [UNIQUE] [PRIMARY KEY] [REFERENCES] [DEFERRABLE]
+                [INITIALLY]
+        }
+        [, ...]
+        [, CONSTRAINT]
+        [, CHECK]
+        [, UNIQUE]
+        [, PRIMARY KEY]
+        [, EXCLUDE]
+        [, FOREIGN KEY]
+        [, DEFERRABLE]
+        [, INITIALLY]
+    )]
+    {FOR VALUES}
+```
+
+### パラメータ
+
+<details><summary>parent_table</summary>
+
+パーティションキーが作成されているテーブル
+
+</details>
+
+### 句
+
+<details><summary>FOR VALUES</summary>
+
+```sql
+{FOR VALUES {IN | FROM | TO | WITH} | DEFAULT}
+```
+
+#### 句
+
+<details><summary>IN</summary>
+
+```sql
+IN (<partition_bound_expr>[, ...])
+```
+
+</details>
+
+<details><summary>FROM</summary>
+
+```sql
+FROM ({<partition_bound_expr> | MINVALUE | MAXVALUE}[, ...])
+```
+
+</details>
+
+<details><summary>TO</summary>
+
+```sql
+TO ({<partition_bound_expr> | MINVALUE | MAXVALUE}[, ...])
+```
+
+</details>
+
+<details><summary>WITH</summary>
+
+```sql
+WITH (MODULUS <numeric_literal>, REMAINDER <numeric_literal>)
+```
+
+</details>
+
+</details>
+
+</details>
+
+<details><summary>OF</summary>
+
+型付きテーブルを作成する。
+
+```sql
+OF <type_name>
+    [(
+        {
+            <column_name> WITH OPTIONS [COLLATE]
+                [CONSTRAINT] [NULL] [CHECK] [DEFAULT] [GENERATED]
+                [UNIQUE] [PRIMARY KEY] [REFERENCES] [DEFERRABLE]
+                [INITIALLY]
+        }
+        [, ...]
+        [, CONSTRAINT]
+        [, CHECK]
+        [, UNIQUE]
+        [, PRIMARY KEY]
+        [, EXCLUDE]
+        [, FOREIGN KEY]
+        [, DEFERRABLE]
+        [, INITIALLY]
+    )]
+    {FOR VALUES | DEFAULT}
+```
+</details>
+
+<details><summary>LIKE</summary>
+
+指定したテーブルの列名、データ型、制約を新しいテーブルに
+
+コピーします。`INHERITS`とは違い、新しいと元のテーブルは完全に
+
+分離されます。
+
+```sql
+LIKE <source_table> [EXCLUDING | INCLUDING]
+```
+
+### パラメータ
+
+<details><summary>source_table</summary>
+
+コピーするテーブル。
+
+</details>
+
+### 句
+
+<details><summary>EXCLUDING</summary>
+
+追加属性をコピーしない。これはデフォルトです。
+
+```sql
+EXCLUDING
+```
+
+</details>
+
+<details><summary>INCLUDING</summary>
+
+```sql
+INCLUDING {
+    COMMENTS
+    | CONSTRAINTS
+    | DEFAULTS
+    | GENERATED
+    | IDENTITY
+    | INDEXES
+    | STATISTICS
+    | STORAGE
+    | ALL
+}
+```
+
+</details>
+
+</details>
+
+<details><summary>USING</summary>
+
+テーブルアクセスメソッドを指定します。
+
+```sql
+USING <method>
+```
+
+</details>
+
+<details><summary>WITH</summary>
+
+この句はテーブルまたはインデックスに対するオプションの
+
+格納パラメータを指定します。
+
+```sql
+WITH ({<storage_parameter[= <value>]>}[, ...])
+```
+
+</details>
+
+<details><summary>ON COMMIT</summary>
+
+トランザクション終了時のテーブルの動作を指定する。
+
+```sql
+ON COMMIT {PRESERVE ROWS | DELETE ROWS | DROP}
+```
+
+### 句
+
+<details><summary>PRESERVE ROWS</summary>
+
+特別な動作は実行しません。これがデフォルトです。
+
+</details>
+
+<details><summary>DELETE ROWS</summary>
+
+すべての行が削除される。
+
+```sql
+DELETE ROWS
+```
+
+</details>
+
+<details><summary>DROP</summary>
+
+テーブルが削除される。
+
+```sql
+DROP
+```
+
+</details>
+
+</details>
+
+<details><summary>TABLESPACE</summary>
+
+インデックスを作成するテーブル空間を作成します。
+
+省略された場合、デフォルトのテーブル空間が自動的に作成されます。
+
+```sql
+TABLESPACE <tablespace_name>
 ```
 
 </details>
