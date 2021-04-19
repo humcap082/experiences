@@ -5,7 +5,7 @@
 `postgres`コマンドのラッパコマンドでサーバーの起動、停止、制御ができる。
 
 ```bash
-pg_ctl sub_command
+pg_ctl
 ```
 
 ### サブコマンド
@@ -15,35 +15,29 @@ pg_ctl sub_command
 サーバーをバックグランドで起動
 
 ```bash
-pg_ctl start [options]
+start
 ```
 
 </details>
-
-
 
 <details><summary>stop</summary>
 
 サーバーを終了
 
 ```bash
-pg_ctl stop [options]
+stop
 ```
 
 </details>
 
-
-
 </details>
-
-
 
 <details><summary>createdb</summary>
 
 データベースを作成する。
 
 ```bash
-createdb [options] db_name
+createdb <db_name>
 ```
 
 ### オプション
@@ -53,24 +47,29 @@ createdb [options] db_name
 所有者を指定する。
 
 ```bash
-createdb -o user_name db_name
+-o <user_name>
 ```
 
 </details>
 
-
-
-
 </details>
 
+<details><summary>dropdb</summary>
 
+データベースを削除する。
+
+```bash
+dropdb <db_name>
+```
+
+</details>
 
 <details><summary>createuser</summary>
 
 ユーザーアカウントを作成する。
 
 ```bash
-createuser [options] user_name
+createuser <user_name>
 ```
 
 ### オプション
@@ -80,25 +79,19 @@ createuser [options] user_name
 新しいパスワードを設定する。
 
 ```bash
-createuser -P user_name
+-P <user_name>
 ```
 
 </details>
 
-
-
-
 </details>
-
-
-
 
 <details><summary>psql</summary>
 
 データーベースに接続するコマンド
 
 ```bash
-psql [options] [db_name [user_name]]
+psql [<db_name> [<user_name>]]
 ```
 
 ### オプション
@@ -108,69 +101,113 @@ psql [options] [db_name [user_name]]
 データベース一覧を表示
 
 ```bash
-psql -l [options]
+-l
 ```
 
 </details>
-
-
 
 <details><summary>-U</summary>
 
  ユーザーを指定する
 
 ```bash
-psql [options] -U user_name [dbname]
+-U <user_name>
 ```
 
 </details>
 
-
-
-
 ### 接続後のコマンド
 
-<details><summary> \d </summary>
+<details><summary>\d</summary>
 
 ディメンションテーブル一覧もしくは、
 
 テーブルの定義を見る。
 
 ```sql
-\d [table_name]
+\d [<table_name>]
 ```
 
 </details>
 
+<details><summary>\d</summary>
 
+ユーザの一覧を表示する。
+
+```sql
+\du
+```
+
+</details>
+
+<details><summary>\dp</summary>
+
+権限を表示する。
+
+```sql
+\dp
+```
+
+</details>
+
+<details><summary>\di</summary>
+
+インデックスの一覧を表示する。
+
+```sql
+\di
+```
+
+</details>
 
 <details><summary>\q</summary>
 
 接続終了
 
-```bash
+```sql
 \q
 ```
 
 </details>
 
-
-
 <details><summary>\i</summary>
 
 指定したファイルのsqlを実行する。
 
-```bash
-\i path
+```sql
+\i <path>
 ```
 
 </details>
 
+<details><summary>\l</summary>
 
+データベース一覧
 
+```sql
+\l
+```
 
 </details>
 
+<details><summary>\c</summary>
 
+データベースを切り替える。
 
+```sql
+\c <database_name>
+```
 
+</details>
+
+</details>
+
+<details><summary>initdb</summary>
+
+テンプレートデータベース`template0, template1`を作成する。
+
+```sql
+initdb
+```
+
+</details>

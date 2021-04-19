@@ -122,7 +122,6 @@ NOT
 
 </details>
 
-
 </details>
 
 <details><summary>RECURSIVE</summary>
@@ -176,7 +175,7 @@ ON (<column_name>[,...])
 列を取り出す対象のテーブルや集合を指定する。
 
 ```sql
-FROM {<expression> [AS] [JOIN]}[, ...];
+FROM {<expression> [AS] [JOIN[...]]}[, ...];
 ```
 
 ### 句
@@ -198,9 +197,9 @@ FROM {<expression> [AS] [JOIN]}[, ...];
 テーブルや集合の結合
 
 ```sql
-{[NATURAL] {CROSS | [INNER] | {LEFT | RIGHT | FULL}}
+[NATURAL] {CROSS | [INNER] | {LEFT | RIGHT | FULL}}
     JOIN <from_item> [AS]
-    {ON | USING}[...]
+    {ON | USING}
 ```
 
 #### パラメータ
@@ -730,6 +729,106 @@ OFFSET <start>
 <details><summary>start</summary>
 
 とばす行数
+
+</details>
+
+</details>
+
+<details><summary>FOR</summary>
+
+引き続き行われる更新に備えて、選択行に明示的ロックをかけることができます。
+
+```sql
+FOR {UPDATE | NO KEY UPDATE | SHARE | KEY SHARE}
+    [OF] [NOWAIT | SKIP LOCKED]
+```
+
+### 句
+
+<details><summary>UPDATE</summary>
+
+更新用であるようにロックする。
+
+```sql
+UPDATE
+```
+
+</details>
+
+<details><summary>NO KEY UPDATE</summary>
+
+更新用であるようにロックするが、`SELECT FOR KEY SHARE`コマンドは
+
+ブロックしない。
+
+```sql
+NO KEY UPDATE
+```
+
+</details>
+
+<details><summary>SHARE</summary>
+
+共有ロックを獲得する
+
+```sql
+SHARE
+```
+
+</details>
+
+<details><summary>KEY SHARE</summary>
+
+共有ロックを獲得するが、`SELECT FOR NO KEY UPDATE`は
+
+ブロックされない。
+
+```sql
+KEY SHARE
+```
+
+</details>
+
+<details><summary>OF</summary>
+
+```sql
+OF <table_name> [, ...]
+```
+
+</details>
+
+<details><summary>NOWAIT</summary>
+
+選択行のロックを即座に獲得できない場合は、
+
+文は待機せずに、エラーを報告します。
+
+```sql
+NOWAIT
+```
+
+</details>
+
+<details><summary>SKIP LOCKED</summary>
+
+ロックを即座に獲得できない行はスキップされます。
+
+```sql
+SKIP LOCKED
+```
+
+</details>
+
+### 備考
+
+<details><summary>競合の表</summary>
+
+|要求するロックモード|KEY SHARE|SHARE|NO KEY UPDATE|UPDATE|
+|:---|:---|:---|:---|:---|
+|KEY SHARE||||x|
+|SHARE|||x|x|
+|NO KEY UPDATE||x|x|x|
+|UPDATE|x|x|x|x|
 
 </details>
 
