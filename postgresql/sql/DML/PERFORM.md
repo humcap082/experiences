@@ -17,4 +17,3 @@ PERFORM <query>;
 `SELECT`の後ろの文と同様の文を記述できる。
 
 </details>
-

@@ -1,9 +1,9 @@
-# GRANT
+# REVOKE
 
-アクセス権限を定義する。
+アクセス権限を取り消す。
 
 ```sql
-GRANT {
+REVOKE [ADMIN OPTION FOR | GRANT OPTION FOR] {
     {
         [SELECT] [, INSERT] [, UPDATE] [, DELETE]
             [, TRUNCATE] [, REFERENCES] [, TRIGGER]
@@ -11,8 +11,8 @@ GRANT {
             [, EXECUTE]
         | ALL
     } ON
-    | <role_name>
-} TO [WITH GRANT OPTION | WITH ADMIN OPTION] [GRANTED BY]
+    | <role_name>[, ...]
+} FROM [CASCADE | RESTRICT] [GRANTED BY]
 ```
 
 ## 句
@@ -142,6 +142,12 @@ EXECUTE
 ```sql
 ALL [PRIVILEGES] [(<column_name>[, ...])]
 ```
+
+#### パラメータ
+
+<details><summary>column_name</summary>
+
+</details>
 
 </details>
 
@@ -387,34 +393,80 @@ TABLESPACE <tablespace_name>[, ...]
 
 </details>
 
-<details><summary>TO</summary>
+<details><summary>FROM</summary>
 
 ```sql
-TO {<role_name> | PUBLIC | CURRENT_USER | SESSION_USER}[, ...]
+FROM {[GROUP] <role_name> | PUBLIC | CURRENT_USER | SESSION_USER}[, ...]
+```
+
+#### パラメータ
+
+<details><summary>role_name</summary>
+</details>
+
+#### 句
+
+<details><summary>GROUP</summary>
+
+```sql
+GROUP
 ```
 
 </details>
 
-<details><summary>WITH GRANT OPTION</summary>
+<details><summary>PUBLIC</summary>
 
 ```sql
-WITH GRANT OPTION
+PUBLIC
+```
+</details>
+
+<details><summary>CURRENT_USER</summary>
+
+```sql
+CURRENT_USER
 ```
 
 </details>
 
-<details><summary>WITH ADMIN OPTION</summary>
+<details><summary>SESSION_USER</summary>
 
 ```sql
-WITH ADMIN OPTION
+SESSION_USER
 ```
 
 </details>
 
-<details><summary>GRANTED BY</summary>
+</details>
+
+<details><summary>CASCADE</summary>
 
 ```sql
-GRANTED BY <role_specification>
+CASCADE
+```
+
+</details>
+
+<details><summary>RESTRICT</summary>
+
+```sql
+RESTRICT
+```
+
+</details>
+
+<details><summary>ADMIN OPTION FOR</summary>
+
+```sql
+ADMIN OPTION FOR
+```
+
+</details>
+
+<details><summary>GRANT OPTION FOR</summary>
+
+```sql
+GRANT OPTION FOR
 ```
 
 </details>
