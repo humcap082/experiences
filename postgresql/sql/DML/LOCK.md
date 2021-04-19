@@ -61,7 +61,7 @@ IN {
 ロックが即座に取得できない場合、エラーを発生させる。
 
 ```sql
-NOWIAT
+NOWAIT
 ```
 
 </details>
