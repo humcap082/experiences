@@ -199,8 +199,17 @@ DATE
 時間のデータ型
 
 ```sql
-TIME
+TIME ['<time>']
 ```
+
+### パラメータ　
+
+<details><summary>time</summary>
+
+時間をいれる。
+
+</details>
+
 
 ### 例
 
@@ -211,5 +220,45 @@ created_at < (now() AT TIME ZONE 'utc') - TIME '00:10';
 ```
 
 </details>
+
+</details>
+
+<details><summary>TIMETZ</summary>
+
+タイムゾーン付き時刻、`TIME WITH TIME ZONE`と同等。
+
+```sql
+TIMETZ
+```
+
+</details>
+
+<details><summary>SERIAL</summary>
+
+自動増分4バイト整数型
+
+```sql
+SERIAL
+```
+
+</details>
+
+<details><summary>SMALLSERIAL</summary>
+
+自動増分2バイト整数型
+
+```sql
+SMALLSERIAL
+```
+
+</details>
+
+<details><summary>BIGSERIAL</summary>
+
+自動増分8バイト整数型。
+
+```sql
+BIGSERIAL
+```
 
 </details>

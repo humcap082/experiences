@@ -1,7 +1,7 @@
 # System
 
 ```java
-public final class System {
+public final class System {}
 ```
 
 ## 属性

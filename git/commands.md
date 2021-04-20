@@ -1,7 +1,7 @@
 # gitコマンド
 
 ```bash
-git [options] sub_command
+git
 ```
 
 ## サブコマンド
@@ -11,7 +11,7 @@ git [options] sub_command
 ワークツリーからインデックスにファイルを追加する。
 
 ```bash
-git add [options] path
+add <path>
 ```
 
 ### オプション
@@ -23,12 +23,10 @@ gitで管理してないファイルも含めてインデックスに追加す�
 (ワークツリーから削除したファイルも削除したことを登録する。)
 
 ```bash
-git add -A path
+-A
 ```
 
 </details>
-
-***
 
 ### 例
 
@@ -40,18 +38,14 @@ git add -A .
 
 </details>
 
-***
-
 </details>
-
-***
 
 <details><summary>commit</summary>
 
 インデックスからローカルレポジトリに追加する。
 
 ```bash
-git commit [options] [path]
+commit [<path>]
 ```
 
 ### オプション
@@ -61,12 +55,10 @@ git commit [options] [path]
 コミットメッセージをつける。
 
 ```bash
-git commit -m message [path]
+-m <message>
 ```
 
 </details>
-
-***
 
 <details><summary>--amend</summary>
 
@@ -75,23 +67,19 @@ git commit -m message [path]
 `:q`で終了。
 
 ```bash
-git commit --amend
+--amend
 ```
 
 </details>
 
-***
-
 </details>
-
-***
 
 <details><summary>push</summary>
 
 現在のローカルブランチからリモートブランチに追加する。
 
 ```bash
-git push [options] url_alias [branch_name]
+push <url_alias> [<branch_name>]
 ```
 
 ### オプション
@@ -101,67 +89,54 @@ git push [options] url_alias [branch_name]
 現在のブランチを上流ブランチとする。
 
 ```bash
-git push -U url_alias branch_name
+-U
 ```
 
 </details>
 
-***
-
-<details></summary>-f</summary>
+<details><summary>-f</summary>
 
 `git reset`でプッシュ以前のコミットに戻したときに、
 
 強制的にリモートにプッシュする。
 
 ```bash
-git push -f url_alias master
+-f
 ```
 
 </details>
 
-***
-
 </details>
-
-***
 
 <details><summary>clone</summary>
 
 リモートレポジトリを端末上にダウンロードする。
 
 ```bash
-git clone remote_url
+clone remote_url
 ```
 
 </details>
-
-***
 
 <details><summary>pull</summary>
 
 リモートレポジトリから`fetch`し、現在のブランチに`merge`する。
 
 ```bash
-git pull [options] [repository] [branch]
+pull [<repository>] [<branch>]
 ```
 
 </details>
-
-***
 
 <details><summary>fetch</summary>
 
 リモートブランチを保持するローカルのリモート追跡ブランチを更新
 
 ```bash
-git fetch [url_alias]
+fetch [<url_alias>]
 ```
 
 </details>
-
-***
-
 
 <details><summary>merge</summary>
 
@@ -170,12 +145,10 @@ git fetch [url_alias]
 指定したブランチの最後のコミットメッセージが適用される。
 
 ```bash
-git merge branch_name
+merge <branch_name>
 ```
 
 </details>
-
-***
 
 <details><summary>rebase</summary>
 
@@ -184,7 +157,7 @@ git merge branch_name
 指定したらブランチの途中のコミットメッセージも適用される。
 
 ```bash
-git rebase [--options] branch_name
+rebase <branch_name>
 ```
 
 ### オプション
@@ -194,17 +167,12 @@ git rebase [--options] branch_name
 競合が起こって修正したあとのコマンド
 
 ```bash
-git rebase --continue
+--continue
 ```
 
 </details>
 
-***
-
-
 </details>
-
-***
 
 <details><summary>reset</summary>
 
@@ -213,54 +181,54 @@ git rebase --continue
 指定したコミット位置になるまで取り消しできる。
 
 ```bash
-git reset [options] [commit_id] [path]
+reset [<commit_id>] [<path>]
 ```
 
-## オプション
+### オプション
 
 <details><summary>--soft</summary>
 
 ローカルレポジトリのみをリセットする。
 
 ```bash
-git reset --soft [commit_id] [path]
+--soft
 ```
 
 </details>
-
-***
 
 <details><summary>--mixed</summary>
 
 デフォルトのオプションでローカルレポジトリとインデックスまでリセットする。
 
 ```bash
-git reset --mixed [commit_id] [path]
+--mixed
 ```
 
 </details>
-
-***
 
 <details><summary>--hard</summary>
 
 ローカルレポジトリとインデックスとワークツリーまでリセットする。
 
 ```bash
-git reset --hard [commit_id] [path]
+--hard
 ```
 
 </details>
 
-***
+### パラメータ
 
-### 備考
+<details><summary>commit_id</summary>
+
+戻りたい過去のコミットID
+
+#### 備考
 
 <details><summary>HEAD</summary>
 
 現在のコミットidのエイリアス。`@`も同じ。
 
-#### 備考
+##### 備考
 
 <details><summary>HEAD^</summary>
 
@@ -268,32 +236,24 @@ git reset --hard [commit_id] [path]
 
 </details>
 
-***
-
 <details><summary>HEAD~n</summary>
 
 `n`個前のコミット
 
 </details>
 
-***
-
+</details>
 
 </details>
 
-***
-
-
 </details>
-
-***
 
 <details><summary>branch</summary>
 
 ブランチを作成する。引数を省略すると、現在のブランチを表示
 
 ```bash
-git branch [options] [branch_name]
+branch [<branch_name>]
 ```
 
 ### オプション
@@ -303,59 +263,49 @@ git branch [options] [branch_name]
 ブランチ名を変更する。
 
 ```bash
-git branch -m old_branch_name new_branch_name
+-m <old_branch_name> <new_branch_name>
 ```
 
 </details>
-
-***
 
 <details><summary>-d</summary>
 
-マージ済みブランチを削除
+指定したマージ済みブランチを削除
 
 ```bash
-git branch -d branch_name
+-d
 ```
 
 </details>
-
-***
 
 <details><summary>-D</summary>
 
-マージされているかにかかわらずブランチを削除。
+マージされているかにかかわらず指定したブランチを削除。
 
 ```bash
-git branch -D branch_name
+-D
 ```
 
 </details>
 
-***
-
-<details></summary>-a</summary>
+<details><summary>-a</summary>
 
 追跡レポジトリも含め、表示
 
 ```bash
-git branch -a
+-a
 ```
 
 </details>
 
-***
-
 </details>
-
-***
 
 <details><summary>checkout</summary>
 
 ブランチを切り替える。
 
 ```bash
-git checkout [options] branch_name
+git checkout <branch_name>
 ```
 
 ### オプション
@@ -365,21 +315,17 @@ git checkout [options] branch_name
 ブランチを作成して切り替える。
 
 ```bash
-git checkout -b branch_NAME
+-b
 ```
 
 </details>
 
-***
-
 </details>
-
-***
 
 <details><summary>remote</summary>
 
 ```bash
-git remote [options] [sub_command]
+remote
 ```
 
 ### サブコマンド
@@ -389,13 +335,41 @@ git remote [options] [sub_command]
 リモートブランチのエイリアスをつくる。
 
 ```bash
-git remote add [remote_url] [alias]
+add [<remote_url>] [<alias>]
 ```
 
 </details>
 
-***
+</details>
+
+<details><summary>rm</summary>
+
+インデックスやワークツリーからファイルを削除する。
+
+```bash
+rm <path>
+```
+
+### オプション
+
+<details><summary>-r</summary>
+
+ フォルダを指定するときにつける。
+
+```sql
+-r
+```
 
 </details>
 
-***
+<details><summary>--cached</summary>
+
+インデックスからのみ削除し、ワーキングツリーから削除しない。
+
+```sql
+--cached
+```
+
+</details>
+
+</details>
