@@ -265,16 +265,21 @@ BY DEFAULT
 
 </details>
 
-<details><summary>IDENTITY</summary>
+<details><summary>AS IDENTITY</summary>
 
 シーケンスと暗示的に紐づけられ、シーケンスからとられた値が自動的にはいる。
 
 ```sql
-IDENTITY [(
-    [AS] [INCREMENT] [MINVALUE] [MAXVALUE]
-        [START] [CACHE] [CYCLE] [OWNED BY]
-)]
+AS IDENTITY [(<sequence_options>)]
 ```
+
+#### パラメータ
+
+<details><summary>sequence_options</summary>
+
+`CREATE SEQUENCE`に使用されるオプション句を指定できる。
+
+</details>
 
 </details>
 
