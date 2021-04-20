@@ -3,48 +3,45 @@
 2つの分類子間のメッセージを描画するために使用する。
 
 ```uml
-[header message]
-[footer message]
+[header]
+[footer]
 
-[title message]
+[title]
 
-[skinparam param_name value]
+[skinparam]
 
-[box group [#color]]
+[box]
 
-[class {instance | "instance"} [<< [(a, #color)] [stereotype] >>] [as alias1] [order n] [#color]]
+[
+    <class> {<instance> | "<instance>"} [\<\< \>\>]
+    [as] [order] [#<color>]
+]
 
-[autonumber [stop | resume] [n] [s] ["format"]]
+[autonumber]
 
-[create [class] instance]
-[instance1] allow [instance2] {** | ++ | -- || !!}: message
-[note {left [of instance]| right [of instance] | over instance[, end_instance] | across} [#color]{: message | multilines}]
+[create]
+[<instance1>] <allow> [<instance2>] : <message>
+[<note>]
 [/ ...]
 
-[group group_name [message]]
+[<group>]
 
-[ref over instance[, end_instance]: {message | multilines}]
+[ref over]
 
-[...[message...]]  ' この行で...は繰り返しを意味しない
+[\.\.\.]
 
-[||| | ||size||]  ` この行で連続する|はorを意味しない。
+[\|\|\|]  ` この行で連続する|はorを意味しない。
 
-[activate instance [#color]]
+[activate]
 
-[newpage [title]]
+[newpage]
 
-[== message ==]
+[== ==]
 ```
 
-## 属性
+## パラメータ
 
 <details><summary>class</summary>
-
-分類子
-
-```uml
-class {instance | "instance"} [<< [(a, #color)] [stereotype] >>] [as alias1] [order n] [#color]
-```
 
 |class|説明|
 |:---|:---|
@@ -59,15 +56,9 @@ class {instance | "instance"} [<< [(a, #color)] [stereotype] >>] [as alias1] [or
 
 </details>
 
-***
-
 <details><summary>arrow</summary>
 
 矢印
-
-```uml
-[instance1] allow [instance2]: message
-```
 
 |記号|説明|
 |:---|:---|
@@ -94,8 +85,6 @@ client <-[#0000FF]- server
 ```
 
 </details>
-
-***
 
 <details><summary>インとアウト</summary>
 
@@ -130,8 +119,6 @@ Bob x<-]
 
 </details>
 
-***
-
 <details><summary>短いインとアウト</summary>
 
 `[`ではなく`?`を使用することで跨ぐことなく、直近の余白から
@@ -152,316 +139,255 @@ Alice -> Bob : ""->"" \nfrom actor1 to actor2
 
 </details>
 
-***
-
 </details>
 
-***
+<details><summary>note</summary>
 
-<details><summary>order</summary>
-
-指定した数字で小さい順に左から並べる。
+ノートをつける
 
 ```uml
-order number
+{note | hnote | rnote} {
+    left of
+    | right of
+    | over
+    | across
+}
+[#<color>]{: <message> | <multi_lines> end note}
+```
+
+### パラメータ
+
+<details><summary>color</summary>
+</details>
+
+<details><summary>message</summary>
+</details>
+
+<details><summary>multi_lines</summary>
+</details>
+
+### 属性
+
+<details><summary>note</summary>
+
+```uml
+note
 ```
 
 </details>
 
-***
-
-<details><summary>autonumber</summary>
-
-自動採番
+<details><summary>hnote</summary>
 
 ```uml
-autonumber [stop | resume] [n] [s] ["format"]
+hnote
 ```
 
+</details>
+
+<details><summary>rnote</summary>
+
+```uml
+rnote
+```
+
+</details>
+
+<details><summary>left of</summary>
+
+```uml
+left of <instance>
+```
+
+</details>
+
+<details><summary>right of</summary>
+
+```uml
+right of <instance>
+```
+
+</details>
+
+<details><summary>over</summary>
+
+```uml
+over <instance>[, <end_instance>]
+```
+
+</details>
+
+<details><summary>across</summary>
+
+```uml
+across
+```
+
+</details>
+
+<details><summary>end note</summary>
+
+```sql
+end note
+```
+
+</details>
 
 ### 例
 
-<details><summary>formatの使用</summary>
+<details><summary>複数行のノート</summary>
 
-`Java`の`DecimalFormat`方式で指定する。
-
-0と#が有効桁を表す。
+`end note`をつける。
 
 ```uml
 @startuml
-autonumber "<b>[000]"
-Bob -> Alice : Authentication Request
-Bob <- Alice : Authentication Response
-autonumber 15 "<b>(<u>##</u>)"
-Bob -> Alice : Another authentication Request
-Bob <- Alice : Another authentication Response
-autonumber 40 10 "<font color=red><b>Message 0 "
-Bob -> Alice : Yet another authentication Request
-Bob <- Alice : Yet another authentication Response
+Bob->Bob : I am thinking
+note left
+a note
+can also be defined
+on several lines
+end note
 @enduml
 ```
 
 </details>
 
-***
-
-<details><summary>stop / resumeの使用</summary>
-
+<details><summary>of/over</summary>
 
 ```uml
 @startuml
-autonumber 10 10 "<b>[000]"
-Bob -> Alice : Authentication Request
-Bob <- Alice : Authentication Response
-autonumber stop
-Bob -> Alice : dummy
-autonumber resume "<font color=red><b>Message 0 "
-Bob -> Alice : Yet another authentication Request
-Bob <- Alice : Yet another authentication Response
-autonumber stop
-Bob -> Alice : dummy
-autonumber resume 1 "<font color=blue><b>Message 0 "
-Bob -> Alice : Yet another authentication Request
-Bob <- Alice : Yet another authentication Response
+participant Alice
+participant Bob
+note left of Alice #aqua
+This is displayed
+left of Alice.
+end note
+note right of Alice: This is displayed right of Alice.
+note over Alice: This is displayed over Alice.
+note over Alice, Bob #FFAAAA: This is displayed\n over Bob and Alice.
+note over Bob, Alice
+This is yet another
+example of
+a long note.
+end note
 @enduml
 ```
 
 </details>
 
-***
-
-</details>
-
-***
-
-<details><summary>skinparam</summary>
-
-スキンパラメータを設定する。
-
-```uml
-skinparam param_name value
-```
-
-### 備考
-
-<details><summary>param_name</summary>
-
-#### パラメータ
-
-<details><summary>responseMessageBelowArrow</summary>
-
-シーケンス図のレスポンスのメッセージを矢印の下に配置するかどうか。
-
-```uml
-bool responseMessageBelowArrow
-```
-
-</details>
-
-***
-
-<details><summary>maxMessageSize</summary>
-
-一行の文字数を制限し、制限を超えた場合は折り返す。
-
-```uml
-int maxMessageSize
-```
-
-</details>
-
-***
-
-<details><summary>lifelineStrategy</summary>
-
-ライフラインのスタイル
-
-```uml
-border_style lifelineStyle
-```
-
-|border_style|説明|
-|:---|:---|
-|solid|実線|
-|unsolid|デフォルトの点線|
-
-</details>
-
-***
-
-</details>
-
-***
-
-</details>
-
-***
-
-<details><summary>header</summary>
-
-ヘッダー
-
-```uml
-header message
-```
-
-</details>
-
-***
-
-<details><summary>footer</summary>
-
-フッター
-
-```uml
-footer message
-```
-
-### 例　
-
-<details><summary>現在のページ数を表示する。</summary>
-
-```uml
-footer Page %page% of %lastpage%
-```
-</details>
-
-***
-
-<details><summary>フッターの削除</summary>
-
-`hide footbox`を記述する。
+<details><summary>複数にまたがる</summary>
 
 ```uml
 @startuml
-hide footbox
-title Foot Box removed
-Alice -> Bob: Authentication Request
-Bob --> Alice: Authentication Response
+Alice->Bob:m1
+Bob->Charlie:m2
+note over Alice, Charlie: Old method for note over all part. with:\n ""note over //FirstPart, LastPart//"".
+note across: New method with:\n""note across""
+Bob->Alice
+hnote across:Note across all part.
+@enduml
+```
+
+</details>
+
+<details><summary>同じレベルに整列する。</summary>
+
+```uml
+@startuml
+note over Alice : initial state of Alice
+/ note over Bob : initial state of Bob
+Bob -> Alice : hello
 @enduml
 ```
 
 </details>
 
 </details>
-
-***
-
-<details><summary>title</summary>
-
-タイトルを設定する
-
-```uml
-title message
-```
-
-### 例
-
-<details><summary>複数行</summary>
-
-`end title`を使用する。
-
-```uml
-@startuml
-title
-<u>Simple</u> communication example
-on <i>several</i> lines and using <font color=red>html</font>
-This is hosted by <img:sourceforge.jpg>
-end title
-Alice -> Bob: Authentication Request
-Bob -> Alice: Authentication Response
-@enduml
-```
-
-</details>
-
-***
-
-</details>
-
-***
-
-<details><summary>newpage</summary>
-
-新しいページに分割する。
-
-```uml
-newpage [title]
-```
-
-</details>
-
-***
-
-<details><summary>==message==</summary>
-
-メッセージ付きの境界線
-
-```uml
-==message==
-```
-
-</details>
-
-***
-
-<details><summary>ref</summary>
-
-リファレンスを挿入する。
-
-```uml
-ref over instance[, end_instance]: {message | multilines}
-```
-
-</details>
-
-***
-
-<details><summary>...</summary>
-
-遅延を表現する。
-
-```uml
-[...[message...]]  ' この行で...は繰り返しを意味しない
-```
-
-</details>
-
-***
-
-<details><summary>&#124;&#124;&#124;</summary>
-
-間隔を空ける。
-
-```uml
-[||| | ||size||]  ` この行で連続する|はorを意味しない。
-```
-
-</details>
-
-***
 
 <details><summary>group</summary>
 
 グループ化する。
 
 ```uml
-keyword [message]
+{alt | opt | loop | par | break | critical | group} [<message>]
 
-expression
+<expressions>
 
 end
 ```
 
-|keyword|説明|
-|:---|:---|
-|alt/else|条件分岐|
-|opt|オプション|
-|loop|ループ|
-|par||
-|break|終了|
-|critical|クリティカルパス|
-|group name|カスタムなグループname|
+### パラメータ
+
+<details><summary>message</summary>
+</details>
+
+<details><summary>expressions</summary>
+</details>
+
+### 属性
+
+<details><summary>alt</summary>
+
+```uml
+alt
+```
+
+</details>
+
+<details><summary>opt</summary>
+
+```uml
+opt
+```
+
+</details>
+
+<details><summary>loop</summary>
+
+```uml
+loop
+```
+
+</details>
+
+<details><summary>par</summary>
+
+```uml
+par
+```
+
+</details>
+
+<details><summary>break</summary>
+
+```uml
+break
+```
+
+</details>
+
+<details><summary>critical</summary>
+
+```uml
+critical
+```
+
+</details>
+
+<details><summary>group</summary>
+
+```uml
+group <name>
+```
+
+</details>
+
+<details><summary>end</summary>
+
+```uml
+end
+```
+
+</details>
 
 ### 例
 
@@ -490,126 +416,385 @@ end
 
 </details>
 
-***
-
 </details>
 
-***
+## 属性
 
-<details><summary>note</summary>
-
-ノートをつける
+<details><summary>&lt;&lt; &gt;&gt;</summary>
 
 ```uml
-[note {left [of instance]| right [of instance] | over instance[, end_instance] | across} [#color]{: message | multilines}]
+\<\< [(<a>, #<color>)] [<stereotype>] \>\>
 ```
 
-|ノートの種類|説明|
-|:---|:---|
-|note|通常のノート|
-|hnote|六角形のノート|
-|rnote|四角形のノート|
+インスタンスを定義時にステレオタイプを指定できる。
 
 ### 例
 
-<details><summary>複数行のノート</summary>
-
-`end note`をつける。
+<details><summary>クラス名を表記する。</summary>
 
 ```uml
 @startuml
-Bob->Bob : I am thinking
-note left
-a note
-can also be defined
-on several lines
-end note
+participant "Famous Bob" as Bob << Generated >>
+participant Alice << (C,#ADD1B2) Testable >>
+Bob->Alice: First message
 @enduml
 ```
 
 </details>
 
-***
+</details>
 
-<details><summary>of/over</summary>
+<details><summary>as</summary>
+
+インスタンスのエイリアスを指定する。
+
+```uml
+as <alias>
+```
+
+</details>
+
+<details><summary>order</summary>
+
+指定した数字で小さい順に左から並べる。
+
+```uml
+order <number>
+```
+
+</details>
+
+<details><summary>autonumber</summary>
+
+自動採番
+
+```uml
+autonumber [<stop> | <resume>] [<n>] [<s>] ["<format>"]
+```
+
+### 例
+
+<details><summary>formatの使用</summary>
+
+`Java`の`DecimalFormat`方式で指定する。
+
+0と#が有効桁を表す。
 
 ```uml
 @startuml
-participant Alice
-participant Bob
-note left of Alice #aqua
-This is displayed
-left of Alice.
-end note
-note right of Alice: This is displayed right of Alice.
-note over Alice: This is displayed over Alice.
-note over Alice, Bob #FFAAAA: This is displayed\n over Bob and Alice.
-note over Bob, Alice
-This is yet another
-example of
-a long note.
-end note
+autonumber "<b>[000]"
+Bob -> Alice : Authentication Request
+Bob <- Alice : Authentication Response
+autonumber 15 "<b>(<u>##</u>)"
+Bob -> Alice : Another authentication Request
+Bob <- Alice : Another authentication Response
+autonumber 40 10 "<font color=red><b>Message 0 "
+Bob -> Alice : Yet another authentication Request
+Bob <- Alice : Yet another authentication Response
 @enduml
 ```
 
 </details>
 
-***
 
-<details><summary>複数にまたがる</summary>
+
+<details><summary>stop / resumeの使用</summary>
+
 
 ```uml
 @startuml
-Alice->Bob:m1
-Bob->Charlie:m2
-note over Alice, Charlie: Old method for note over all part. with:\n ""note over //FirstPart, LastPart//"".
-note across: New method with:\n""note across""
-Bob->Alice
-hnote across:Note across all part.
+autonumber 10 10 "<b>[000]"
+Bob -> Alice : Authentication Request
+Bob <- Alice : Authentication Response
+autonumber stop
+Bob -> Alice : dummy
+autonumber resume "<font color=red><b>Message 0 "
+Bob -> Alice : Yet another authentication Request
+Bob <- Alice : Yet another authentication Response
+autonumber stop
+Bob -> Alice : dummy
+autonumber resume 1 "<font color=blue><b>Message 0 "
+Bob -> Alice : Yet another authentication Request
+Bob <- Alice : Yet another authentication Response
 @enduml
 ```
 
 </details>
 
-***
 
-<details><summary>同じレベルに整列する。</summary>
+
+</details>
+
+
+
+<details><summary>skinparam</summary>
+
+スキンパラメータを設定する。
+
+```uml
+skinparam <param_name> <value>
+```
+
+### 備考
+
+<details><summary>param_name</summary>
+
+#### パラメータ
+
+<details><summary>responseMessageBelowArrow</summary>
+
+シーケンス図のレスポンスのメッセージを矢印の下に配置するかどうか。
+
+```uml
+bool responseMessageBelowArrow
+```
+
+</details>
+
+
+
+<details><summary>maxMessageSize</summary>
+
+一行の文字数を制限し、制限を超えた場合は折り返す。
+
+```uml
+int maxMessageSize
+```
+
+</details>
+
+
+
+<details><summary>lifelineStrategy</summary>
+
+ライフラインのスタイル
+
+```uml
+border_style lifelineStyle
+```
+
+|border_style|説明|
+|:---|:---|
+|solid|実線|
+|unsolid|デフォルトの点線|
+
+</details>
+
+
+
+</details>
+
+
+
+</details>
+
+
+
+<details><summary>header</summary>
+
+ヘッダー
+
+```uml
+header <message>
+```
+
+</details>
+
+
+
+<details><summary>footer</summary>
+
+フッター
+
+```uml
+footer <message>
+```
+
+### 例　
+
+<details><summary>現在のページ数を表示する。</summary>
+
+```uml
+footer Page %page% of %lastpage%
+```
+</details>
+
+
+
+<details><summary>フッターの削除</summary>
+
+`hide footbox`を記述する。
 
 ```uml
 @startuml
-note over Alice : initial state of Alice
-/ note over Bob : initial state of Bob
-Bob -> Alice : hello
+hide footbox
+title Foot Box removed
+Alice -> Bob: Authentication Request
+Bob --> Alice: Authentication Response
 @enduml
 ```
 
 </details>
 
-***
+</details>
+
+
+
+<details><summary>title</summary>
+
+タイトルを設定する
+
+```uml
+title <message>
+```
+
+### 例
+
+<details><summary>複数行</summary>
+
+`end title`を使用する。
+
+```uml
+@startuml
+title
+<u>Simple</u> communication example
+on <i>several</i> lines and using <font color=red>html</font>
+This is hosted by <img:sourceforge.jpg>
+end title
+Alice -> Bob: Authentication Request
+Bob -> Alice: Authentication Response
+@enduml
+```
 
 </details>
 
-***
+
+
+</details>
+
+
+
+<details><summary>newpage</summary>
+
+新しいページに分割する。
+
+```uml
+newpage [<title>]
+```
+
+</details>
+
+<details><summary>== ==</summary>
+
+メッセージ付きの境界線
+
+```uml
+== <message> ==
+```
+
+</details>
+
+<details><summary>ref</summary>
+
+リファレンスを挿入する。
+
+```uml
+ref over <instance>[, <end_instance>]: {<message> | <multi_lines> end ref}
+```
+
+### パラメータ
+
+<details><summary>instance</summary>
+</details>
+
+<details><summary>end_instance</summary>
+</details>
+
+<details><summary>message</summary>
+</details>
+
+<details><summary>multi_lines</summary>
+</details>
+
+### 属性
+
+<details><summary>end ref</summary>
+
+```uml
+end ref
+```
+
+</details>
+
+</details>
+
+<details><summary>...</summary>
+
+遅延を表現する。
+
+```uml
+[...[<message>...]]  ' この行で...は繰り返しを意味しない
+```
+
+</details>
+
+
+
+<details><summary>&#124;&#124;&#124;</summary>
+
+間隔を空ける。
+
+```uml
+[||| | ||<size>||]  ` この行で連続する|はorを意味しない。
+```
+
+</details>
 
 <details><summary>activate</summary>
 
 活性化する。
 
 ```uml
-{activation instance [#color] | autoactivate on}
+{activation <instance> [#<color>] | autoactivate on}
 
-expression
+<expressions>
 
-{deactivate | destroy | return [message]}
+{deactivate | destroy| return}
 ```
 
-|activation|説明|
-|:---|:---|
-|activate|活性化|
-|autoactivate on|自動的に呼び出し先を活性化していく|
-|deactivate|非活性化|
-|destroy|中断、破棄|
-|return [message]|戻り値、最も最近に活性化したライフラインをから呼び出し元に戻す。|
+### 属性
+
+<details><summary>autoactivate on</summary>
+
+```uml
+autoacativate
+```
+
+</details>
+
+<details><summary>deactivate</summary>
+
+```uml
+deactivate <instance>
+```
+
+</details>
+
+<details><summary>destroy</summary>
+
+```uml
+destroy <instance>
+```
+
+</details>
+
+<details><summary>return</summary>
+
+```uml
+return [<message>]
+```
+
+</details>
 
 ### 例
 
@@ -634,7 +819,7 @@ deactivate A
 
 </details>
 
-***
+
 
 <details><summary>returnの使用</summary>
 
@@ -649,7 +834,7 @@ return bye
 
 </details>
 
-***
+
 
 <details><summary>autoactivate onの使用</summary>
 
@@ -669,7 +854,7 @@ return success
 
 </details>
 
-***
+
 
 <details><summary>ショートカット</summary>
 
@@ -688,25 +873,25 @@ bob -> alice !!: failed
 
 </details>
 
-***
+
 
 </details>
 
-***
+
 
 <details><summary>create</summary>
 
 インスタンスを作成するメッセージにする。
 
 ```uml
-[create [class] instance]
+[create [<class>] <instance>]
 ```
 
 ### 例
 
 <details><summary>ショートカット</summary>
 
-`instance1 arrow instance2 **: message`で`instance2`を
+`<instance1> <arrow> <instance2> **: <message>`で`instance2`を
 
 作成するショートカットになる。
 
@@ -719,20 +904,20 @@ bob -> george ** : create
 
 </details>
 
-***
+
 
 </details>
 
-***
+
 
 <details><summary>box</summary>
 
 定義時にインスタンスをグループ化できる。
 
 ```uml
-box group_name [#color]
+box <group_name> [#<color>]
 
-instance_definition
+<instance_definition>
 [...]
 
 end box
@@ -756,17 +941,9 @@ Alice -> Other : hello
 
 </details>
 
-***
-
 </details>
-
-***
 
 ## 備考
-
-</details>
-
-***
 
 <details><summary>htmlとcreore</summary>
 
@@ -787,7 +964,7 @@ Alice -> Other : hello
 
 </details>
 
-***
+
 
 ### 例
 
@@ -822,11 +999,11 @@ end note
 
 </details>
 
-***
+
 
 </details>
 
-***
+
 
 <details><summary>toez</summary>
 
@@ -857,34 +1034,9 @@ Max -> Bob : something else
 
 </details>
 
-***
+
 
 </details>
 
-***
 
-<details><summary>ステレオタイプ</summary>
 
-インスタンスを定義時にステレオタイプを指定できる。
-
-```uml
-[class {instance | "instance"} [<< [(a, #color)] [stereotype] >>] [as alias1] [order n] [#color]]
-```
-
-<details><summary>クラス名を表記する。</summary>
-
-```uml
-@startuml
-participant "Famous Bob" as Bob << Generated >>
-participant Alice << (C,#ADD1B2) Testable >>
-Bob->Alice: First message
-@enduml
-```
-
-</details>
-
-***
-
-</details>
-
-***
