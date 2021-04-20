@@ -1,5 +1,7 @@
 # CREATE FUNCTION
 
+関数を定義する。
+
 ```sql
 CREATE [OR REPLACE] FUNCTION
     <name>([[<arg_mode>] [arg_name] arg_type [DEFAULT]][,...])

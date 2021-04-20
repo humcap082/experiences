@@ -1,9 +1,9 @@
-# COMMIT
+# END
 
-トランザクションをコミットする。
+トランザクションをコミットする。`COMMIT`と同等です。
 
 ```sql
-COMMIT [AND CHAIN]
+END [AND CHAIN]
 ```
 
 ## 句
