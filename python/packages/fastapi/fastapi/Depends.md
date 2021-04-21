@@ -23,8 +23,6 @@ dependency: Callable = None
 
 </details>
 
-***
-
 <details><summary>use_cache</summary>
 
 引数を受け取り、引数を返す関数やクラスなどを指定する
@@ -34,8 +32,6 @@ use_cache: bool = True
 ```
 
 </details>
-
-***
 
 ### 例
 
@@ -59,8 +55,6 @@ async def read_users(commons: dict = Depends(common_parameters)):
 ```
 
 </details>
-
-***
 
 <details><summary>クラスを渡す</summary>
 
@@ -93,8 +87,6 @@ async def read_items(commons: CommonQueryParams = Depends()):
 
 </details>
 
-***
-
 <details><summary>インスタンスを渡す。</summary>
 
 `__call__`を定義することでインスタンス関数として渡すことができる。
@@ -124,8 +116,6 @@ async def read_query_check(fixed_content_included: bool = Depends(checker)):
 ```
 
 </details>
-
-***
 
 <details><summary>ネストする。</summary>
 
@@ -161,5 +151,3 @@ async def(
 ```
 
 </details>
-
-***

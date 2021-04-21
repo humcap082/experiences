@@ -30,7 +30,7 @@
 
 [\.\.\.]
 
-[\|\|\|]  ` この行で連続する|はorを意味しない。
+[|\|\|]  ` この行で連続する|はorを意味しない。
 
 [activate]
 
@@ -428,6 +428,17 @@ end
 
 インスタンスを定義時にステレオタイプを指定できる。
 
+### パラメータ
+
+<details><summary>a</summary>
+</details>
+
+<details><summary>color</summary>
+</details>
+
+<details><summary>stereotype</summary>
+</details>
+
 ### 例
 
 <details><summary>クラス名を表記する。</summary>
@@ -452,6 +463,11 @@ Bob->Alice: First message
 as <alias>
 ```
 
+### パラメータ
+
+<details><summary>alias</summary>
+</details>
+
 </details>
 
 <details><summary>order</summary>
@@ -462,6 +478,11 @@ as <alias>
 order <number>
 ```
 
+### パラメータ
+
+<details><summary>number</summary>
+</details>
+
 </details>
 
 <details><summary>autonumber</summary>
@@ -469,8 +490,37 @@ order <number>
 自動採番
 
 ```uml
-autonumber [<stop> | <resume>] [<n>] [<s>] ["<format>"]
+autonumber [stop | resume] [<n>] [<s>] ["<format>"]
 ```
+
+### パラメータ
+
+<details><summary>n</summary>
+</details>
+
+<details><summary>s</summary>
+</details>
+
+<details><summary>format</summary>
+</details>
+
+### 属性
+
+<details><summary>stop</summary>
+
+```uml
+stop
+```
+
+</details>
+
+<details><summary>resume</summary>
+
+```uml
+resume
+```
+
+</details>
 
 ### 例
 
@@ -496,8 +546,6 @@ Bob <- Alice : Yet another authentication Response
 
 </details>
 
-
-
 <details><summary>stop / resumeの使用</summary>
 
 
@@ -521,11 +569,7 @@ Bob <- Alice : Yet another authentication Response
 
 </details>
 
-
-
 </details>
-
-
 
 <details><summary>skinparam</summary>
 
@@ -535,7 +579,7 @@ Bob <- Alice : Yet another authentication Response
 skinparam <param_name> <value>
 ```
 
-### 備考
+### パラメータ
 
 <details><summary>param_name</summary>
 
@@ -551,8 +595,6 @@ bool responseMessageBelowArrow
 
 </details>
 
-
-
 <details><summary>maxMessageSize</summary>
 
 一行の文字数を制限し、制限を超えた場合は折り返す。
@@ -562,8 +604,6 @@ int maxMessageSize
 ```
 
 </details>
-
-
 
 <details><summary>lifelineStrategy</summary>
 
@@ -580,15 +620,9 @@ border_style lifelineStyle
 
 </details>
 
-
-
 </details>
 
-
-
 </details>
-
-
 
 <details><summary>header</summary>
 
@@ -598,9 +632,12 @@ border_style lifelineStyle
 header <message>
 ```
 
+### パラメータ
+
+<details><summary>message</summary>
 </details>
 
-
+</details>
 
 <details><summary>footer</summary>
 
@@ -610,16 +647,20 @@ header <message>
 footer <message>
 ```
 
-### 例　
+### パラメータ
+
+<details><summary>message</summary>
+</details>
+
+### 例
 
 <details><summary>現在のページ数を表示する。</summary>
 
 ```uml
 footer Page %page% of %lastpage%
 ```
+
 </details>
-
-
 
 <details><summary>フッターの削除</summary>
 
@@ -638,15 +679,31 @@ Bob --> Alice: Authentication Response
 
 </details>
 
-
-
 <details><summary>title</summary>
 
 タイトルを設定する
 
 ```uml
-title <message>
+title {<message> | multi_lines end title}
 ```
+
+### パラメータ
+
+<details><summary>message</summary>
+</details>
+
+<details><summary>multi_lines</summary>
+</details>
+
+### 属性
+
+<details><summary>end title</summary>
+
+```sql
+end title
+```
+
+</details>
 
 ### 例
 
@@ -668,11 +725,7 @@ Bob -> Alice: Authentication Response
 
 </details>
 
-
-
 </details>
-
-
 
 <details><summary>newpage</summary>
 
@@ -681,6 +734,11 @@ Bob -> Alice: Authentication Response
 ```uml
 newpage [<title>]
 ```
+
+### パラメータ
+
+<details><summary>title</summary>
+</details>
 
 </details>
 
@@ -691,6 +749,11 @@ newpage [<title>]
 ```uml
 == <message> ==
 ```
+
+### パラメータ
+
+<details><summary>message</summary>
+</details>
 
 </details>
 
@@ -738,8 +801,6 @@ end ref
 
 </details>
 
-
-
 <details><summary>&#124;&#124;&#124;</summary>
 
 間隔を空ける。
@@ -747,6 +808,11 @@ end ref
 ```uml
 [||| | ||<size>||]  ` この行で連続する|はorを意味しない。
 ```
+
+### パラメータ
+
+<details><summary>size</summary>
+</details>
 
 </details>
 
@@ -761,6 +827,17 @@ end ref
 
 {deactivate | destroy| return}
 ```
+
+### パラメータ
+
+<details><summary>instance</summary>
+</details>
+
+<details><summary>color</summary>
+</details>
+
+<details><summary>expressions</summary>
+</details>
 
 ### 属性
 
@@ -887,6 +964,14 @@ bob -> alice !!: failed
 [create [<class>] <instance>]
 ```
 
+### パラメータ
+
+<details><summary>class</summary>
+</details>
+
+<details><summary>instance</summary>
+</details>
+
 ### 例
 
 <details><summary>ショートカット</summary>
@@ -901,14 +986,9 @@ bob -> george ** : create
 @enduml
 ```
 
-
 </details>
 
-
-
 </details>
-
-
 
 <details><summary>box</summary>
 
@@ -922,6 +1002,14 @@ box <group_name> [#<color>]
 
 end box
 ```
+
+### パラメータ
+
+<details><summary>color</summary>
+</details>
+
+<details><summary>instance_definition</summary>
+</details>
 
 ### 例
 

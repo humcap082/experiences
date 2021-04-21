@@ -5,20 +5,46 @@
 ディレクトリ内のファイル一覧
 
 ```shell
-ls [options] [path]
+ls [<path>]
 ```
 
-|オプション|説明|
-|:---|:---|
-|-R|その下の階層まで表示|
-|-l|それぞれのフォルダとファイルを1行で詳細に表示|
-|-o|標準出力として出力(パイプを使用時に必要)|
+## オプション
+
+<details><summary>-R</summary>
+
+その下の階層まで表示
+
+```bash
+-R
+```
+
+</details>
+
+<details><summary>-l</summary>
+
+それぞれのフォルダとファイルを1行で詳細に表示
+
+```bash
+-l
+```
+
+</details>
+
+<details><summary>-o</summary>
+
+標準出力として出力(パイプを使用時に必要)
+
+```bash
+-o
+```
+
+</details>
 
 ### 備考
 
 <details><summary>ls -l フォーマット</summary>
 
-`mode number_of_link user group size at_updated name`
+`<mode> <number_of_link> <user> <group> <size> <at_updated> <name>`
 
 例: `-rw-r--r-- 1 root root 81211 2021-03-04 07:00 myfile`
 
@@ -52,55 +78,61 @@ ls [options] [path]
 
 </details>
 
-***
-
 </details>
-
-***
 
 <details><summary>mkdir</summary>
 
 ディレクトリを作成
 
 ```shell
-mkdir [options] [path]
+mkdir [<path>]
 ```
 
-|オプション|説明|
-|:---|:---|
-|-p|途中のディレクトリも作成|
+## オプション
+
+<details><summary>-p</summary>
+
+途中のディレクトリも作成
+
+```bash
+-p
+```
 
 </details>
 
-***
+</details>
 
 <details><summary>touch</summary>
 
 ファイルを作成
 
 ```shell
-touch [options] file_path[ ...]
+touch <file_path>[ ...]
 ```
 
 </details>
-
-***
 
 <details><summary>mv</summary>
 
 ファイルをpathに移動、リネーム
 
 ```shell
-mv [options] file_path[ ...] path
+mv [options] <file_path>[ ...] <path>
 ```
 
-|オプション|説明|
-|:---|:---|
-|-i|同じファイルが存在する場合確認。|
+## オプション
+
+<details><summary>-i</summary>
+
+同じファイルが存在する場合確認。
+
+```bash
+-i
+```
 
 </details>
 
-***
+</details>
 
 <details><summary>cd</summary>
 
@@ -109,74 +141,136 @@ mv [options] file_path[ ...] path
 pathを省略するとホームディレクトリ
 
 ```shell
-cd [path]
+cd [<path>]
 ```
 
 </details>
-
-***
 
 <details><summary>pwd</summary>
 
 カレントディレクトリの絶対パスを表示
 
 ```shell
-pwd [options]
+pwd
 ```
 
 </details>
-
-***
 
 <details><summary>shutdown</summary>
 
 シャットダウンする。
 
 ```shell
-shutdown [options] {now | +n}
+shutdown {now | +}
 ```
 
-|オプション|説明|
-|:---|:---|
-|-h|シャットダウン(デフォルト)|
-|-r|再起動|
-|-c|予約したシャットダウンをキャンセル|
-|-k|シャットダウンするダイアログを表示|
-|+n|n分後にシャットダウン|
-|now|いますぐシャットダウン|
+## オプション
+
+<details><summary>-h</summary>
+
+シャットダウン(デフォルト)
+
+```bash
+-h
+```
 
 </details>
 
-***
+<details><summary>-r</summary>
+
+再起動
+
+```bash
+-r
+```
+
+</details>
+
+<details><summary>-c</summary>
+
+予約したシャットダウンをキャンセル。
+
+```bash
+-c
+```
+
+</details>
+
+<details><summary>-k</summary>
+
+シャットダウンするダイアログを表示
+
+```bash
+-k
+```
+
+</details>
+
+### パラメータ
+
+<details><summary>now</summary>
+
+今すぐシャットダウン
+
+```bash
+now
+```
+
+</details>
+
+<details><summary>+</summary>
+
+シャットダウンを予約する。
+
+```bash
++<n>
+```
+
+</details>
+
+</details>
 
 <details><summary>rm</summary>
 
 ファイル、ディレクトリを削除
 
 ```shell
-rm [options] path[ ...]
+rm <path>[ ...]
 ```
 
-|オプション|説明|
-|:---|:---|
-|-r|ディレクトリを削除する。|
-|-i|事前に確認|
+## オプション
+
+<details><summary>-r</summary>
+
+ディレクトリを削除する。
+
+```bash
+-r
+```
 
 </details>
 
-***
+<details><summary>-i</summary>
+
+事前に確認
+
+```bash
+-i
+```
+
+</details>
+
+</details>
 
 <details><summary>cat</summary>
 
 ファイルの内容を表示
 
 ```shell
-cat [options] file_path
+cat <file_path>
 ```
 
 </details>
-
-***
 
 <details><summary>less</summary>
 
@@ -185,87 +279,180 @@ cat [options] file_path
 操作はvimに近い
 
 ```shell
-less [options] file_path
+less <file_path>
 ```
 
-|オプション|説明|
-|:---|:---|
-|+n|n行目から表示|
-|{+/ string | -p string}|stringが見つかった行から表示(正規表現可能)|
-|-s|連続した行を1行にする|
-|-S|行を折り返さない|
-|-zn|一画面の行数|
-|-n|行数を表示しない|
-|-N|行数を表示する|
+## オプション
+
+<details><summary>+</summary>
+
+指定した行を表示
+
+```bash
++<n>
+```
 
 </details>
 
-***
+<details><summary>-p</summary>
+
+指定した正規表現にマッチする最初の行から表示
+
+```bash
+-p <string>
+```
+
+</details>
+
+<details><summary>-s</summary>
+
+連続した行を1行にする
+
+```bash
+-s
+```
+
+</details>
+
+<details><summary>-S</summary>
+
+行を折り返さない
+
+```bash
+-S
+```
+
+</details>
+
+<details><summary>-z</summary>
+
+一画面の行数を指定する。
+
+```bash
+-z<n>
+```
+
+</details>
+
+<details><summary>-n</summary>
+
+行数を表示しない。
+
+```bash
+-n
+```
+
+</details>
+
+<details><summary>-N</summary>
+
+行数を表示する。
+
+```bash
+-N
+```
+
+</details>
+
+</details>
 
 <details><summary>who</summary>
 
 誰がログインしているかを表示する
 
 ```shell
-who [options]
+who
 ```
 
-|オプション|説明|
-|:---|:---|
-|-a|すべての情報を表示する|
+## オプション
+
+<details><summary>-a</summary>
+
+すべての情報を表示する。
+
+```bash
+-a
+```
 
 </details>
 
-***
+</details>
 
 <details><summary>cp</summary>
 
 ファイルをコピーする
 
 ```shell
-cp [options] path1[ ...] path2
+cp <path1>[ ...] <path2>
 ```
 
-|オプション|説明|
-|:---|:---|
-|-r|ディレクトリごとコピー|
+## オプション
+
+<details><summary>-r</summary>
+
+ディレクトリごとコピー
+
+```bash
+-r
+```
 
 </details>
 
-***
+</details>
 
 <details><summary>su</summary>
 
 ユーザを切り替える
 
 ```shell
-su [options] [user]
+su [<user>]
 ```
 
-|オプション|説明|
-|:---|:---|
-|-|ログインシェルを使用してユーザーを切り替える|
+## オプション
+
+<details><summary>-</summary>
+
+ログインシェルを使用してユーザーを切り替える
+
+```bash
+-
+```
 
 </details>
 
-***
+</details>
 
 <details><summary>tail</summary>
 
 ファイルの末尾を表示する
 
 ```shell
-tail [オプション] path
+tail <path>
 ```
 
-|オプション|説明|
-|:---|:---|
-|-f|リアルタイム|
-|-n|末尾からn行表示|
+## オプション
+
+<details><summary>-f</summary>
+
+リアルタイム
+
+```bash
+-f
+```
 
 </details>
 
-***
+<details><summary>-</summary>
+
+行数を指定。
+
+```bash
+-<n>
+```
+
+</details>
+
+</details>
 
 <details><summary>grep</summary>
 
@@ -278,70 +465,94 @@ tail [オプション] path
 出力だけ出力する。　
 
 ```shell
-grep [options] regex path
+grep <regex> <path>
 ```
 
 </details>
-
-***
 
 <details><summary>useradd</summary>
 
 ユーザを作成する
 
 ```shell
-useradd [options] username
+useradd username
 ```
 
-|オプション|説明|
-|:---|:---|
-|-u n|ユーザーidをnで指定|
-|-d dir|ホームディレクトリをdirで指定する|
-|-g group_name|グループを指定する。|
+## オプション
+
+<details><summary>-u</summary>
+
+ユーザーidを指定。
+
+```bash
+-u <n>
+```
 
 </details>
 
-***
+<details><summary>-d</summary>
+
+ホームディレクトリを指定する。
+
+```bash
+-d <dir>
+```
+
+</details>
+
+<details><summary>-g</summary>
+
+グループを指定する。
+
+```bash
+-g <group_name>
+```
+
+</details>
+
+</details>
 
 <details><summary>passwd</summary>
 
 パスワードを変更する。
 
 ```shell
-passwd [options] [username]
+passwd [<username>]
 ```
 
 </details>
-
-***
 
 <details><summary>userdel</summary>
 
 ユーザーを削除する
 
 ```shell
-userdel [options] user
+userdel <user>
 ```
 
-|オプション|説明|
-|:---|:---|
-|-r|ホームディレクトリごと削除する。|
+## オプション
+
+<details><summary>-r</summary>
+
+ホームディレクトリごと削除する。
+
+```bash
+-r
+```
 
 </details>
 
-***
+</details>
 
 <details><summary>groupadd</summary>
 
 グループを作成する。
 
 ```shell
-groupadd [options] group_name
+groupadd <group_name>
 ```
 
 </details>
-
-***
 
 <details><summary>groups</summary>
 
@@ -350,58 +561,71 @@ groupadd [options] group_name
 ユーザ名を省略した場合、自分の所属するグループが表示される
 
 ```shell
-groups [user_name]
+groups [<user_name>]
 ```
 
 </details>
-
-***
 
 <details><summary>usermod</summary>
 
 ユーザが所属するグループを変更する
 
 ```shell
-usermod [options] username
+usermod <username>
 ```
 
-|オプション|説明|
-|:---|:---|
-|-g primary|プライマリグループを変更する|
-|-G sub|サブグループを変更する|
+## オプション
+
+<details><summary>-g</summary>
+
+プライマリグループを変更する。
+
+```bash
+-g <primary>
+```
 
 </details>
 
-***
+<details><summary>-G</summary>
+
+サブグループを変更する。
+
+```bash
+-G <sub>
+```
+
+</details>
+
+</details>
 
 <details><summary>groupdel</summary>
 
 グループを削除する
 
 ```shell
-groupdel [options] group_name
+groupdel <group_name>
 ```
 
 </details>
-
-***
 
 <details><summary>chmod</summary>
 
 ファイルのパーミッションを変更
 
 ```shell
-chmod permission file_path
+chmod <permission> <file_path>
 ```
 
-### 備考
+### パラメータ
 
-<details><summary>パーミッション指定方法</summary>
+<details><summary>permission</summary>
+
+指定方法は以下です。
 
 1. 次のフォーマットで指定する。
 `{u | g | o}{+ | - | =}{r | w | {x | t | s}}[...]`
 
-3. 3桁の8進数で指定
+2. 3桁の8進数で指定
 左の桁から所有者権限、グループ権限、第三者権限
 それぞれの桁はrwxのうち必要な権限に1をたてた
 2進数を作る。rw-なら110でこれを8真数に直して6
@@ -411,11 +635,7 @@ SUIDビットは4000を足す。SGIDビットは2000を足す。
 
 </details>
 
-***
-
 </details>
-
-***
 
 <details><summary>ln</summary>
 
@@ -428,40 +648,40 @@ path1のハードリンクを作成。
 シンボリックリンクはファイルシステムをまたぐことができる。
 
 ```shell
-ln [option] path1 link_name
+ln <path> <link_name>
 ```
 
-|オプション|説明|
-|:---|:---|
-|-s|シンボリックリンクを作成|
+## オプション
+
+<details><summary>-s</summary>
+
+```bash
+-s
+```
 
 </details>
 
-***
+</details>
 
 <details><summary>chown</summary>
 
 所有ユーザや所有グループを変更する。
 
 ```shell
-chown [options] user_name[:group] file_path
+chown <user_name>[:<group>] <file_path>
 ```
 
 </details>
-
-***
 
 <details><summary>chgrp</summary>
 
 所有グループのを変更する
 
 ```shell
-chgrp groupname path
+chgrp <groupname> <path>
 ```
 
 </details>
-
-***
 
 <details><summary>umask</summary>
 
@@ -478,34 +698,64 @@ umask値とはデフォルトの権限を決めるものです。
 となります。
 
 ```shell
-umask [値]
+umask [<number>]
 ```
 
-|オプション||
-|:---|:---|
-|-p|現在の値をumaskの形式で表示|
-|-s|現在の値をrwx(シンボルモード)の形式で表示|
+## オプション
+
+<details><summary>-p</summary>
+
+現在の値を`umask`の形式で表示
+
+```bash
+-p
+```
 
 </details>
 
-***
+<details><summary>-s</summary>
+
+現在の値を`rwx`の形式(シンボルモード)で表示
+
+```bash
+-s
+```
+
+</details>
+
+</details>
 
 <details><summary>find</summary>
 
 ファイルを検索する
 
 ```shell
-find path [options]
+find <path>
 ```
 
-|オプション|説明|
-|:---|:---|
-|-perm -xxx|パーミッションで検索|
-|-ls|ls -lと同じ形式で表示|
+## オプション
+
+<details><summary>-perm</summary>
+
+パーミッションで検索
+
+```bash
+-perm -<xxx>
+```
 
 </details>
 
-***
+<details><summary>-ls</summary>
+
+`ls -l`の形式で表示
+
+```bash
+-ls
+```
+
+</details>
+
+</details>
 
 <details><summary>tty</summary>
 
@@ -517,38 +767,77 @@ tty
 
 </details>
 
-***
-
 <details><summary>pstree</summary>
 
 プロセスの階層構造を表示する
 
 ```shell
-pstree [options] [pid | username]
+pstree [<pid> | <username>]
 ```
 
-|オプション|説明|
-|:---|:---|
-|-p|プロセスidを表示|
+## オプション
+
+<details><summary>-p</summary>
+
+プロセスidを表示
+
+```bash
+-p
+```
 
 </details>
 
-***
+</details>
 
 <details><summary>ps</summary>
 
 実行中のプロセスを一覧表示する
 
 ```shell
-ps [option]
+ps
 ```
 
-|オプション|説明|
-|:---|:---|
-|a|端末を持つすべてのプロセスを表示|
-|x|端末を持たないすべてのプロセスを表示する|
-|r|実行中のプロセスだけを表示する|
-|u|読みやすい形で表示|
+## オプション
+
+<details><summary>a</summary>
+
+コンソールが持つすべてのプロセスを表示
+
+```bash
+a
+```
+
+</details>
+
+<details><summary>x</summary>
+
+コンソールが持たないすべてのプロセスを表示する。
+
+```bash
+x
+```
+
+</details>
+
+<details><summary>r</summary>
+
+実行中のプロセスだけ表示する。
+
+```bash
+r
+```
+
+</details>
+
+<details><summary>u</summary>
+
+読みやす形で表示
+
+```bash
+u
+```
+
+</details>
 
 ### 備考
 
@@ -570,56 +859,105 @@ ps [option]
 
 </details>
 
-***
-
 </details>
-
-***
 
 <details><summary>kill</summary>
 
 プロセスを停止する
 
 ```shell
-kill [ptions] {pid | %job_number}
+kill {<pid> | %<job_number>}
 ```
 
-|オプション|説明|
-|:---|:---|
-|-HUP|端末が制御不能もしくは切断による終了|
-|-INT|キーボードからの割り込み|
-|-KILL|強制終了|
-|-TERM|終了(デフォルト)|
-|-CONT|停止しているプロセスを再開|
-|STOP|一時停止|
+## オプション
+
+<details><summary>-HUP</summary>
+
+端末が制御不能もしくは切断として終了
+
+```bash
+-HUP
+```
 
 </details>
 
-***
+<details><summary>-INT</summary>
+
+キーボードからの割り込みとして終了。
+
+```bash
+-INT
+```
+
+</details>
+
+<details><summary>-KILL</summary>
+
+強制終了
+
+```bash
+-KILL
+```
+
+</details>
+
+<details><summary>-TERM</summary>
+
+デフォルトの終了
+
+```bash
+-TERM
+```
+
+</details>
+
+<details><summary>-CONT</summary>
+
+一時停止しているプロセスを再開
+
+```bash
+-CONT
+```
+
+</details>
+
+<details><summary>-STOP</summary>
+
+一時停止する。
+
+```bash
+-STOP
+```
+
+</details>
+
+</details>
 
 <details><summary>jobs</summary>
 
 起動しているジョブの一覧
 
 ```shell
-jobs [オプション] [ジョブ番号]
+jobs [%<job_number>]
 ```
 
-|オプション|説明|
-|:---|:---|
-|-l|PIDを表示|
+<details><summary>-l</summary>
+
+`PID`を表示
+
+```bash
+-l
+```
+
+</details>
 
 <details><summary>jobsの結果のフォーマット</summary>
 
-`job_number{+ | - | } status jobname`
+`<job_number>{+ | - | } <status> <jobname>`
 
 </details>
 
-***
-
 </details>
-
-***
 
 <details><summary>bg</summary>
 
@@ -631,39 +969,33 @@ jobs [オプション] [ジョブ番号]
 
 `&`をつけることでバックグランドで実行
 
-`command &`
+`<command> &`
 
 ```shell
-bg [%job_number | - | +]
+bg [%<job_number>L | - | +]
 ```
 
 </details>
-
-***
 
 <details><summary>fg</summary>
 
 バックグランドジョブをフォアグランドで実行
 
 ```shell
-fg [%job_number | - | +]
+fg [%<job_number> | - | +]
 ```
 
 </details>
-
-***
 
 <details><summary>echo</summary>
 
 標準出力をする
 
 ```shell
-echo something
+echo <something>
 ```
 
 </details>
-
-***
 
 <details><summary>date</summary>
 
@@ -675,8 +1007,6 @@ date
 
 </details>
 
-***
-
 <details><summary>set</summary>
 
 シェルのオプションを設定する。
@@ -686,13 +1016,30 @@ shell_optionを指定せずに
 `set -o`とした場合、現在の設定を見れる
 
 ```shell
-set [options] [shell_option]
+set [<shell_option>]
 ```
 
-|オプション|説明|
-|:---|:---|
-|-o|有効にする|
-|+o|無効にする|
+## オプション
+
+<details><summary>-o</summary>
+
+有効にする
+
+```bash
+-o
+```
+
+</details>
+
+<details><summary>+o</summary>
+
+無効にする。
+
+```bash
++o
+```
+
+</details>
 
 ### 備考
 
@@ -704,82 +1051,193 @@ set [options] [shell_option]
 
 </details>
 
-***
-
 </details>
-
-***
 
 <details><summary>tee</summary>
 
 パイプを使用することで、ファイル書き込みと標準出力を同時にできる。
 
 ```shell
-command | tee path
+command | tee <path>
 ```
 
 </details>
-
-***
 
 <details><summary>gzip</summary>
 
 指定したファイルをGNU zip形式で圧縮したファイルを作成する。
 
 ```shell
-gzip [options] path[ ...]
+gzip <path>[ ...]
 ```
 
-|オプション|説明|
-|:---|:---|
-|-c|圧縮した結果をファイルに書き込まずに標準出力する|
-|-v|処理情報を詳細に表示する|
-|-d|圧縮ファイルを回答する|
-|-l|圧縮前後のサイズ、圧縮率、元のファイル名を表示する|
+## オプション
+
+<details><summary>-c</summary>
+
+圧縮した結果をファイルに書き込まずに標準出力する
+
+```bash
+-c
+```
 
 </details>
 
-***
+<details><summary>-v</summary>
+
+処理情報を詳細に表示する。
+
+```bash
+-v
+```
+
+</details>
+
+<details><summary>-d</summary>
+
+アシュクファイルを解凍する。
+
+```bash
+-d
+```
+
+</details>
+
+<details><summary>-l</summary>
+
+圧縮前後のサイズ、圧縮率、元のファイル名を表示する。
+
+```bash
+-l
+```
+
+</details>
+
+</details>
 
 <details><summary>gunzip</summary>
 
 gzipを解凍する
 
 ```shell
-gunzip [options] path[ ...]
+gunzip <path>[ ...]
 ```
 
-|オプション|説明|
-|:---|:---|
-|-c|圧縮した結果をファイルに書き込まずに標準出力する|
-|-v|処理情報を詳細に表示する|
+## オプション
+
+<details><summary>-c</summary>
+
+圧縮した結果をファイルに書き込まずに標準出力する
+
+```bash
+-c
+```
 
 </details>
 
-***
+<details><summary>-v</summary>
+
+勝利情報を詳細に表示する。
+
+```bash
+-v
+```
+
+</details>
+
+</details>
 
 <details><summary>tar</summary>
 
 アーカイブを作成する
 
 ```shell
-tar [options] path[ ...]
+tar <path>[ ...]
 ```
 
-|オプション|説明|
-|:---|:---|
-|c|アーカイブファイルの作成|
-|x|アーカイブファイルの展開|
-|t|アーカイブファイルの内容をlsコマンド形式で一覧表示|
-|r|既存のアーカイブファイルの最後に新たにファイルを追加|
-|v|処理情報を詳細に表示する|
-|f name|作成するアーカイブに名前をつける|
-|z|gzip形式の圧縮、解凍を同時に行う|
-|j|bzip2形式の圧縮、解凍を同時に行う|
+## オプション
+
+<details><summary>c</summary>
+
+アーカイブファイルの作成
+
+```bash
+c
+```
 
 </details>
 
-***
+<details><summary>x</summary>
+
+アーカイブファイルの展開
+
+```bash
+x
+```
+
+</details>
+
+<details><summary>t</summary>
+
+アーカイブファイルんの`ls`コマンド形式で一覧表示
+
+```bash
+t
+```
+
+</details>
+
+<details><summary>r/summary>
+
+既存のアーカイブファイルの最後に新たにファイルを追加
+
+```bash
+r
+```
+
+</details>
+
+<details><summary>v</summary>
+
+処理情報を詳細に表示する。
+
+```bash
+v
+```
+
+</details>
+
+<details><summary>f</summary>
+
+作成するアーカイブに名前をつける。
+
+```bash
+f <name>
+```
+
+</details>
+
+<details><summary>z</summary>
+
+`gzip`形式の圧縮、解凍を同時におこなう。
+
+```bash
+z
+```
+
+</details>
+
+<details><summary>j</summary>
+
+`bzip2`形式の圧縮、解凍を同時に行う。
+
+```bash
+j
+```
+
+</details>
+
+</details>
 
 <details><summary>mkfifo</summary>
 
@@ -792,12 +1250,10 @@ tar [options] path[ ...]
 出力を渡せます。
 
 ```shell
-mkfifo [option] name
+mkfifo <name>
 ```
 
 </details>
-
-***
 
 <details><summary>mount</summary>
 
@@ -808,18 +1264,32 @@ mkfifo [option] name
 また、fstabに登録されている場合、device_nameもしくはpathどちらかでよい。
 
 ```shell
-mount [options] [device_name] [path]
+mount [<device_name>] [<path>]
 ```
 
-|オプション|説明|
-|:---|:---|
-|-t file_system|ファイルシステムを指定する|
-|-o mount_option|マウントオプションを指定する|
-|-a|/etc/fstabに登録されているすべてのファイルシステムをマウント|
+## オプション
 
-### 備考
+<details><summary>-t</summary>
 
-<details><summary>mount -oで扱うマウントのオプション</summary>
+ファイルシステムを指定する。
+
+```bash
+-t <file_system>
+```
+
+</details>
+
+<details><summary>-o</summary>
+
+マウントオプションを指定する。
+
+```bash
+-o <mount_option>
+```
+
+### パラメータ
+
+<details><summary>mount_option</summary>
 
 |マウントオプション||
 |:---|:---|
@@ -827,37 +1297,58 @@ mount [options] [device_name] [path]
 
 </details>
 
-***
+</details>
+
+<details><summary>-a</summary>
+
+/etc/fstabに登録されているすべてのファイルシステムをマウント
+
+```bash
+-a
+```
 
 </details>
 
-***
+</details>
 
 <details><summary>unmount</summary>
 
 マウントしたファイルシステムを解除する。
 
 ```shell
-unmount {device_name | path}
+unmount {<device_name> | <path>}
 ```
 
 </details>
-
-***
 
 <details><summary>df</summary>
 
 現在マウントされているファイルシステムを一覧表示
 
 ```shell
-df [options]
+df
 ```
 
-|オプション|説明|
-|:---|:---|
-|-h|容量や使用量が単位付きで表示される。|
-|-i|ファイル数を表示(ノード数)|
+## オプション
+
+<details><summary>-h</summary>
+
+容量や使用料が単位付きで表示される。
+
+```bash
+-h
+```
 
 </details>
 
-***
+<details><summary>-i</summary>
+
+ファイル数を表示(ノード数)
+
+```bash
+-i
+```
+
+</details>
+
+</details>

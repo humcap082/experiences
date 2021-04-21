@@ -52,8 +52,6 @@ def get(
 
 </details>
 
-***
-
 <details><summary>post()</summary>
 
 `POST`リクエストを処理する関数をルーティングするデコレータ
@@ -88,8 +86,6 @@ def post(
 ```
 
 </details>
-
-***
 
 <details><summary>put()</summary>
 
@@ -126,8 +122,6 @@ def put(
 
 </details>
 
-***
-
 <details><summary>patch()</summary>
 
 `PATCH`リクエストを処理する関数をルーティングするデコレータ
@@ -163,8 +157,6 @@ def patch(
 
 </details>
 
-***
-
 <details><summary>delete()</summary>
 
 `DELETE`リクエストを処理する関数をルーティングするデコレータ
@@ -199,5 +191,3 @@ def delete(
 ```
 
 </details>
-
-***

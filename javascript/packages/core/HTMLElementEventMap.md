@@ -121,8 +121,6 @@ interface DocumentAndElementEventHandlersEventMap {
 
 </details>
 
-***
-
 <details><summary>mouseover</summary>
 
 マウスホバー時のイベント
@@ -132,8 +130,6 @@ interface DocumentAndElementEventHandlersEventMap {
 ```
 
 </details>
-
-***
 
 <details><summary>mouseout</summary>
 
@@ -145,8 +141,6 @@ interface DocumentAndElementEventHandlersEventMap {
 
 </details>
 
-***
-
 <details><summary>load</summary>
 
 ページや画像の読み込みが完了したときのイヴェント
@@ -156,8 +150,6 @@ interface DocumentAndElementEventHandlersEventMap {
 ```
 
 </details>
-
-***
 
 <details><summary>submit</summary>
 
@@ -169,8 +161,6 @@ interface DocumentAndElementEventHandlersEventMap {
 
 </details>
 
-***
-
 <details><summary>change</summary>
 
 フィールドなどの値が変更されたときのイベント
@@ -180,8 +170,6 @@ interface DocumentAndElementEventHandlersEventMap {
 ```
 
 </details>
-
-***
 
 <details><summary>focus</summary>
 
@@ -193,8 +181,6 @@ interface DocumentAndElementEventHandlersEventMap {
 
 </details>
 
-***
-
 <details><summary>blur</summary>
 
 フィールドなどからフォーカスが外れた時のイベント
@@ -204,5 +190,3 @@ interface DocumentAndElementEventHandlersEventMap {
 ```
 
 </details>
-
-***

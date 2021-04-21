@@ -27,8 +27,6 @@ write(...text: string[]): void;
 
 </details>
 
-***
-
 <details><summary>querySelector()</summary>
 
 指定した`css`セレクタに一致する最初のDOMを取得する。
@@ -45,8 +43,6 @@ querySelector<K extends keyof SVGElementTagNameMap>(
 querySelector<E extends Element = Element>(selectors: string): E | null;
 ```
 </details>
-
-***
 
 <details><summary>querySelectorAll()</summary>
 
@@ -67,5 +63,3 @@ querySelectorAll<E extends Element = Element>(
 ```
 
 </details>
-
-***
