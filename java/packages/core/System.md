@@ -13,3 +13,11 @@ public static final PrintStream out = null;
 ```
 
 </details>
+
+<details><summary>in</summary>
+
+```java
+public static final InputStream in = null;
+```
+
+</details>

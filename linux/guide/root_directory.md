@@ -1,21 +1,72 @@
 # ルートディレクトリ
 
-|ディレクトリ名|説明|
-|:---|:---|
-|bin|通常のコマンドなどのバイナリファイルがおかれる|
-|dev|特殊デバイスファイル|
-|home|一般ユーザのホームディレクトリがおかれる|
-|lib|ライブラリがおかれる|
-|root|rootのホームディレクトリがおかれる|
-|tmp|一時的に作成されるファイルがおかれる|
-|var|ログファイルなど頻繁に変更されるファイルがおかれる|
-|boot|起動時に必要なファイル|
-|etc|各種プログラムの設定ファイルなどがおかれる|
-|media|一時的なマウントポイントなどが置かれる|
-|proc|動作中のOSの情報などがおかれる|
-|sbin|管理者用のコマンドがおかれる|
+<details><summary>bin</summary>
 
-<details><summary>etc/passwd</summary>
+通常のコマンドなどのバイナリファイルがおかれる
+
+</details>
+
+<details><summary>dev</summary>
+
+特殊デバイスファイル
+
+## ディレクトリ
+
+<details><summary>tty</summary>
+
+`dev/tty1`のように端末をファイルのように扱っており、
+
+ここのファイルに標準入力するとコンソールに標準出力される。
+
+特に直接触る必要はない。
+
+</details>
+
+</details>
+
+<details><summary>home</summary>
+
+一般ユーザのホームディレクトリがおかれる
+
+</details>
+
+<details><summary>lib</summary>
+
+ライブラリがおかれる
+
+</details>
+
+<details><summary>root</summary>
+
+rootのホームディレクトリがおかれる
+
+</details>
+
+<details><summary>tmp</summary>
+
+一時的に作成されるファイルがおかれる
+
+</details>
+
+<details><summary>var</summary>
+
+ログファイルなど頻繁に変更されるファイルがおかれる
+
+</details>
+
+<details><summary>boot</summary>
+
+起動時に必要なファイル
+
+</details>
+
+<details><summary>etc</summary>
+
+各種プログラムの設定ファイルなどがおかれる
+
+## ディレクトリ
+
+<details><summary>passwd</summary>
 
 ユーザー情報が保存される。
 
@@ -33,7 +84,7 @@ student:1000:1000:student:/home/student:/bin/bash
 
 </details>
 
-<details><summary>etc/group</summary>
+<details><summary>group</summary>
 
 グループ情報が格納される。
 
@@ -47,7 +98,7 @@ wheel:x:10:student
 
 </details>
 
-<details><summary>etc/fstab</summary>
+<details><summary>fstab</summary>
 
 OS起動時にマウントするファイルシステムの一覧
 
@@ -57,12 +108,22 @@ OS起動時にマウントするファイルシステムの一覧
 
 </details>
 
-<details><summary>dev/tty</summary>
+</details>
 
-`dev/tty1`のように端末をファイルのように扱っており、
+<details><summary>media</summary>
 
-ここのファイルに標準入力するとコンソールに標準出力される。
+一時的なマウントポイントなどが置かれる
 
-特に直接触る必要はない。
+</details>
+
+<details><summary>proc</summary>
+
+動作中のOSの情報などがおかれる
+
+</details>
+
+<details><summary>sbin</summary>
+
+管理者用のコマンドがおかれる
 
 </details>

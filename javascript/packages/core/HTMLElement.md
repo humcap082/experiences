@@ -13,7 +13,7 @@ interface HTMLElement extends
     HTMLOrSVGElement {
 ```
 
-### 属性
+## 属性
 
 <details><summary>innerHTML</summary>
 
@@ -27,8 +27,6 @@ interface InnerHTML {
 
 </details>
 
-***
-
 <details><summary>style</summary>
 
 タグのCSSスタイルを保持
@@ -41,9 +39,7 @@ interface ElementCSSInlineStyle {
 
 </details>
 
-***
-
-### メソッド
+## メソッド
 
 <details><summary>addEventListener()</summary>
 
@@ -65,8 +61,6 @@ addEventListener(
 
 </details>
 
-***
-
 <details><summary>removeEventListener()</summary>
 
 イベントを除外する。
@@ -86,5 +80,3 @@ removeEventListener(
 ```
 
 </details>
-
-***

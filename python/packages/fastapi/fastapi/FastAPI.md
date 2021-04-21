@@ -42,8 +42,6 @@ title: str = "FastAPI",
 
 </details>
 
-***
-
 <details><summary>description</summary>
 
 アプリケーションの説明
@@ -54,8 +52,6 @@ description: str = "",
 
 </details>
 
-***
-
 <details><summary>version</summary>
 
 アプリケーションのバージョン
@@ -65,8 +61,6 @@ version: str = "0.1.0",
 ```
 
 </details>
-
-***
 
 <details><summary>openapi_url</summary>
 
@@ -85,11 +79,7 @@ openapi_url: Optional[str] = "/openapi.json",
 
 </details>
 
-***
-
 </details>
-
-***
 
 <details><summary>openapi_tags</summary>
 
@@ -115,11 +105,7 @@ openapi_tags: Optional[List[Dict[str, Any]]] = None,
 
 </details>
 
-***
-
 </details>
-
-***
 
 <details><summary>docs_url</summary>
 
@@ -133,11 +119,7 @@ openapi_tags: Optional[List[Dict[str, Any]]] = None,
 
 </details>
 
-***
-
 </details>
-
-***
 
 <details><summary>redoc_url</summary>
 
@@ -155,11 +137,7 @@ redoc_url: Optional[str] = "/redoc",
 
 </details>
 
-***
-
 </details>
-
-***
 
 ## 属性
 
@@ -185,11 +163,7 @@ app.dependency_overrides[get_settings] = override_get_settings
 
 </details>
 
-***
-
 </details>
-
-***
 
 <details><summary>state</summary>
 
@@ -229,11 +203,7 @@ async def get_users(request: Request, user_id: uuid.UUID = Path(...)):
 
 </details>
 
-***
-
 </details>
-
-***
 
 ## メソッド
 
@@ -270,9 +240,368 @@ def get(
 ) -> Callable:
 ```
 
+<details><summary>path</summary>
+
+唯一の位置引数、ルーティングするパスをいれる
+
+```python
+path: str,
+```
+
+### 例
+
+<details><summary>パスを含むパスパラメータ</summary>
+
+```python
+from fastapi import FastAPI
+app = FastAPI()
+
+@app.get('/files/{file_path:path}')
+async def read_file(file_path: str):
+    return {'file_path': file_path}
+```
+
 </details>
 
-***
+</details>
+
+<details><summary>response_model</summary>
+
+レスポンスボディの型を定義する
+
+```python
+response_model: Type[Any] = None,
+```
+
+</details>
+
+<details><summary>status_code</summary>
+
+返されるステータスコード
+
+```python
+status_code: int = 200,
+```
+
+</details>
+
+<details><summary>tags</summary>
+
+タグをつけられる。通常は1個だけつける
+
+```python
+tags: List[str] = None,
+```
+
+</details>
+
+<details><summary>dependencies</summary>
+
+複数の依存関係を指定できる。
+
+```python
+dependencies: Sequence[Depends] = None,
+
+```
+
+</details>
+
+<details><summary>summary</summary>
+
+要約
+
+```python
+summary: str = None,
+```
+
+</details>
+
+<details><summary>description</summary>
+
+説明文
+
+```python
+description: str = None,
+```
+
+### 例
+
+<details><summary>docstringの使用</summary>
+
+`description`の代わりに`docstring`をしようすることができる。
+
+マークダウン方式で書くことができる。
+
+```python
+from typing import Optional, Set
+from fastapi import FastAPI
+from pydantic import BaseModel
+
+app = FastAPI()
+
+
+class Item(BaseModel):
+    name: str
+    description: Optional[str] = None
+    price: float
+    tax: Optional[float] = None
+    tags: Set[str] = []
+
+@app.post(
+    '/items/',
+    response_model=Item,
+    summary='Create an Item',
+)
+async def create_item(item: Item):
+    """Create an item with all the information.
+    - **name**: each item must have a name
+    - **description**: a long description
+    - **price**: required
+    - **tax**: if the item doesn't have tax, you can omit this
+    - **tags**: a set of unique tag strings for this item
+    """
+    return item
+```
+
+</details>
+
+</details>
+
+<details><summary>response_description</summary>
+
+レスポンスモデルの説明分
+
+```python
+response_description: str = "Successful Response",
+```
+
+</details>
+
+<details><summary>responses</summary>
+
+デフォルトのレスポンス
+
+```python
+responses: Dict[Union[int, str], Dict[str, Any]] = None,
+```
+
+### 例
+
+<details><summary>デフォルトのレスポンスを設定する。</summary>
+
+```python
+from typing import Optional
+
+from fastapi import FastAPI
+from fastapi.responses import FileResponse
+from pydantic import BaseModel
+
+
+class Item(BaseModel):
+    id: str
+    value: str
+
+
+app = FastAPI()
+
+
+@app.get(
+    "/items/{item_id}",
+    response_model=Item,
+    responses={
+        200: {
+            "content": {"image/png": {}},
+            "description": "Return the JSON item or an image.",
+        }
+    },
+)
+async def read_item(item_id: str, img: Optional[bool] = None):
+    if img:
+        return FileResponse("image.png", media_type="image/png")
+    else:
+        return {"id": "foo", "value": "there goes my hero"}
+```
+
+</details>
+
+</details>
+
+<details><summary>deprecated</summary>
+
+非推奨の関数かどうか
+
+```python
+deprecated: bool = None,
+```
+
+</details>
+
+<details><summary>response_model_include</summary>
+
+response_modelのなかで出力する属性を指定する
+
+```python
+response_model_include: Union[SetIntStr, DictIntStrAny] = None,
+```
+
+### 例
+
+<details><summary>指定した属性でレスポンスをフィルタリング</summary>
+
+```python
+from typing import Optional
+from fastapi import FastAPI
+from pydantic import BaseModel
+
+app = FastAPI()
+
+class Item(BaseModel):
+    name: str
+    description: Optional[str] = None
+    price: float
+    tax: float = 10.5
+
+items = {
+    'foo': {'name': 'Foo', 'price': 50.2},
+    'bar': {'name': 'Bar', 'description': 'The Bar fighters', 'price': 62, 'tax': 20.2},
+    'baz': {
+        'name': 'Baz',
+        'description': 'There goes my baz',
+        'price': 50.2,
+        'tax': 10.5,
+    },
+}
+
+@app.get('/items/{item_id}/public', response_model=Item, response_model_exclude={'tax'})
+async def read_item_public_data(item_id: str):
+    return items[item_id]
+```
+
+</details>
+
+</details>
+
+<details><summary>response_model_exclude</summary>
+
+response_modelのなかで無視する属性を指定する
+
+```python
+response_model_exclude: Union[SetIntStr, DictIntStrAny] = set(),
+```
+
+### 例
+
+<details><summary>指定した属性をレスポンスから排除</summary>
+
+```python
+from typing import Optional
+from fastapi import FastAPI
+from pydantic import BaseModel
+
+app = FastAPI()
+
+class Item(BaseModel):
+    name: str
+    description: Optional[str] = None
+    price: float
+    tax: float = 10.5
+
+items = {
+    'foo': {'name': 'Foo', 'price': 50.2},
+    'bar': {'name': 'Bar', 'description': 'The Bar fighters', 'price': 62, 'tax': 20.2},
+    'baz': {
+        'name': 'Baz',
+        'description': 'There goes my baz',
+        'price': 50.2,
+        'tax': 10.5,
+    },
+}
+
+
+@app.get('/items/{item_id}/public', response_model=Item, response_model_exclude={'tax'})
+async def read_item_public_data(item_id: str):
+    return items[item_id]
+```
+
+</details>
+
+
+</details>
+
+<details><summary>response_model_exclude_unset</summary>
+
+response_modelのなかでセット指定されなかったデフォルトの値の出力を無視するかどうかするかどうか
+
+```python
+response_model_exclude_unset: bool = False,
+```
+
+### 例
+
+<details><summary>セットされていない属性を排除</summary>
+
+```python
+from typing import List, Optional
+from fastapi import FastAPI
+from pydantic import BaseModel
+app = FastAPI()
+
+class Item(BaseModel):
+    name: str
+    description: Optional[str] = None
+    price: float
+    tax: float = 10.5
+    tags: List[str] = []
+
+items = {
+    'foo': {'name': 'Foo', 'price': 50.2},
+    'bar': {'name': 'Bar', 'description': 'The bartenders', 'price': 62, 'tax': 20.2},
+    'baz': {'name': 'Baz', 'description': None, 'price': 50.2, 'tax': 10.5, 'tags': []}
+}
+
+@app.get('/items/{item_id}', response_model=Item, response_model_exclude_unset=True)
+async def read_item(item_id: str):
+    return items[item_id]
+```
+
+この場合、`http://127.0.0.1:8000/items/foo`を叩くと
+
+次のように、指定してないデフォルトの値はかえってきません。
+
+```python
+{
+  "name": "Foo",
+  "price": 50.2
+}
+```
+
+</details>
+
+</details>
+
+<details><summary>response_model_exclude_defaults</summary>
+
+response_modelのなかでデフォルトのままの値の出力を無視するかどうか
+
+```python
+response_model_exclude_defaults: bool = False,
+```
+
+</details>
+
+<details><summary>response_model_exclude_none</summary>
+
+response_modelのなかでNoneの出力を無視するかどうか
+
+```python
+response_model_exclude_none: bool = False,
+```
+
+</details>
+
+</details>
+
+</details>
 
 <details><summary>post()</summary>
 
@@ -307,9 +636,368 @@ def post(
     ) -> Callable:
 ```
 
+<details><summary>path</summary>
+
+唯一の位置引数、ルーティングするパスをいれる
+
+```python
+path: str,
+```
+
+### 例
+
+<details><summary>パスを含むパスパラメータ</summary>
+
+```python
+from fastapi import FastAPI
+app = FastAPI()
+
+@app.get('/files/{file_path:path}')
+async def read_file(file_path: str):
+    return {'file_path': file_path}
+```
+
 </details>
 
-***
+</details>
+
+<details><summary>response_model</summary>
+
+レスポンスボディの型を定義する
+
+```python
+response_model: Type[Any] = None,
+```
+
+</details>
+
+<details><summary>status_code</summary>
+
+返されるステータスコード
+
+```python
+status_code: int = 200,
+```
+
+</details>
+
+<details><summary>tags</summary>
+
+タグをつけられる。通常は1個だけつける
+
+```python
+tags: List[str] = None,
+```
+
+</details>
+
+<details><summary>dependencies</summary>
+
+複数の依存関係を指定できる。
+
+```python
+dependencies: Sequence[Depends] = None,
+
+```
+
+</details>
+
+<details><summary>summary</summary>
+
+要約
+
+```python
+summary: str = None,
+```
+
+</details>
+
+<details><summary>description</summary>
+
+説明文
+
+```python
+description: str = None,
+```
+
+### 例
+
+<details><summary>docstringの使用</summary>
+
+`description`の代わりに`docstring`をしようすることができる。
+
+マークダウン方式で書くことができる。
+
+```python
+from typing import Optional, Set
+from fastapi import FastAPI
+from pydantic import BaseModel
+
+app = FastAPI()
+
+
+class Item(BaseModel):
+    name: str
+    description: Optional[str] = None
+    price: float
+    tax: Optional[float] = None
+    tags: Set[str] = []
+
+@app.post(
+    '/items/',
+    response_model=Item,
+    summary='Create an Item',
+)
+async def create_item(item: Item):
+    """Create an item with all the information.
+    - **name**: each item must have a name
+    - **description**: a long description
+    - **price**: required
+    - **tax**: if the item doesn't have tax, you can omit this
+    - **tags**: a set of unique tag strings for this item
+    """
+    return item
+```
+
+</details>
+
+</details>
+
+<details><summary>response_description</summary>
+
+レスポンスモデルの説明分
+
+```python
+response_description: str = "Successful Response",
+```
+
+</details>
+
+<details><summary>responses</summary>
+
+デフォルトのレスポンス
+
+```python
+responses: Dict[Union[int, str], Dict[str, Any]] = None,
+```
+
+### 例
+
+<details><summary>デフォルトのレスポンスを設定する。</summary>
+
+```python
+from typing import Optional
+
+from fastapi import FastAPI
+from fastapi.responses import FileResponse
+from pydantic import BaseModel
+
+
+class Item(BaseModel):
+    id: str
+    value: str
+
+
+app = FastAPI()
+
+
+@app.get(
+    "/items/{item_id}",
+    response_model=Item,
+    responses={
+        200: {
+            "content": {"image/png": {}},
+            "description": "Return the JSON item or an image.",
+        }
+    },
+)
+async def read_item(item_id: str, img: Optional[bool] = None):
+    if img:
+        return FileResponse("image.png", media_type="image/png")
+    else:
+        return {"id": "foo", "value": "there goes my hero"}
+```
+
+</details>
+
+</details>
+
+<details><summary>deprecated</summary>
+
+非推奨の関数かどうか
+
+```python
+deprecated: bool = None,
+```
+
+</details>
+
+<details><summary>response_model_include</summary>
+
+response_modelのなかで出力する属性を指定する
+
+```python
+response_model_include: Union[SetIntStr, DictIntStrAny] = None,
+```
+
+### 例
+
+<details><summary>指定した属性でレスポンスをフィルタリング</summary>
+
+```python
+from typing import Optional
+from fastapi import FastAPI
+from pydantic import BaseModel
+
+app = FastAPI()
+
+class Item(BaseModel):
+    name: str
+    description: Optional[str] = None
+    price: float
+    tax: float = 10.5
+
+items = {
+    'foo': {'name': 'Foo', 'price': 50.2},
+    'bar': {'name': 'Bar', 'description': 'The Bar fighters', 'price': 62, 'tax': 20.2},
+    'baz': {
+        'name': 'Baz',
+        'description': 'There goes my baz',
+        'price': 50.2,
+        'tax': 10.5,
+    },
+}
+
+@app.get('/items/{item_id}/public', response_model=Item, response_model_exclude={'tax'})
+async def read_item_public_data(item_id: str):
+    return items[item_id]
+```
+
+</details>
+
+</details>
+
+<details><summary>response_model_exclude</summary>
+
+response_modelのなかで無視する属性を指定する
+
+```python
+response_model_exclude: Union[SetIntStr, DictIntStrAny] = set(),
+```
+
+### 例
+
+<details><summary>指定した属性をレスポンスから排除</summary>
+
+```python
+from typing import Optional
+from fastapi import FastAPI
+from pydantic import BaseModel
+
+app = FastAPI()
+
+class Item(BaseModel):
+    name: str
+    description: Optional[str] = None
+    price: float
+    tax: float = 10.5
+
+items = {
+    'foo': {'name': 'Foo', 'price': 50.2},
+    'bar': {'name': 'Bar', 'description': 'The Bar fighters', 'price': 62, 'tax': 20.2},
+    'baz': {
+        'name': 'Baz',
+        'description': 'There goes my baz',
+        'price': 50.2,
+        'tax': 10.5,
+    },
+}
+
+
+@app.get('/items/{item_id}/public', response_model=Item, response_model_exclude={'tax'})
+async def read_item_public_data(item_id: str):
+    return items[item_id]
+```
+
+</details>
+
+
+</details>
+
+<details><summary>response_model_exclude_unset</summary>
+
+response_modelのなかでセット指定されなかったデフォルトの値の出力を無視するかどうかするかどうか
+
+```python
+response_model_exclude_unset: bool = False,
+```
+
+### 例
+
+<details><summary>セットされていない属性を排除</summary>
+
+```python
+from typing import List, Optional
+from fastapi import FastAPI
+from pydantic import BaseModel
+app = FastAPI()
+
+class Item(BaseModel):
+    name: str
+    description: Optional[str] = None
+    price: float
+    tax: float = 10.5
+    tags: List[str] = []
+
+items = {
+    'foo': {'name': 'Foo', 'price': 50.2},
+    'bar': {'name': 'Bar', 'description': 'The bartenders', 'price': 62, 'tax': 20.2},
+    'baz': {'name': 'Baz', 'description': None, 'price': 50.2, 'tax': 10.5, 'tags': []}
+}
+
+@app.get('/items/{item_id}', response_model=Item, response_model_exclude_unset=True)
+async def read_item(item_id: str):
+    return items[item_id]
+```
+
+この場合、`http://127.0.0.1:8000/items/foo`を叩くと
+
+次のように、指定してないデフォルトの値はかえってきません。
+
+```python
+{
+  "name": "Foo",
+  "price": 50.2
+}
+```
+
+</details>
+
+</details>
+
+<details><summary>response_model_exclude_defaults</summary>
+
+response_modelのなかでデフォルトのままの値の出力を無視するかどうか
+
+```python
+response_model_exclude_defaults: bool = False,
+```
+
+</details>
+
+<details><summary>response_model_exclude_none</summary>
+
+response_modelのなかでNoneの出力を無視するかどうか
+
+```python
+response_model_exclude_none: bool = False,
+```
+
+</details>
+
+</details>
+
+</details>
 
 <details><summary>put()</summary>
 
@@ -344,9 +1032,368 @@ def put(
     ) -> Callable:
 ```
 
+<details><summary>path</summary>
+
+唯一の位置引数、ルーティングするパスをいれる
+
+```python
+path: str,
+```
+
+### 例
+
+<details><summary>パスを含むパスパラメータ</summary>
+
+```python
+from fastapi import FastAPI
+app = FastAPI()
+
+@app.get('/files/{file_path:path}')
+async def read_file(file_path: str):
+    return {'file_path': file_path}
+```
+
 </details>
 
-***
+</details>
+
+<details><summary>response_model</summary>
+
+レスポンスボディの型を定義する
+
+```python
+response_model: Type[Any] = None,
+```
+
+</details>
+
+<details><summary>status_code</summary>
+
+返されるステータスコード
+
+```python
+status_code: int = 200,
+```
+
+</details>
+
+<details><summary>tags</summary>
+
+タグをつけられる。通常は1個だけつける
+
+```python
+tags: List[str] = None,
+```
+
+</details>
+
+<details><summary>dependencies</summary>
+
+複数の依存関係を指定できる。
+
+```python
+dependencies: Sequence[Depends] = None,
+
+```
+
+</details>
+
+<details><summary>summary</summary>
+
+要約
+
+```python
+summary: str = None,
+```
+
+</details>
+
+<details><summary>description</summary>
+
+説明文
+
+```python
+description: str = None,
+```
+
+### 例
+
+<details><summary>docstringの使用</summary>
+
+`description`の代わりに`docstring`をしようすることができる。
+
+マークダウン方式で書くことができる。
+
+```python
+from typing import Optional, Set
+from fastapi import FastAPI
+from pydantic import BaseModel
+
+app = FastAPI()
+
+
+class Item(BaseModel):
+    name: str
+    description: Optional[str] = None
+    price: float
+    tax: Optional[float] = None
+    tags: Set[str] = []
+
+@app.post(
+    '/items/',
+    response_model=Item,
+    summary='Create an Item',
+)
+async def create_item(item: Item):
+    """Create an item with all the information.
+    - **name**: each item must have a name
+    - **description**: a long description
+    - **price**: required
+    - **tax**: if the item doesn't have tax, you can omit this
+    - **tags**: a set of unique tag strings for this item
+    """
+    return item
+```
+
+</details>
+
+</details>
+
+<details><summary>response_description</summary>
+
+レスポンスモデルの説明分
+
+```python
+response_description: str = "Successful Response",
+```
+
+</details>
+
+<details><summary>responses</summary>
+
+デフォルトのレスポンス
+
+```python
+responses: Dict[Union[int, str], Dict[str, Any]] = None,
+```
+
+### 例
+
+<details><summary>デフォルトのレスポンスを設定する。</summary>
+
+```python
+from typing import Optional
+
+from fastapi import FastAPI
+from fastapi.responses import FileResponse
+from pydantic import BaseModel
+
+
+class Item(BaseModel):
+    id: str
+    value: str
+
+
+app = FastAPI()
+
+
+@app.get(
+    "/items/{item_id}",
+    response_model=Item,
+    responses={
+        200: {
+            "content": {"image/png": {}},
+            "description": "Return the JSON item or an image.",
+        }
+    },
+)
+async def read_item(item_id: str, img: Optional[bool] = None):
+    if img:
+        return FileResponse("image.png", media_type="image/png")
+    else:
+        return {"id": "foo", "value": "there goes my hero"}
+```
+
+</details>
+
+</details>
+
+<details><summary>deprecated</summary>
+
+非推奨の関数かどうか
+
+```python
+deprecated: bool = None,
+```
+
+</details>
+
+<details><summary>response_model_include</summary>
+
+response_modelのなかで出力する属性を指定する
+
+```python
+response_model_include: Union[SetIntStr, DictIntStrAny] = None,
+```
+
+### 例
+
+<details><summary>指定した属性でレスポンスをフィルタリング</summary>
+
+```python
+from typing import Optional
+from fastapi import FastAPI
+from pydantic import BaseModel
+
+app = FastAPI()
+
+class Item(BaseModel):
+    name: str
+    description: Optional[str] = None
+    price: float
+    tax: float = 10.5
+
+items = {
+    'foo': {'name': 'Foo', 'price': 50.2},
+    'bar': {'name': 'Bar', 'description': 'The Bar fighters', 'price': 62, 'tax': 20.2},
+    'baz': {
+        'name': 'Baz',
+        'description': 'There goes my baz',
+        'price': 50.2,
+        'tax': 10.5,
+    },
+}
+
+@app.get('/items/{item_id}/public', response_model=Item, response_model_exclude={'tax'})
+async def read_item_public_data(item_id: str):
+    return items[item_id]
+```
+
+</details>
+
+</details>
+
+<details><summary>response_model_exclude</summary>
+
+response_modelのなかで無視する属性を指定する
+
+```python
+response_model_exclude: Union[SetIntStr, DictIntStrAny] = set(),
+```
+
+### 例
+
+<details><summary>指定した属性をレスポンスから排除</summary>
+
+```python
+from typing import Optional
+from fastapi import FastAPI
+from pydantic import BaseModel
+
+app = FastAPI()
+
+class Item(BaseModel):
+    name: str
+    description: Optional[str] = None
+    price: float
+    tax: float = 10.5
+
+items = {
+    'foo': {'name': 'Foo', 'price': 50.2},
+    'bar': {'name': 'Bar', 'description': 'The Bar fighters', 'price': 62, 'tax': 20.2},
+    'baz': {
+        'name': 'Baz',
+        'description': 'There goes my baz',
+        'price': 50.2,
+        'tax': 10.5,
+    },
+}
+
+
+@app.get('/items/{item_id}/public', response_model=Item, response_model_exclude={'tax'})
+async def read_item_public_data(item_id: str):
+    return items[item_id]
+```
+
+</details>
+
+
+</details>
+
+<details><summary>response_model_exclude_unset</summary>
+
+response_modelのなかでセット指定されなかったデフォルトの値の出力を無視するかどうかするかどうか
+
+```python
+response_model_exclude_unset: bool = False,
+```
+
+### 例
+
+<details><summary>セットされていない属性を排除</summary>
+
+```python
+from typing import List, Optional
+from fastapi import FastAPI
+from pydantic import BaseModel
+app = FastAPI()
+
+class Item(BaseModel):
+    name: str
+    description: Optional[str] = None
+    price: float
+    tax: float = 10.5
+    tags: List[str] = []
+
+items = {
+    'foo': {'name': 'Foo', 'price': 50.2},
+    'bar': {'name': 'Bar', 'description': 'The bartenders', 'price': 62, 'tax': 20.2},
+    'baz': {'name': 'Baz', 'description': None, 'price': 50.2, 'tax': 10.5, 'tags': []}
+}
+
+@app.get('/items/{item_id}', response_model=Item, response_model_exclude_unset=True)
+async def read_item(item_id: str):
+    return items[item_id]
+```
+
+この場合、`http://127.0.0.1:8000/items/foo`を叩くと
+
+次のように、指定してないデフォルトの値はかえってきません。
+
+```python
+{
+  "name": "Foo",
+  "price": 50.2
+}
+```
+
+</details>
+
+</details>
+
+<details><summary>response_model_exclude_defaults</summary>
+
+response_modelのなかでデフォルトのままの値の出力を無視するかどうか
+
+```python
+response_model_exclude_defaults: bool = False,
+```
+
+</details>
+
+<details><summary>response_model_exclude_none</summary>
+
+response_modelのなかでNoneの出力を無視するかどうか
+
+```python
+response_model_exclude_none: bool = False,
+```
+
+</details>
+
+</details>
+
+</details>
 
 <details><summary>patch()</summary>
 
@@ -381,9 +1428,368 @@ def patch(
     ) -> Callable:
 ```
 
+<details><summary>path</summary>
+
+唯一の位置引数、ルーティングするパスをいれる
+
+```python
+path: str,
+```
+
+### 例
+
+<details><summary>パスを含むパスパラメータ</summary>
+
+```python
+from fastapi import FastAPI
+app = FastAPI()
+
+@app.get('/files/{file_path:path}')
+async def read_file(file_path: str):
+    return {'file_path': file_path}
+```
+
 </details>
 
-***
+</details>
+
+<details><summary>response_model</summary>
+
+レスポンスボディの型を定義する
+
+```python
+response_model: Type[Any] = None,
+```
+
+</details>
+
+<details><summary>status_code</summary>
+
+返されるステータスコード
+
+```python
+status_code: int = 200,
+```
+
+</details>
+
+<details><summary>tags</summary>
+
+タグをつけられる。通常は1個だけつける
+
+```python
+tags: List[str] = None,
+```
+
+</details>
+
+<details><summary>dependencies</summary>
+
+複数の依存関係を指定できる。
+
+```python
+dependencies: Sequence[Depends] = None,
+
+```
+
+</details>
+
+<details><summary>summary</summary>
+
+要約
+
+```python
+summary: str = None,
+```
+
+</details>
+
+<details><summary>description</summary>
+
+説明文
+
+```python
+description: str = None,
+```
+
+### 例
+
+<details><summary>docstringの使用</summary>
+
+`description`の代わりに`docstring`をしようすることができる。
+
+マークダウン方式で書くことができる。
+
+```python
+from typing import Optional, Set
+from fastapi import FastAPI
+from pydantic import BaseModel
+
+app = FastAPI()
+
+
+class Item(BaseModel):
+    name: str
+    description: Optional[str] = None
+    price: float
+    tax: Optional[float] = None
+    tags: Set[str] = []
+
+@app.post(
+    '/items/',
+    response_model=Item,
+    summary='Create an Item',
+)
+async def create_item(item: Item):
+    """Create an item with all the information.
+    - **name**: each item must have a name
+    - **description**: a long description
+    - **price**: required
+    - **tax**: if the item doesn't have tax, you can omit this
+    - **tags**: a set of unique tag strings for this item
+    """
+    return item
+```
+
+</details>
+
+</details>
+
+<details><summary>response_description</summary>
+
+レスポンスモデルの説明分
+
+```python
+response_description: str = "Successful Response",
+```
+
+</details>
+
+<details><summary>responses</summary>
+
+デフォルトのレスポンス
+
+```python
+responses: Dict[Union[int, str], Dict[str, Any]] = None,
+```
+
+### 例
+
+<details><summary>デフォルトのレスポンスを設定する。</summary>
+
+```python
+from typing import Optional
+
+from fastapi import FastAPI
+from fastapi.responses import FileResponse
+from pydantic import BaseModel
+
+
+class Item(BaseModel):
+    id: str
+    value: str
+
+
+app = FastAPI()
+
+
+@app.get(
+    "/items/{item_id}",
+    response_model=Item,
+    responses={
+        200: {
+            "content": {"image/png": {}},
+            "description": "Return the JSON item or an image.",
+        }
+    },
+)
+async def read_item(item_id: str, img: Optional[bool] = None):
+    if img:
+        return FileResponse("image.png", media_type="image/png")
+    else:
+        return {"id": "foo", "value": "there goes my hero"}
+```
+
+</details>
+
+</details>
+
+<details><summary>deprecated</summary>
+
+非推奨の関数かどうか
+
+```python
+deprecated: bool = None,
+```
+
+</details>
+
+<details><summary>response_model_include</summary>
+
+response_modelのなかで出力する属性を指定する
+
+```python
+response_model_include: Union[SetIntStr, DictIntStrAny] = None,
+```
+
+### 例
+
+<details><summary>指定した属性でレスポンスをフィルタリング</summary>
+
+```python
+from typing import Optional
+from fastapi import FastAPI
+from pydantic import BaseModel
+
+app = FastAPI()
+
+class Item(BaseModel):
+    name: str
+    description: Optional[str] = None
+    price: float
+    tax: float = 10.5
+
+items = {
+    'foo': {'name': 'Foo', 'price': 50.2},
+    'bar': {'name': 'Bar', 'description': 'The Bar fighters', 'price': 62, 'tax': 20.2},
+    'baz': {
+        'name': 'Baz',
+        'description': 'There goes my baz',
+        'price': 50.2,
+        'tax': 10.5,
+    },
+}
+
+@app.get('/items/{item_id}/public', response_model=Item, response_model_exclude={'tax'})
+async def read_item_public_data(item_id: str):
+    return items[item_id]
+```
+
+</details>
+
+</details>
+
+<details><summary>response_model_exclude</summary>
+
+response_modelのなかで無視する属性を指定する
+
+```python
+response_model_exclude: Union[SetIntStr, DictIntStrAny] = set(),
+```
+
+### 例
+
+<details><summary>指定した属性をレスポンスから排除</summary>
+
+```python
+from typing import Optional
+from fastapi import FastAPI
+from pydantic import BaseModel
+
+app = FastAPI()
+
+class Item(BaseModel):
+    name: str
+    description: Optional[str] = None
+    price: float
+    tax: float = 10.5
+
+items = {
+    'foo': {'name': 'Foo', 'price': 50.2},
+    'bar': {'name': 'Bar', 'description': 'The Bar fighters', 'price': 62, 'tax': 20.2},
+    'baz': {
+        'name': 'Baz',
+        'description': 'There goes my baz',
+        'price': 50.2,
+        'tax': 10.5,
+    },
+}
+
+
+@app.get('/items/{item_id}/public', response_model=Item, response_model_exclude={'tax'})
+async def read_item_public_data(item_id: str):
+    return items[item_id]
+```
+
+</details>
+
+
+</details>
+
+<details><summary>response_model_exclude_unset</summary>
+
+response_modelのなかでセット指定されなかったデフォルトの値の出力を無視するかどうかするかどうか
+
+```python
+response_model_exclude_unset: bool = False,
+```
+
+### 例
+
+<details><summary>セットされていない属性を排除</summary>
+
+```python
+from typing import List, Optional
+from fastapi import FastAPI
+from pydantic import BaseModel
+app = FastAPI()
+
+class Item(BaseModel):
+    name: str
+    description: Optional[str] = None
+    price: float
+    tax: float = 10.5
+    tags: List[str] = []
+
+items = {
+    'foo': {'name': 'Foo', 'price': 50.2},
+    'bar': {'name': 'Bar', 'description': 'The bartenders', 'price': 62, 'tax': 20.2},
+    'baz': {'name': 'Baz', 'description': None, 'price': 50.2, 'tax': 10.5, 'tags': []}
+}
+
+@app.get('/items/{item_id}', response_model=Item, response_model_exclude_unset=True)
+async def read_item(item_id: str):
+    return items[item_id]
+```
+
+この場合、`http://127.0.0.1:8000/items/foo`を叩くと
+
+次のように、指定してないデフォルトの値はかえってきません。
+
+```python
+{
+  "name": "Foo",
+  "price": 50.2
+}
+```
+
+</details>
+
+</details>
+
+<details><summary>response_model_exclude_defaults</summary>
+
+response_modelのなかでデフォルトのままの値の出力を無視するかどうか
+
+```python
+response_model_exclude_defaults: bool = False,
+```
+
+</details>
+
+<details><summary>response_model_exclude_none</summary>
+
+response_modelのなかでNoneの出力を無視するかどうか
+
+```python
+response_model_exclude_none: bool = False,
+```
+
+</details>
+
+</details>
+
+</details>
 
 <details><summary>delete()</summary>
 
@@ -418,9 +1824,368 @@ def delete(
     ) -> Callable:
 ```
 
+<details><summary>path</summary>
+
+唯一の位置引数、ルーティングするパスをいれる
+
+```python
+path: str,
+```
+
+### 例
+
+<details><summary>パスを含むパスパラメータ</summary>
+
+```python
+from fastapi import FastAPI
+app = FastAPI()
+
+@app.get('/files/{file_path:path}')
+async def read_file(file_path: str):
+    return {'file_path': file_path}
+```
+
 </details>
 
-***
+</details>
+
+<details><summary>response_model</summary>
+
+レスポンスボディの型を定義する
+
+```python
+response_model: Type[Any] = None,
+```
+
+</details>
+
+<details><summary>status_code</summary>
+
+返されるステータスコード
+
+```python
+status_code: int = 200,
+```
+
+</details>
+
+<details><summary>tags</summary>
+
+タグをつけられる。通常は1個だけつける
+
+```python
+tags: List[str] = None,
+```
+
+</details>
+
+<details><summary>dependencies</summary>
+
+複数の依存関係を指定できる。
+
+```python
+dependencies: Sequence[Depends] = None,
+
+```
+
+</details>
+
+<details><summary>summary</summary>
+
+要約
+
+```python
+summary: str = None,
+```
+
+</details>
+
+<details><summary>description</summary>
+
+説明文
+
+```python
+description: str = None,
+```
+
+### 例
+
+<details><summary>docstringの使用</summary>
+
+`description`の代わりに`docstring`をしようすることができる。
+
+マークダウン方式で書くことができる。
+
+```python
+from typing import Optional, Set
+from fastapi import FastAPI
+from pydantic import BaseModel
+
+app = FastAPI()
+
+
+class Item(BaseModel):
+    name: str
+    description: Optional[str] = None
+    price: float
+    tax: Optional[float] = None
+    tags: Set[str] = []
+
+@app.post(
+    '/items/',
+    response_model=Item,
+    summary='Create an Item',
+)
+async def create_item(item: Item):
+    """Create an item with all the information.
+    - **name**: each item must have a name
+    - **description**: a long description
+    - **price**: required
+    - **tax**: if the item doesn't have tax, you can omit this
+    - **tags**: a set of unique tag strings for this item
+    """
+    return item
+```
+
+</details>
+
+</details>
+
+<details><summary>response_description</summary>
+
+レスポンスモデルの説明分
+
+```python
+response_description: str = "Successful Response",
+```
+
+</details>
+
+<details><summary>responses</summary>
+
+デフォルトのレスポンス
+
+```python
+responses: Dict[Union[int, str], Dict[str, Any]] = None,
+```
+
+### 例
+
+<details><summary>デフォルトのレスポンスを設定する。</summary>
+
+```python
+from typing import Optional
+
+from fastapi import FastAPI
+from fastapi.responses import FileResponse
+from pydantic import BaseModel
+
+
+class Item(BaseModel):
+    id: str
+    value: str
+
+
+app = FastAPI()
+
+
+@app.get(
+    "/items/{item_id}",
+    response_model=Item,
+    responses={
+        200: {
+            "content": {"image/png": {}},
+            "description": "Return the JSON item or an image.",
+        }
+    },
+)
+async def read_item(item_id: str, img: Optional[bool] = None):
+    if img:
+        return FileResponse("image.png", media_type="image/png")
+    else:
+        return {"id": "foo", "value": "there goes my hero"}
+```
+
+</details>
+
+</details>
+
+<details><summary>deprecated</summary>
+
+非推奨の関数かどうか
+
+```python
+deprecated: bool = None,
+```
+
+</details>
+
+<details><summary>response_model_include</summary>
+
+response_modelのなかで出力する属性を指定する
+
+```python
+response_model_include: Union[SetIntStr, DictIntStrAny] = None,
+```
+
+### 例
+
+<details><summary>指定した属性でレスポンスをフィルタリング</summary>
+
+```python
+from typing import Optional
+from fastapi import FastAPI
+from pydantic import BaseModel
+
+app = FastAPI()
+
+class Item(BaseModel):
+    name: str
+    description: Optional[str] = None
+    price: float
+    tax: float = 10.5
+
+items = {
+    'foo': {'name': 'Foo', 'price': 50.2},
+    'bar': {'name': 'Bar', 'description': 'The Bar fighters', 'price': 62, 'tax': 20.2},
+    'baz': {
+        'name': 'Baz',
+        'description': 'There goes my baz',
+        'price': 50.2,
+        'tax': 10.5,
+    },
+}
+
+@app.get('/items/{item_id}/public', response_model=Item, response_model_exclude={'tax'})
+async def read_item_public_data(item_id: str):
+    return items[item_id]
+```
+
+</details>
+
+</details>
+
+<details><summary>response_model_exclude</summary>
+
+response_modelのなかで無視する属性を指定する
+
+```python
+response_model_exclude: Union[SetIntStr, DictIntStrAny] = set(),
+```
+
+### 例
+
+<details><summary>指定した属性をレスポンスから排除</summary>
+
+```python
+from typing import Optional
+from fastapi import FastAPI
+from pydantic import BaseModel
+
+app = FastAPI()
+
+class Item(BaseModel):
+    name: str
+    description: Optional[str] = None
+    price: float
+    tax: float = 10.5
+
+items = {
+    'foo': {'name': 'Foo', 'price': 50.2},
+    'bar': {'name': 'Bar', 'description': 'The Bar fighters', 'price': 62, 'tax': 20.2},
+    'baz': {
+        'name': 'Baz',
+        'description': 'There goes my baz',
+        'price': 50.2,
+        'tax': 10.5,
+    },
+}
+
+
+@app.get('/items/{item_id}/public', response_model=Item, response_model_exclude={'tax'})
+async def read_item_public_data(item_id: str):
+    return items[item_id]
+```
+
+</details>
+
+
+</details>
+
+<details><summary>response_model_exclude_unset</summary>
+
+response_modelのなかでセット指定されなかったデフォルトの値の出力を無視するかどうかするかどうか
+
+```python
+response_model_exclude_unset: bool = False,
+```
+
+### 例
+
+<details><summary>セットされていない属性を排除</summary>
+
+```python
+from typing import List, Optional
+from fastapi import FastAPI
+from pydantic import BaseModel
+app = FastAPI()
+
+class Item(BaseModel):
+    name: str
+    description: Optional[str] = None
+    price: float
+    tax: float = 10.5
+    tags: List[str] = []
+
+items = {
+    'foo': {'name': 'Foo', 'price': 50.2},
+    'bar': {'name': 'Bar', 'description': 'The bartenders', 'price': 62, 'tax': 20.2},
+    'baz': {'name': 'Baz', 'description': None, 'price': 50.2, 'tax': 10.5, 'tags': []}
+}
+
+@app.get('/items/{item_id}', response_model=Item, response_model_exclude_unset=True)
+async def read_item(item_id: str):
+    return items[item_id]
+```
+
+この場合、`http://127.0.0.1:8000/items/foo`を叩くと
+
+次のように、指定してないデフォルトの値はかえってきません。
+
+```python
+{
+  "name": "Foo",
+  "price": 50.2
+}
+```
+
+</details>
+
+</details>
+
+<details><summary>response_model_exclude_defaults</summary>
+
+response_modelのなかでデフォルトのままの値の出力を無視するかどうか
+
+```python
+response_model_exclude_defaults: bool = False,
+```
+
+</details>
+
+<details><summary>response_model_exclude_none</summary>
+
+response_modelのなかでNoneの出力を無視するかどうか
+
+```python
+response_model_exclude_none: bool = False,
+```
+
+</details>
+
+</details>
+
+</details>
 
 <details><summary>exception_handler()</summary>
 
@@ -443,8 +2208,6 @@ exc_class_or_status_code: typing.Union[int, typing.Type[Exception]]
 ```
 
 </details>
-
-***
 
 
 ### 例
@@ -477,8 +2240,6 @@ async def read_unicorn(name: str):
 
 </details>
 
-***
-
 <details><summary>既存のエラーを上書き</summary>
 
 ```python
@@ -505,11 +2266,7 @@ async def read_item(item_id: int):
 
 </details>
 
-***
-
 </details>
-
-***
 
 <details><summary>middleware()</summary>
 
@@ -533,8 +2290,6 @@ middleware_type: str
 
 </details>
 
-***
-
 
 ### 備考
 
@@ -547,8 +2302,6 @@ middleware_type: str
     - そしてさらにレスポンスを修正して返すことができます。
 
 </details>
-
-***
 
 ### 例
 
@@ -570,11 +2323,7 @@ async def add_process_time_header(request: Request, call_next):
 
 </details>
 
-***
-
 </details>
-
-***
 
 <details><summary>add_middleware()</summary>
 
@@ -596,8 +2345,6 @@ middleware_class: type
 
 </details>
 
-***
-
 <details><summary>**options</summary>
 
 ミドルウェアに渡すパラメータ
@@ -608,12 +2355,8 @@ middleware_class: type
 
 </details>
 
-***
-
 
 </details>
-
-***
 
 <details><summary>include_router()</summary>
 
@@ -644,8 +2387,6 @@ router: routing.APIRouter,
 
 </details>
 
-***
-
 <details><summary>prefix</summary>
 
 ルータが定義したすべてのパス操作関数のパスの手前に追加するパス
@@ -655,8 +2396,6 @@ prefix: str = "",
 ```
 
 </details>
-
-***
 
 <details><summary>tags</summary>
 
@@ -668,8 +2407,6 @@ tags: List[str] = None,
 
 </details>
 
-***
-
 <details><summary>dependencies</summary>
 
 ルータが定義したすべてのパス操作関数のdependenciesに追加する依存関係
@@ -680,8 +2417,6 @@ dependencies: Sequence[Depends] = None,
 
 </details>
 
-***
-
 <details><summary>responses</summary>
 
 ルータが定義したすべてのresponsesに追加するレスポンス
@@ -691,8 +2426,6 @@ default_response_class: Optional[Type[Response]] = None,
 ```
 
 </details>
-
-***
 
 
 ### 例
@@ -777,11 +2510,7 @@ app.include_router(
 
 </details>
 
-***
-
 </details>
-
-***
 
 <details><summary>mount()</summary>
 
@@ -803,8 +2532,6 @@ path: str
 
 </details>
 
-***
-
 <details><summary>app</summary>
 
 マウントするアプリケーションのインスタンス
@@ -814,8 +2541,6 @@ app: ASGIApp
 ```
 
 </details>
-
-***
 
 <details><summary>name</summary>
 
@@ -827,11 +2552,7 @@ name: str = None
 
 </details>
 
-***
-
 </details>
-
-***
 
 <details><summary>on_event()</summary>
 
@@ -852,422 +2573,7 @@ def on_event(self, event_type: str) -> typing.Callable:
 
 </details>
 
-***
-
 </details>
-
-***
-
-## 備考
-
-<details><summary>ルーティングメソッドに共通する引数</summary>
-
-`get(), post(), put(), patch()`に共通する引数。
-
-<details><summary>path</summary>
-
-唯一の位置引数、ルーティングするパスをいれる
-
-```python
-path: str,
-```
-
-### 例
-
-<details><summary>パスを含むパスパラメータ</summary>
-
-```python
-from fastapi import FastAPI
-app = FastAPI()
-
-@app.get('/files/{file_path:path}')
-async def read_file(file_path: str):
-    return {'file_path': file_path}
-```
-
-</details>
-
-***
-
-</details>
-
-***
-
-<details><summary>response_model</summary>
-
-レスポンスボディの型を定義する
-
-```python
-response_model: Type[Any] = None,
-```
-
-</details>
-
-***
-
-<details><summary>status_code</summary>
-
-返されるステータスコード
-
-```python
-status_code: int = 200,
-```
-
-</details>
-
-***
-
-<details><summary>tags</summary>
-
-タグをつけられる。通常は1個だけつける
-
-```python
-tags: List[str] = None,
-```
-
-</details>
-
-***
-
-<details><summary>dependencies</summary>
-
-複数の依存関係を指定できる。
-
-```python
-dependencies: Sequence[Depends] = None,
-
-```
-
-</details>
-
-***
-
-<details><summary>summary</summary>
-
-要約
-
-```python
-summary: str = None,
-```
-
-</details>
-
-***
-
-<details><summary>description</summary>
-
-説明文
-
-```python
-description: str = None,
-```
-
-### 例
-
-<details><summary>docstringの使用</summary>
-
-`description`の代わりに`docstring`をしようすることができる。
-
-マークダウン方式で書くことができる。
-
-```python
-from typing import Optional, Set
-from fastapi import FastAPI
-from pydantic import BaseModel
-
-app = FastAPI()
-
-
-class Item(BaseModel):
-    name: str
-    description: Optional[str] = None
-    price: float
-    tax: Optional[float] = None
-    tags: Set[str] = []
-
-@app.post(
-    '/items/',
-    response_model=Item,
-    summary='Create an Item',
-)
-async def create_item(item: Item):
-    """Create an item with all the information.
-    - **name**: each item must have a name
-    - **description**: a long description
-    - **price**: required
-    - **tax**: if the item doesn't have tax, you can omit this
-    - **tags**: a set of unique tag strings for this item
-    """
-    return item
-```
-
-</details>
-
-***
-
-</details>
-
-***
-
-<details><summary>response_description</summary>
-
-レスポンスモデルの説明分
-
-```python
-response_description: str = "Successful Response",
-```
-
-</details>
-
-***
-
-<details><summary>responses</summary>
-
-デフォルトのレスポンス
-
-```python
-responses: Dict[Union[int, str], Dict[str, Any]] = None,
-```
-
-### 例
-
-<details><summary>デフォルトのレスポンスを設定する。</summary>
-
-```python
-from typing import Optional
-
-from fastapi import FastAPI
-from fastapi.responses import FileResponse
-from pydantic import BaseModel
-
-
-class Item(BaseModel):
-    id: str
-    value: str
-
-
-app = FastAPI()
-
-
-@app.get(
-    "/items/{item_id}",
-    response_model=Item,
-    responses={
-        200: {
-            "content": {"image/png": {}},
-            "description": "Return the JSON item or an image.",
-        }
-    },
-)
-async def read_item(item_id: str, img: Optional[bool] = None):
-    if img:
-        return FileResponse("image.png", media_type="image/png")
-    else:
-        return {"id": "foo", "value": "there goes my hero"}
-```
-
-</details>
-
-***
-
-</details>
-
-***
-
-<details><summary>deprecated</summary>
-
-非推奨の関数かどうか
-
-```python
-deprecated: bool = None,
-```
-
-</details>
-
-***
-
-<details><summary>response_model_include</summary>
-
-response_modelのなかで出力する属性を指定する
-
-```python
-response_model_include: Union[SetIntStr, DictIntStrAny] = None,
-```
-
-### 例
-
-<details><summary>指定した属性でレスポンスをフィルタリング</summary>
-
-```python
-from typing import Optional
-from fastapi import FastAPI
-from pydantic import BaseModel
-
-app = FastAPI()
-
-class Item(BaseModel):
-    name: str
-    description: Optional[str] = None
-    price: float
-    tax: float = 10.5
-
-items = {
-    'foo': {'name': 'Foo', 'price': 50.2},
-    'bar': {'name': 'Bar', 'description': 'The Bar fighters', 'price': 62, 'tax': 20.2},
-    'baz': {
-        'name': 'Baz',
-        'description': 'There goes my baz',
-        'price': 50.2,
-        'tax': 10.5,
-    },
-}
-
-@app.get('/items/{item_id}/public', response_model=Item, response_model_exclude={'tax'})
-async def read_item_public_data(item_id: str):
-    return items[item_id]
-```
-
-</details>
-
-***
-
-</details>
-
-***
-
-<details><summary>response_model_exclude</summary>
-
-response_modelのなかで無視する属性を指定する
-
-```python
-response_model_exclude: Union[SetIntStr, DictIntStrAny] = set(),
-```
-
-### 例
-
-<details><summary>指定した属性をレスポンスから排除</summary>
-
-```python
-from typing import Optional
-from fastapi import FastAPI
-from pydantic import BaseModel
-
-app = FastAPI()
-
-class Item(BaseModel):
-    name: str
-    description: Optional[str] = None
-    price: float
-    tax: float = 10.5
-
-items = {
-    'foo': {'name': 'Foo', 'price': 50.2},
-    'bar': {'name': 'Bar', 'description': 'The Bar fighters', 'price': 62, 'tax': 20.2},
-    'baz': {
-        'name': 'Baz',
-        'description': 'There goes my baz',
-        'price': 50.2,
-        'tax': 10.5,
-    },
-}
-
-
-@app.get('/items/{item_id}/public', response_model=Item, response_model_exclude={'tax'})
-async def read_item_public_data(item_id: str):
-    return items[item_id]
-```
-
-</details>
-
-***
-
-
-</details>
-
-***
-
-<details><summary>response_model_exclude_unset</summary>
-
-response_modelのなかでセット指定されなかったデフォルトの値の出力を無視するかどうかするかどうか
-
-```python
-response_model_exclude_unset: bool = False,
-```
-
-### 例
-
-<details><summary>セットされていない属性を排除</summary>
-
-```python
-from typing import List, Optional
-from fastapi import FastAPI
-from pydantic import BaseModel
-app = FastAPI()
-
-class Item(BaseModel):
-    name: str
-    description: Optional[str] = None
-    price: float
-    tax: float = 10.5
-    tags: List[str] = []
-
-items = {
-    'foo': {'name': 'Foo', 'price': 50.2},
-    'bar': {'name': 'Bar', 'description': 'The bartenders', 'price': 62, 'tax': 20.2},
-    'baz': {'name': 'Baz', 'description': None, 'price': 50.2, 'tax': 10.5, 'tags': []}
-}
-
-@app.get('/items/{item_id}', response_model=Item, response_model_exclude_unset=True)
-async def read_item(item_id: str):
-    return items[item_id]
-```
-
-この場合、`http://127.0.0.1:8000/items/foo`を叩くと
-
-次のように、指定してないデフォルトの値はかえってきません。
-
-```python
-{
-  "name": "Foo",
-  "price": 50.2
-}
-```
-
-</details>
-
-***
-
-</details>
-
-***
-
-<details><summary>response_model_exclude_defaults</summary>
-
-response_modelのなかでデフォルトのままの値の出力を無視するかどうか
-
-```python
-response_model_exclude_defaults: bool = False,
-```
-
-</details>
-
-***
-
-<details><summary>response_model_exclude_none</summary>
-
-response_modelのなかでNoneの出力を無視するかどうか
-
-```python
-response_model_exclude_none: bool = False,
-```
-
-</details>
-
-***
-
-</details>
-
-***
 
 ## 例
 
@@ -1290,5 +2596,3 @@ async def get_model(model_name: ModelName):
 ```
 
 </details>
-
-***
