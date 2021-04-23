@@ -87,9 +87,9 @@ APIのバージョンを指定する。
 
 </details>
 
-<details><summary>terms_of_service_path</summary>
+<details><summary>&lt;terms_of_service_path&gt;</summary>
 
-#### terms_of_service_path
+#### &lt;terms_of_service_path&gt;
 
 利用規約への相対パスを記述
 
