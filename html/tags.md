@@ -10,8 +10,6 @@ html5で記述されていることを表す。ソースコードの先頭に記
 
 </details>
 
-***
-
 <details><summary>html</summary>
 
 htmlを包括するタグ
@@ -27,8 +25,6 @@ htmlを包括するタグ
 
 </details>
 
-***
-
 <details><summary>head</summary>
 
 メタ情報や付加的な情報を記述する。
@@ -40,8 +36,6 @@ htmlを包括するタグ
 
 </details>
 
-***
-
 <details><summary>body</summary>
 
 画面を形成する情報を記述する。
@@ -52,8 +46,6 @@ htmlを包括するタグ
 ```
 
 </details>
-
-***
 
 <details><summary>meta</summary>
 
@@ -77,11 +69,7 @@ htmlを包括するタグ
 
 </details>
 
-***
-
 </details>
-
-***
 
 <details><summary>title</summary>
 
@@ -93,8 +81,6 @@ htmlを包括するタグ
 
 </details>
 
-***
-
 <details><summary>h(n)</summary>
 
 見出し。`n`は`[1-6]`。数字が小さいほど、文字が大きくなる。
@@ -104,8 +90,6 @@ h(n)
 ```
 
 </details>
-
-***
 
 <details><summary>p</summary>
 
@@ -117,8 +101,6 @@ h(n)
 
 </details>
 
-***
-
 <details><summary>br</summary>
 
 改行
@@ -128,8 +110,6 @@ h(n)
 ```
 
 </details>
-
-***
 
 <details><summary>img</summary>
 
@@ -146,8 +126,6 @@ h(n)
 
 </details>
 
-***
-
 <details><summary>ul</summary>
 
 順序なしリスト。
@@ -160,8 +138,6 @@ h(n)
 ```
 
 </details>
-
-***
 
 <details><summary>ol</summary>
 
@@ -176,8 +152,6 @@ h(n)
 
 </details>
 
-***
-
 <details><summary>li</summary>
 
 `ol`と`ul`の子となるアイテムを表すタグ
@@ -187,8 +161,6 @@ h(n)
 ```
 
 </details>
-
-***
 
 <details><summary>dl</summary>
 
@@ -203,8 +175,6 @@ h(n)
 
 </details>
 
-***
-
 <details><summary>dt</summary>
 
 `dl`のなかで用語を表す。
@@ -215,8 +185,6 @@ h(n)
 
 </details>
 
-***
-
 <details><summary>dd</summary>
 
 `dl`のなかで説明を表す。
@@ -226,8 +194,6 @@ h(n)
 ```
 
 </details>
-
-***
 
 <details><summary>table</summary>
 
@@ -243,8 +209,6 @@ h(n)
 
 </details>
 
-***
-
 <details><summary>caption</summary>
 
 表の見出しをつける。
@@ -254,8 +218,6 @@ h(n)
 ```
 
 </details>
-
-***
 
 <details><summary>tr</summary>
 
@@ -267,8 +229,6 @@ h(n)
 
 </details>
 
-***
-
 <details><summary>th</summary>
 
 `table`の列や行のヘッダ
@@ -278,8 +238,6 @@ h(n)
 ```
 
 </details>
-
-****
 
 <details><summary>td</summary>
 
@@ -296,8 +254,6 @@ h(n)
 
 </details>
 
-***
-
 <details><summary>header</summary>
 
 ヘッダー部分を区切る。
@@ -307,8 +263,6 @@ h(n)
 ```
 
 </details>
-
-***
 
 <details><summary>article</summary>
 
@@ -320,8 +274,6 @@ h(n)
 
 </details>
 
-***
-
 <details><summary>section</summary>
 
 章や節、項を区切る。
@@ -332,8 +284,6 @@ h(n)
 
 </details>
 
-***
-
 <details><summary>footer</summary>
 
 フッター部分を区切る。
@@ -343,8 +293,6 @@ h(n)
 ```
 
 </details>
-
-***
 
 <details><summary>form</summary>
 
@@ -364,8 +312,6 @@ h(n)
 |method|post|メソッドの指定|
 
 </details>
-
-***
 
 <details><summary>input</summary>
 
@@ -402,11 +348,7 @@ h(n)
 
 </details>
 
-***
-
 </details>
-
-***
 
 <details><summary>textarea</summary>
 
@@ -421,8 +363,6 @@ h(n)
 |rows|-|行数|
 
 </details>
-
-***
 
 <details><summary>select</summary>
 
@@ -442,8 +382,6 @@ h(n)
 
 </details>
 
-***
-
 <details><summary>option</summary>
 
 `select`の子のアイテム
@@ -457,8 +395,6 @@ h(n)
 |value|-|送信する値|
 
 </details>
-
-***
 
 <details><summary>a</summary>
 
@@ -474,8 +410,6 @@ h(n)
 
 </details>
 
-***
-
 <details><summary>div</summary>
 
 ブロックとしてまとめる。
@@ -486,8 +420,6 @@ h(n)
 
 </details>
 
-***
-
 <details><summary>span</summary>
 
 インライン要素をグループ化する。`span`自身も親のインライン要素となる。
@@ -497,8 +429,6 @@ h(n)
 ```
 
 </details>
-
-***
 
 <details><summary>style</summary>
 
@@ -511,8 +441,6 @@ h(n)
 ```
 
 </details>
-
-***
 
 <details><summary>link</summary>
 
@@ -533,8 +461,6 @@ h(n)
 
 </details>
 
-***
-
 <details><summary>script</summary>
 
 
@@ -545,5 +471,3 @@ h(n)
 </script>
 ```
 </details>
-
-***

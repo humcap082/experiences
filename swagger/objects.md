@@ -2,6 +2,8 @@
 
 <details><summary>OpenAPI</summary>
 
+## OpenAPI
+
 OpenAPIスキーマの親のオブジェクト。
 
 ```yaml
@@ -22,9 +24,11 @@ externalDocs:
   ExternalDocumentation
 ```
 
-## パラメータ
+### パラメータ
 
 <details><summary>&lt;openapi_version&gt;</summary>
+
+#### &lt;openapi_version&gt;
 
 `OpenAPI`仕様のバージョンを指定します。
 
@@ -38,6 +42,8 @@ externalDocs:
 
 <details><summary>Info</summary>
 
+## Info
+
 `API`関するメタ情報を提供します。
 
 ```yaml
@@ -47,15 +53,19 @@ version: <api_version>  # required
 termesOfService: <terms_of_service_path>
 ```
 
-## パラメータ
+### パラメータ
 
 <details><summary>&lt;api_title&gt;</summary>
+
+#### &lt;api_title&gt;
 
 `API`名を指定する
 
 </details>
 
 <details><summary>&lt;api_description&gt;</summary>
+
+#### &lt;api_description&gt;
 
 APIの説明を記述します。
 
@@ -67,6 +77,8 @@ APIの説明を記述します。
 
 <details><summary>&lt;api_version&gt;</summary>
 
+#### &lt;api_version&gt;
+
 APIのバージョンを指定する。
 
 `<major>.<minor>.<patch>`のようなセマンティックバージョニング
@@ -77,6 +89,8 @@ APIのバージョンを指定する。
 
 <details><summary>terms_of_service_path</summary>
 
+#### terms_of_service_path
+
 利用規約への相対パスを記述
 
 </details>
@@ -84,6 +98,8 @@ APIのバージョンを指定する。
 </details>
 
 <details><summary>Server</summary>
+
+## Server
 
 ターゲットサーバーの接続情報を提供します。
 
@@ -98,9 +114,11 @@ variables:
   ServerVariables
 ```
 
-## パラメータ　
+### パラメータ　
 
 <details><summary>&lt;server_url&gt;</summary>
+
+#### &lt;server_url&gt;
 
 ベースのURLを指定します。
 
@@ -114,9 +132,11 @@ variables:
 
 対して解決されます。
 
-### 備考
+##### 備考
 
 <details><summary>scheme</summary>
+
+##### scheme
 
 - https
 - http
@@ -127,6 +147,8 @@ variables:
 
 <details><summary>host</summary>
 
+##### host
+
 ホストはIPアドレスにも対応しています。
 
 </details>
@@ -135,15 +157,19 @@ variables:
 
 <details><summary>&lt;server_description&gt;</summary>
 
+#### &lt;server_description&gt;
+
 サーバーの説明を記述します。
 
 `CommonMark`というマークダウンをサポートしていて複数行記述できます。
 
 </details>
 
-## 例
+### 例
 
 <details><summary>サーバーのオーバーライド</summary>
+
+#### サーバーのオーバーライド
 
 一部のエンドポイントがほかのAPIとは異なるサーバーや
 
@@ -173,6 +199,8 @@ paths:
 
 <details><summary>ServerVariables</summary>
 
+## ServerVariables
+
 サーバー変数を定義する。
 
 ```yaml
@@ -181,9 +209,11 @@ paths:
 [...]
 ```
 
-## パラメータ
+### パラメータ
 
 <details><summary>&lt;variable&gt;</summary>
+
+#### &lt;variable&gt;
 
 サーバー変数名。
 
@@ -192,6 +222,8 @@ paths:
 </details>
 
 <details><summary>ServerVariable</summary>
+
+## ServerVariable
 
 サーバー変数の属性を指定する。
 
@@ -204,9 +236,11 @@ default: <default_value>  # default_value
 description: <variable_description>
 ```
 
-## パラメータ
+### パラメータ
 
 <details><summary>&lt;enum_value&gt;</summary>
+
+#### &lt;enum_value&gt;
 
 列挙型の要素を指定します。
 
@@ -214,11 +248,15 @@ description: <variable_description>
 
 <details><summary>&lt;default_value&gt;</summary>
 
+#### &lt;default_value&gt;
+
 サーバー変数のデフォルト値。
 
 </details>
 
 <details><summary>&lt;variable_description&gt;</summary>
+
+#### &lt;variable_description&gt;
 
 サーバー変数の説明を記述します。
 
@@ -226,9 +264,11 @@ description: <variable_description>
 
 </details>
 
-## 例
+### 例
 
 <details><summary>HTTPSおよびHTTP</summary>
+
+#### HTTPSおよびHTTP
 
 ```yaml
 servers:
@@ -244,6 +284,8 @@ servers:
 </details>
 
 <details><summary>ProductionとDevelopmentとStaging</summary>
+
+#### ProductionとDevelopmentとStaging
 
 ```yaml
 servers:
@@ -261,6 +303,8 @@ servers:
 
 <details><summary>SaaSとOn-Premise</summary>
 
+#### SaaSとOn-Premise
+
 ```yaml
 servers:
   - url: '{server}/v1'
@@ -272,6 +316,8 @@ servers:
 </details>
 
 <details><summary>リージョンごと</summary>
+
+#### リージョンごと
 
 ```yaml
 servers:
@@ -293,6 +339,8 @@ servers:
 
 <details><summary>Paths</summary>
 
+## Paths
+
 エンドポイントを定義する。
 
 ```yaml
@@ -301,11 +349,19 @@ servers:
 [...]
 ```
 
+### パラメータ
+
 <details><summary>&lt;path&gt;</summary>
+
+#### &lt;path&gt;
 
 エンドポイントへの相対パスを入れます。
 
-パスパラメータを含む場合は、`{}`でパスパラメータを囲みます。
+パスパラメータを含むテンプレートを使用する場合は、
+
+`{<parameter_name>}`のように中括弧で囲った部分が
+
+置換されます。
 
 </details>
 
@@ -313,9 +369,12 @@ servers:
 
 <details><summary>PathItem</summary>
 
+## PathItem
+
 エンドポイントを定義できます。
 
 ```yaml
+summary: <path_summary>
 description: <path_description>
 servers:
   - Server
@@ -337,11 +396,21 @@ trace:
   Operation
 ```
 
-## パラメータ
+### パラメータ
+
+<details><summary>&lt;path_summary&gt;</summary>
+
+#### &lt;path_summary&gt;
+
+エンドポイントの概要。
+
+</details>
 
 <details><summary>&lt;path_description&gt;</summary>
 
-パスの説明を記述する。
+#### &lt;path_description&gt;
+
+エンドポイントの説明を記述する。
 
 マークダウンを使用できます。
 
@@ -351,9 +420,13 @@ trace:
 
 <details><summary>Operation</summary>
 
+## Operation
+
 操作関数の設定
 
 ```yaml
+tags:
+  - <operation_tag>
 summary: <operation_summary>
 description: <operation_discripton>
 servers:
@@ -366,15 +439,27 @@ responses:  # required
   Responses
 ```
 
-## パラメータ
+### パラメータ
+
+<details><summary>&lt;operation_tag&gt;</summary>
+
+#### &lt;operation_tag&gt;
+
+操作にタグをつけます。
+
+</details>
 
 <details><summary>&lt;operation_summary&gt;</summary>
+
+#### &lt;operation_summary&gt;
 
 操作の概要。
 
 </details>
 
 <details><summary>&lt;operation_description&gt;</summary>
+
+#### &lt;operation_description&gt;
 
 操作の詳細。マークダウンをサポート。
 
@@ -383,6 +468,8 @@ responses:  # required
 </details>
 
 <details><summary>Parameter</summary>
+
+## Parameter
 
 パラメータの属性を設定する。
 
@@ -395,15 +482,19 @@ schema:
     Schema | Reference
 ```
 
-## パラメータ
+### パラメータ
 
 <details><summary>&lt;parameter_name&gt;</summary>
+
+#### &lt;parameter_name&gt;
 
 パラメータ名
 
 </details>
 
 <details><summary>&lt;parameter_in&gt;</summary>
+
+#### &lt;parameter_in&gt;
 
 パラメータの種類。
 
@@ -416,11 +507,15 @@ schema:
 
 <details><summary>&lt;parameter_description&gt;</summary>
 
+3### &lt;parameter_description&gt;
+
 パラメータの説明。マークダウンをサポート。
 
 </details>
 
 <details><summary>&lt;parameter_required&gt;</summary>
+
+#### &lt;parameter_required&gt;
 
 必須パラメータかどうかの真偽値。
 
@@ -430,6 +525,8 @@ schema:
 
 <details><summary>RequestBody</summary>
 
+## RequestBody
+
 ```yaml
 description: <request_body_description>
 content:  # required
@@ -437,15 +534,19 @@ content:  # required
 required: <request_body_required>
 ```
 
-## パラメータ
+### パラメータ
 
 <details><summary>&lt;request_body_description&gt;</summary>
+
+#### &lt;request_body_description&gt;
 
 リクエストボディの説明文。マークダウンをサポート
 
 </details>
 
 <details><summary>&lt;request_body_required&gt;</summary>
+
+#### &lt;request_body_required&gt;
 
 リクエストボディが必須かどうかのパラメータ
 
@@ -454,6 +555,8 @@ required: <request_body_required>
 </details>
 
 <details><summary>MediaTypes</summary>
+
+## MediaTypes
 
 メディアタイプごとのリクエストやレスポンスを定義します。
 
@@ -464,21 +567,89 @@ required: <request_body_required>
   [...]
 ```
 
-## パラメータ
+### パラメータ
 
 <details><summary>media_type</summary>
 
-メディアタイプを指定する。
+#### &lt;media_type&gt;
+
+メディアタイプを指定する。`RFC6838`に準拠している必要があります。
+
+ベンダー固有も使用できます。
 
 - application/json
 - application/xml
-- text/plain
+- application/x-www-form-urlencoded
+- multipart/form-data
+- text/plain; charset=utl-8
+- text/html
+- application/pdf
+- image/png
+
+</details>
+
+### 例
+
+<details><summary>複数のメディアタイプに同じスキーマを使用する。</summary>
+
+#### 複数のメディアタイプに同じスキーマを使用する。
+
+```yaml
+paths:
+  /employees:
+    get:
+      responses:
+        '200':      # Response
+          description: OK
+          content:  # Response body
+            application/json:  # Media type
+             schema: 
+               $ref: '#/components/schemas/Employee'    # Reference to object definition
+            application/xml:   # Media type
+             schema: 
+               $ref: '#/components/schemas/Employee'    # Reference to object definition
+components:
+  schemas:
+    Employee:      # Object definition
+      type: object
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+        fullTime: 
+          type: boolean
+```
+
+</details>
+
+<details><summary>プレースホルダを使用する。</summary>
+
+#### プレースホルダを使用する。
+
+`*/*`や`application/*`、`image/*`などのプレースホルダーを使用できます。
+
+```yaml
+paths:
+  /info/logo:
+    get:
+      responses:
+        '200':           # Response
+          description: OK
+          content:       # Response body
+            image/*:     # Media type
+             schema: 
+               type: string
+               format: binary
+```
 
 </details>
 
 </details>
 
 <details><summary>MediaType</summary>
+
+## MediaType
 
 メディアの内容を定義します。
 
@@ -490,6 +661,8 @@ schema:
 </details>
 
 <details><summary>Responses</summary>
+
+## Responses
 
 HTTPステータスコードに期待されるレスポンスを
 
@@ -503,9 +676,19 @@ default:
   [...]
 ```
 
+### パラメータ
+
+<details><summary>&lt;http_status_code&gt;</summary>
+
+HTTPステータスコードを記述する。
+
+</details>
+
 </details>
 
 <details><summary>Response</summary>
+
+## Response
 
 レスポンスを定義する。
 
@@ -515,9 +698,19 @@ Resopnse:
   content: MediaType
 ```
 
+### パラメータ
+
+<details><summary>response_description</summary>
+
+レスポンスの説明
+
+</details>
+
 </details>
 
 <details><summary>Schemas</summary>
+
+## Schemas
 
 スキーマを複数定義する。
 
@@ -527,9 +720,11 @@ Resopnse:
   [...]
 ```
 
-## パラメータ
+### パラメータ
 
 <details><summary>&lt;schema_name&gt;</summary>
+
+#### &lt;schema_name&gt;
 
 スキーマの名前
 
@@ -538,6 +733,8 @@ Resopnse:
 </details>
 
 <details><summary>Schema</summary>
+
+## Schema
 
 スキーマを定義する。
 
@@ -552,9 +749,11 @@ required:
   - <required_param>
 ```
 
-## パラメータ
+### パラメータ
 
 <details><summary>&lt;schema_type&gt;</summary>
+
+#### &lt;schema_type&gt;
 
 スキーマの型
 
@@ -562,11 +761,15 @@ required:
 
 <details><summary>&lt;format&gt;</summary>
 
+#### &lt;format&gt;
+
 型のフォーマットを指定する。
 
 </details>
 
 <details><summary>&lt;schema_minimum&gt;</summary>
+
+#### &lt;schema_minimum&gt;
 
 スキーマの最小値を定義する。
 
@@ -574,17 +777,23 @@ required:
 
 <details><summary>&lt;schema_maximum&gt;</summary>
 
+#### &lt;schema_maximum&gt;
+
 スキーマの最大値を定義する。
 
 </details>
 
 <details><summary>&lt;schema_example&gt;</summary>
 
+#### &lt;schema_example&gt;
+
 スキーマの値の例を示す。
 
 </details>
 
 <details><summary>&lt;required_param&gt;</summary>
+
+#### &lt;required_param&gt;
 
 必須のパラメータ名
 
@@ -593,6 +802,8 @@ required:
 </details>
 
 <details><summary>Example</summary>
+
+## Example
 
 スキーマの例を指定する。
 
@@ -604,15 +815,19 @@ value: Any
 
 <details><summary>Reference</summary>
 
+## Reference
+
 内部および外部で、モデルを参照する。
 
 ```yaml
 $ref: '<reference>'  # required
 ```
 
-## パラメータ
+### パラメータ
 
 <details><summary>&lt;reference&gt;</summary>
+
+#### &lt;reference&gt;
 
 参照先。フォーマットは`json`参照に基づく。
 
@@ -622,6 +837,8 @@ $ref: '<reference>'  # required
 
 <details><summary>内部ファイルのコンポーネントのドキュメント</summary>
 
+#### 内部ファイルのコンポーネントのドキュメント
+
 ```yaml
 $ref: '#/components/schemas/Pet'
 ```
@@ -630,6 +847,8 @@ $ref: '#/components/schemas/Pet'
 
 <details><summary>外部ファイルのドキュメント</summary>
 
+#### 外部ファイルのドキュメント
+
 ```yaml
 $ref: Pet.yaml
 ```
@@ -637,6 +856,8 @@ $ref: Pet.yaml
 </details>
 
 <details><summary>外部ファイルと相対ドキュメント</summary>
+
+#### 外部ファイルと相対ドキュメント
 
 ```yaml
 $ref: definitions.yaml#/Pet
@@ -650,6 +871,8 @@ $ref: definitions.yaml#/Pet
 
 <details><summary>Components</summary>
 
+## Components
+
 ```yaml
 schemas:
   Schemas
@@ -661,6 +884,8 @@ securitySchemes:
 
 <details><summary>SecuritySchemes</summary>
 
+## SecuritySchemes
+
 使用できるセキュリティ構成を定義する。
 
 ```yaml
@@ -668,9 +893,11 @@ securitySchemes:
   SecurityScheme | Reference
 ```
 
-## パラメータ
+### パラメータ
 
 <details><summary>&lt;scheme_name&gt;</summary>
+
+#### &lt;scheme_name&gt;
 
 定義するセキュリティスキームの名前
 
@@ -679,6 +906,8 @@ securitySchemes:
 </details>
 
 <details><summary>SecurityScheme</summary>
+
+## SecurityScheme
 
 セキュリティ構成を定義します。
 
@@ -689,7 +918,11 @@ flows:
   OAuthFlowsObject
 ```
 
+### パラメータ
+
 <details><summary>&lt;scheme_type&gt;</summary>
+
+#### &lt;scheme_type&gt;
 
 セキュリティ構成の種類を指定します。
 
@@ -702,6 +935,8 @@ flows:
 
 <details><summary>&lt;scheme_description&gt;</summary>
 
+#### &lt;scheme_description&gt;
+
 セキュリティ構成の説明。マークダウンをサポートしています。
 
 </details>
@@ -709,6 +944,8 @@ flows:
 </details>
 
 <details><summary>OAuthFlows</summary>
+
+## OAuthFlows
 
 セキュリティ構成に`oauth2`を選択したときに
 
@@ -723,6 +960,8 @@ authorizationCode:
 
 <details><summary>OAuthFlow</summary>
 
+## OAuthFlow
+
 ```yaml
 authorizationUrl: <authorization_url>  #required
 tokenUrl: <token_url>  # required
@@ -730,15 +969,19 @@ scopes:
   Scopes
 ```
 
-## パラメータ
+### パラメータ
 
 <details><summary>&lt;authorization_url&gt;</summary>
+
+#### &lt;authorization_url&gt;
 
 認証URLの相対パス。
 
 </details>
 
 <details><summary>&lt;token_url&gt;</summary>
+
+#### &lt;token_url&gt;
 
 トークンURLの相対パス
 
@@ -748,19 +991,25 @@ scopes:
 
 <details><summary>Scopes</summary>
 
+## Scopes
+
 ```yaml
 <scope_name>: <scope_description>
 ```
 
-## パラメータ
+### パラメータ
 
 <details><summary>&lt;scope_name&gt;</summary>
+
+#### &lt;scope_name&gt;
 
 スコープ名
 
 </details>
 
 <details><summary>&lt;scope_description&gt;</summary>
+
+#### &lt;scope_description&gt;
 
 スコープの説明
 
@@ -770,20 +1019,26 @@ scopes:
 
 <details><summary>SecurityRequirement</summary>
 
+## SecurityRequirement
+
 ```yaml
 <scheme_name>:
   - <scope>
 ```
 
-## パラメータ
+### パラメータ
 
-<details><summary>scheme_name</summary>
+<details><summary>&lt;scheme_name&gt;</summary>
+
+#### &lt;scheme_name&gt;
 
 定義したセキュリティ構成の名前
 
 </details>
 
-<details><summary>scope</summary>
+<details><summary>&lt;scope&gt;</summary>
+
+#### &lt;scope&gt;
 
 `oauth2`と`openConnectId`の場合は、利用可能な
 
@@ -797,6 +1052,8 @@ scopes:
 
 <details><summary>ExternalDocumentation</summary>
 
+## ExternalDocumentation
+
 拡張ドキュメントのための外部リソースを指定する。
 
 ```yaml
@@ -804,15 +1061,19 @@ url: <doc_url>  # required
 description: <doc_description>
 ```
 
-### 説明
+### パラメータ
 
-<details><summary>doc_url</summary>
+<details><summary>&lt;doc_url&gt;</summary>
+
+#### &lt;doc_url&gt;
 
 拡張ドキュメントの相対パス。
 
 </details>
 
-<details><summary>doc_description</summary>
+<details><summary>&lt;doc_description&gt;</summary>
+
+#### &lt;doc_description&gt;
 
 ドキュメントの説明を指定する。
 
