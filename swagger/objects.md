@@ -13,7 +13,7 @@ info:
 servers:
   - Server
 paths:  # required
-  Paths
+  PathMap
 components:
   Components
 security:
@@ -111,7 +111,7 @@ APIのバージョンを指定する。
 url: <server_url>  # required
 description: <server_description>
 variables:
-  ServerVariables
+  ServerVariableMap
 ```
 
 ### パラメータ　
@@ -197,9 +197,9 @@ paths:
 
 </details>
 
-<details><summary>ServerVariables</summary>
+<details><summary>ServerVariableMap</summary>
 
-## ServerVariables
+## ServerVariableMap
 
 サーバー変数を定義する。
 
@@ -337,15 +337,15 @@ servers:
 
 </details>
 
-<details><summary>Paths</summary>
+<details><summary>PathMap</summary>
 
-## Paths
+## PathMap
 
 エンドポイントを定義する。
 
 ```yaml
 <path>:
-  PathItem
+  Path
 [...]
 ```
 
@@ -367,9 +367,9 @@ servers:
 
 </details>
 
-<details><summary>PathItem</summary>
+<details><summary>Path</summary>
 
-## PathItem
+## Path
 
 エンドポイントを定義できます。
 
@@ -394,6 +394,8 @@ head:
   Operation
 trace:
   Operation
+parameters:
+  - Parameter | References
 ```
 
 ### パラメータ
@@ -416,6 +418,35 @@ trace:
 
 </details>
 
+### 例
+
+<details><summary>共通パラメータ</summary>
+
+#### 共通パラメータ
+
+```yaml
+paths:
+  /user/{id}:
+    parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        required: true
+        description: The user ID
+    get:
+      summary: Gets a user by ID
+      ...
+    patch:
+      summary: Updates an existing user with the specified ID
+      ...
+    delete:
+      summary: Deletes the user with the specified ID
+      ...
+```
+
+</details>
+
 </details>
 
 <details><summary>Operation</summary>
@@ -425,6 +456,7 @@ trace:
 操作関数の設定
 
 ```yaml
+operationId: <operation_id>
 tags:
   - <operation_tag>
 summary: <operation_summary>
@@ -436,16 +468,27 @@ parameters:
 requestBody:
   RequestBody | Reference
 responses:  # required
-  Responses
+  ResponseMap
+deprecated: <operation_deprecated>
 ```
 
 ### パラメータ
+
+<details><summary>&lt;operation_id&gt;</summary>
+
+#### &lt;operation_id&gt;
+
+操作を識別するために使用される一意の文字列です。
+
+コードを自動生成するときのメソッド名に使用されます。
+
+</details>
 
 <details><summary>&lt;operation_tag&gt;</summary>
 
 #### &lt;operation_tag&gt;
 
-操作にタグをつけます。
+操作にタグをつけることで、ほかの操作とグループ化することができます
 
 </details>
 
@@ -465,6 +508,33 @@ responses:  # required
 
 </details>
 
+<details><summary>&lt;operation_deprecated&gt;</summary>
+
+#### &lt;operation_deprecated&gt;
+
+操作が非推奨かどうかの真偽値を返す。
+
+</details>
+
+</details>
+
+<details><summary>ParameterMap</summary>
+
+## ParameterMap
+
+```yaml
+<parameter_model>:
+  Parameter
+```
+
+### パラメータ
+
+<details><summary>&lt;parameter_model&gt;</summary>
+
+任意のパラメータのモデル名。
+
+</details>
+
 </details>
 
 <details><summary>Parameter</summary>
@@ -473,6 +543,10 @@ responses:  # required
 
 パラメータの属性を設定する。
 
+`schema`と`content`は排他であり、どちらかを
+
+指定する。
+
 ```yaml
 name: <parameter_name>  # required
 in: <parameter_in>  # required
@@ -480,6 +554,16 @@ description: <parameter_description>
 required: <parameter_required>
 schema:
     Schema | Reference
+content:
+    MediaTypes
+style: <style_value>
+explode: <parameter_explode>
+allowReversed: <parameter_allow_reversed>
+allowEmptyValue: <parameter_allow_empty_value>
+example: Any
+examples:
+  ExampleMap
+deprecated: <parameter_deprecated>
 ```
 
 ### パラメータ
@@ -503,11 +587,105 @@ schema:
 - path
 - cookie
 
+##### 例
+
+<details><summary>パスパラメータ</summary>
+
+###### パスパラメータ
+
+URLパスの可変の部分です。これらは通常、IDで識別される
+
+ユーザーなど、コレクション内の特定のリソースをさすために
+
+使用されます。`in: path`を使用して定義されひつようがあり、
+
+パスで指定されたもの同じである必要があります。また
+
+パスパラメータは必須パラメータなので、`required: true`が
+
+必要になります。
+
+```yaml
+paths:
+  /users/{id}:
+    get:
+      parameters:
+        - in: path
+          name: id   # Note the name is the same as in the path
+          required: true
+          schema:
+            type: integer
+            minimum: 1
+          description: The user ID
+```
+
+</details>
+
+<details><summary>クエリパラメータ</summary>
+
+###### クエリパラメータ
+
+クエリパラメータはリクエスト`URL`の末尾の`?`のあとに表示され
+
+複数指定する場合は`&`で区切られます。クエリパラメータは
+
+必須およびオプションです。
+
+```yaml
+parameters:
+        - in: query
+          name: offset
+          schema:
+            type: integer
+          description: The number of items to skip before starting to collect the result set
+        - in: query
+          name: limit
+          schema:
+            type: integer
+          description: The numbers of items to return
+```
+
+</details>
+
+<details><summary>ヘッダパラメータ</summary>
+
+###### ヘッダパラメータ
+
+カスタムリクエストヘッダーを定義する。
+
+```yaml
+paths:
+  /ping:
+    get:
+      summary: Checks if the server is alive
+      parameters:
+        - in: header
+          name: X-Request-ID
+          schema:
+            type: string
+            format: uuid
+          required: true
+```
+
+</details>
+
+<details><summary>クッキーパラメータ</summary>
+
+`in: cookie`を指定します。
+
+```yaml
+GET /api/users
+Host: example.com
+Cookie: debug=0; csrftoken=BUSe35dohU3O1MZvDCUOJ
+```
+
+</details>
+
 </details>
 
 <details><summary>&lt;parameter_description&gt;</summary>
 
-3### &lt;parameter_description&gt;
+#### &lt;parameter_description&gt;
 
 パラメータの説明。マークダウンをサポート。
 
@@ -518,6 +696,72 @@ schema:
 #### &lt;parameter_required&gt;
 
 必須パラメータかどうかの真偽値。
+
+デフォルトではすべてのパラメータがオプションとなるので、
+
+必須パラメータはこの属性を指定する。
+
+</details>
+
+<details><summary>&lt;style_value&gt;</summary>
+
+#### &lt;style_value&gt;
+
+`RFC6570`に基づき、
+
+パスパラメータ、クエリパラメータ、ヘッダパラメータ、
+
+クッキーパラメータで配列やオブジェクトをうけとれるように
+
+指定する。
+
+|style|type|in|
+|:---|:---|:---|
+|matrix|primitive, array, object|path|
+|label|primitive, array, object|path|
+|form|primitive, array, object|query, qookie|
+|simple|array|path, header|
+|spaceDelimited|array|query|
+|pipeDelimited|array|query|
+|deepObject|object|query|
+
+</details>
+
+<details><summary>&lt;parameter_explode&gt;</summary>
+
+#### &lt;parameter_explode&gt;
+
+`object`や`array`をうけとるときに要素ごとにパラメータをつくる。
+
+`style: form`のときはデフォルトで`true`だが、
+
+それ以外はデフォルトは`false`
+
+</details>
+
+<details><summary>&lt;parameter_allow_reversed&gt;</summary>
+
+#### &lt;parameter_allow_reversed&gt;
+
+パスに含まれるクエリパラメータなどをパーセントエンコード
+
+しないようにするかどうか。
+
+</details>
+
+<details><summary>&lt;parameter_allow_empty_value&gt;</summary>
+
+クエリパラメータなどの名前のみで値を指定しない表現を許可するかどうか。
+
+```
+Get /foo?metadata
+```
+
+</details>
+
+<details><summary>&lt;parameter_deprecated&gt;</summary>
+
+パラメータが非推奨かどうかをいれる。
 
 </details>
 
@@ -660,9 +904,9 @@ schema:
 
 </details>
 
-<details><summary>Responses</summary>
+<details><summary>ResponseMap</summary>
 
-## Responses
+## ResponseMap
 
 HTTPステータスコードに期待されるレスポンスを
 
@@ -708,9 +952,9 @@ Resopnse:
 
 </details>
 
-<details><summary>Schemas</summary>
+<details><summary>SchemaMap</summary>
 
-## Schemas
+## SchemaMap
 
 スキーマを複数定義する。
 
@@ -741,12 +985,14 @@ Resopnse:
 ```yaml
 type: <schema_type>
 format: <type_format>
+default: <schema_defualt>
 minimum: <schema_minimum>
 maximum: <schema_maximum>
 properties: Schema
 example: <schema_example> | Example | Reference
 required:
   - <required_param>
+nullable: <schema_nullable>
 ```
 
 ### パラメータ
@@ -764,6 +1010,14 @@ required:
 #### &lt;format&gt;
 
 型のフォーマットを指定する。
+
+</details>
+
+<details><summary>&lt;schema_default&gt;</summary>
+
+#### &lt;schema_default&gt;
+
+デフォルト値をいれる。
 
 </details>
 
@@ -796,6 +1050,35 @@ required:
 #### &lt;required_param&gt;
 
 必須のパラメータ名
+
+</details>
+
+<details><summary>&lt;nullable&gt;</summary>
+
+#### &lt;nullable&gt;
+
+`null`を指定できるかどうかの真偽値をいれる。
+
+デフォルトは`false`
+
+</details>
+
+</details>
+
+<details><summary>ExampleMap</summary>
+
+## ExampleMap
+
+```yaml
+<example_name>:
+  Example | Reference
+```
+
+### パラメータ
+
+<details><summary>&lt;example_name&gt;</summary>
+
+例の名前。
 
 </details>
 
@@ -875,16 +1158,69 @@ $ref: definitions.yaml#/Pet
 
 ```yaml
 schemas:
-  Schemas
+  SchemaMap
+parameters:
+  ParameterMap
 securitySchemes:
-  SecuritySchemes
+  SecuritySchemeMap
+```
+
+### 例
+
+<details><summary>共通パラメータ</summary>
+
+#### 共通パラメータ
+
+```yaml
+components:
+  parameters:
+    offsetParam:  # <-- Arbitrary name for the definition that will be used to refer to it.
+                  # Not necessarily the same as the parameter name.
+      in: query
+      name: offset
+      required: false
+      schema:
+        type: integer
+        minimum: 0
+      description: The number of items to skip before starting to collect the result set.
+    limitParam:
+      in: query
+      name: limit
+      required: false
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 50
+        default: 20
+      description: The numbers of items to return.
+paths:
+  /users:
+    get:
+      summary: Gets a list of users.
+      parameters:
+        - $ref: '#/components/parameters/offsetParam'
+        - $ref: '#/components/parameters/limitParam'
+      responses:
+        '200':
+          description: OK
+  /teams:
+    get:
+      summary: Gets a list of teams.
+      parameters:
+        - $ref: '#/components/parameters/offsetParam'
+        - $ref: '#/components/parameters/limitParam'
+      responses:
+        '200':
+          description: OK
 ```
 
 </details>
 
-<details><summary>SecuritySchemes</summary>
+</details>
 
-## SecuritySchemes
+<details><summary>SecuritySchemeMap</summary>
+
+## SecuritySchemeMap
 
 使用できるセキュリティ構成を定義する。
 
@@ -915,7 +1251,7 @@ securitySchemes:
 type: <scheme_type>  # required
 description: <scheme_description>
 flows:
-  OAuthFlowsObject
+  OAuthFlowMapObject
 ```
 
 ### パラメータ
@@ -943,9 +1279,9 @@ flows:
 
 </details>
 
-<details><summary>OAuthFlows</summary>
+<details><summary>OAuthFlowMap</summary>
 
-## OAuthFlows
+## OAuthFlowMap
 
 セキュリティ構成に`oauth2`を選択したときに
 
@@ -966,7 +1302,7 @@ authorizationCode:
 authorizationUrl: <authorization_url>  #required
 tokenUrl: <token_url>  # required
 scopes:
-  Scopes
+  ScopeMap
 ```
 
 ### パラメータ
@@ -989,9 +1325,9 @@ scopes:
 
 </details>
 
-<details><summary>Scopes</summary>
+<details><summary>ScopeMap</summary>
 
-## Scopes
+## ScopeMap
 
 ```yaml
 <scope_name>: <scope_description>
@@ -1072,8 +1408,6 @@ description: <doc_description>
 </details>
 
 <details><summary>&lt;doc_description&gt;</summary>
-
-#### &lt;doc_description&gt;
 
 ドキュメントの説明を指定する。
 
