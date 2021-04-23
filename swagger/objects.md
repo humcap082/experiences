@@ -455,6 +455,8 @@ required: <request_body_required>
 
 <details><summary>MediaTypes</summary>
 
+メディアタイプごとのリクエストやレスポンスを定義します。
+
 
 ```yaml
 <media_type>:
