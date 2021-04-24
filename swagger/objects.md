@@ -558,7 +558,7 @@ content:
     MediaTypes
 style: <style_value>
 explode: <parameter_explode>
-allowReversed: <parameter_allow_reversed>
+allowReserved: <parameter_allow_reserved>
 allowEmptyValue: <parameter_allow_empty_value>
 example: Any
 examples:
@@ -739,9 +739,9 @@ Cookie: debug=0; csrftoken=BUSe35dohU3O1MZvDCUOJ
 
 </details>
 
-<details><summary>&lt;parameter_allow_reversed&gt;</summary>
+<details><summary>&lt;parameter_allow_reserved&gt;</summary>
 
-#### &lt;parameter_allow_reversed&gt;
+#### &lt;parameter_allow_reserved&gt;
 
 パスに含まれるクエリパラメータなどをパーセントエンコード
 
@@ -762,6 +762,25 @@ Get /foo?metadata
 <details><summary>&lt;parameter_deprecated&gt;</summary>
 
 パラメータが非推奨かどうかをいれる。
+
+</details>
+
+</details>
+
+<details><summary>RequestBodyMap</summary>
+
+## RequestBodyMap
+
+```yaml
+<request_body_name>:
+  RequestBody
+```
+
+### パラメータ
+
+<details><summary>&lt;request_body_name&gt;</summary>
+
+リクエストボディの名前。
 
 </details>
 
@@ -829,6 +848,24 @@ required: <request_body_required>
 - text/html
 - application/pdf
 - image/png
+
+##### 備考
+
+<details><summary>application/x-www-form-urlencoded</summary>
+
+一般的に使用されるフォーム送信の形式で、キーと値がペアのテキスト形式。
+
+`html`の`POST`は基本的にこの方式で行われる。
+
+</details>
+
+<details><summary>multipart/form-data</summary>
+
+バイナリデータやマルチメディアのデータをひとつのメッセージに
+
+まとめた形式で、通常はファイルのアップロードなどに使用される形式。
+
+</details>
 
 </details>
 
@@ -900,7 +937,56 @@ paths:
 ```yaml
 schema:
   Schema | Reference
+encoding:
+  EncodingMap
+examples:
+  ExampleMap | Reference
+example:
+  Example
+
 ```
+
+</details>
+
+<details><summary>EncodingMap</summary>
+
+# EncodingMap
+
+```yaml
+<propertie_name>:
+  Encoding
+```
+
+</details>
+
+<details><summary>Encoding</summary>
+
+```yaml
+contentType: <encoding_content_type>
+allowReserved: <encoding_allow_reserved>
+```
+
+### パラメータ
+
+<details><summary>&lt;encoding_allow_reserved&gt;</summary>
+
+#### &lt;encoding_allow_reserved&gt;
+
+受け取るパラメータの`:/?#[]@!$&'()*+,;=`などの予約語
+
+パーセントエンコーディングしないようにするかどうか、
+
+デフォルトでは`false`
+
+</details>
+
+<details><summary>&lt;encoding_content_type&gt;</summary>
+
+#### &lt;encoding_content_type&gt;
+
+受け取った値を指定のコンテントタイプにエンコーディングする。
+
+</details>
 
 </details>
 
@@ -988,11 +1074,16 @@ format: <type_format>
 default: <schema_defualt>
 minimum: <schema_minimum>
 maximum: <schema_maximum>
-properties: Schema
+properties:
+    SchemaMap
 example: <schema_example> | Example | Reference
 required:
   - <required_param>
 nullable: <schema_nullable>
+oneOf:
+  - Schema
+anyOf:
+  - Schema
 ```
 
 ### パラメータ
@@ -1060,6 +1151,26 @@ nullable: <schema_nullable>
 `null`を指定できるかどうかの真偽値をいれる。
 
 デフォルトは`false`
+
+</details>
+
+### 例
+
+<details><summary>代替のスキーマ</summary>
+
+#### 代替のスキーマ
+
+```yaml
+requestBody:
+        description: A JSON object containing pet information
+        content:
+          application/json:
+            schema:
+              oneOf:
+                - $ref: '#/components/schemas/Cat'
+                - $ref: '#/components/schemas/Dog'
+                - $ref: '#/components/schemas/Hamster'
+```
 
 </details>
 
@@ -1163,6 +1274,10 @@ parameters:
   ParameterMap
 securitySchemes:
   SecuritySchemeMap
+examples:
+  ExampleMap
+requestBodies:
+  RequestBodyMap
 ```
 
 ### 例
