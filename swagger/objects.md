@@ -24,11 +24,11 @@ externalDocs:
   ExternalDocumentation
 ```
 
-### パラメータ
+### 属性
 
-<details><summary>&lt;openapi_version&gt;</summary>
+<details><summary>openapi</summary>
 
-#### &lt;openapi_version&gt;
+#### openapi
 
 `OpenAPI`仕様のバージョンを指定します。
 
@@ -53,19 +53,19 @@ version: <api_version>  # required
 termesOfService: <terms_of_service_path>
 ```
 
-### パラメータ
+### 属性
 
-<details><summary>&lt;api_title&gt;</summary>
+<details><summary>title</summary>
 
-#### &lt;api_title&gt;
+#### title
 
 `API`名を指定する
 
 </details>
 
-<details><summary>&lt;api_description&gt;</summary>
+<details><summary>description</summary>
 
-#### &lt;api_description&gt;
+#### description
 
 APIの説明を記述します。
 
@@ -75,9 +75,9 @@ APIの説明を記述します。
 
 </details>
 
-<details><summary>&lt;api_version&gt;</summary>
+<details><summary>version</summary>
 
-#### &lt;api_version&gt;
+#### version
 
 APIのバージョンを指定する。
 
@@ -87,9 +87,9 @@ APIのバージョンを指定する。
 
 </details>
 
-<details><summary>&lt;terms_of_service_path&gt;</summary>
+<details><summary>termsOfService</summary>
 
-#### &lt;terms_of_service_path&gt;
+#### termsOfService
 
 利用規約への相対パスを記述
 
@@ -114,11 +114,11 @@ variables:
   ServerVariableMap
 ```
 
-### パラメータ　
+### 属性　
 
-<details><summary>&lt;server_url&gt;</summary>
+<details><summary>url</summary>
 
-#### &lt;server_url&gt;
+#### url
 
 ベースのURLを指定します。
 
@@ -155,9 +155,9 @@ variables:
 
 </details>
 
-<details><summary>&lt;server_description&gt;</summary>
+<details><summary>&lt;description&gt;</summary>
 
-#### &lt;server_description&gt;
+#### description
 
 サーバーの説明を記述します。
 
@@ -209,7 +209,7 @@ paths:
 [...]
 ```
 
-### パラメータ
+### 属性
 
 <details><summary>&lt;variable&gt;</summary>
 
@@ -236,27 +236,27 @@ default: <default_value>  # default_value
 description: <variable_description>
 ```
 
-### パラメータ
+### 属性
 
-<details><summary>&lt;enum_value&gt;</summary>
+<details><summary>enum</summary>
 
-#### &lt;enum_value&gt;
+#### enum
 
 列挙型の要素を指定します。
 
 </details>
 
-<details><summary>&lt;default_value&gt;</summary>
+<details><summary>defualt</summary>
 
-#### &lt;default_value&gt;
+#### default
 
 サーバー変数のデフォルト値。
 
 </details>
 
-<details><summary>&lt;variable_description&gt;</summary>
+<details><summary>description</summary>
 
-#### &lt;variable_description&gt;
+#### description
 
 サーバー変数の説明を記述します。
 
@@ -349,7 +349,7 @@ servers:
 [...]
 ```
 
-### パラメータ
+### 属性
 
 <details><summary>&lt;path&gt;</summary>
 
@@ -357,7 +357,7 @@ servers:
 
 エンドポイントへの相対パスを入れます。
 
-パスパラメータを含むテンプレートを使用する場合は、
+パス属性を含むテンプレートを使用する場合は、
 
 `{<parameter_name>}`のように中括弧で囲った部分が
 
@@ -398,19 +398,19 @@ parameters:
   - Parameter | References
 ```
 
-### パラメータ
+### 属性
 
-<details><summary>&lt;path_summary&gt;</summary>
+<details><summary>summary</summary>
 
-#### &lt;path_summary&gt;
+#### summary
 
 エンドポイントの概要。
 
 </details>
 
-<details><summary>&lt;path_description&gt;</summary>
+<details><summary>description</summary>
 
-#### &lt;path_description&gt;
+#### description
 
 エンドポイントの説明を記述する。
 
@@ -418,32 +418,11 @@ parameters:
 
 </details>
 
-### 例
+<details><summary>parameters</summary>
 
-<details><summary>共通パラメータ</summary>
+#### parameters
 
-#### 共通パラメータ
-
-```yaml
-paths:
-  /user/{id}:
-    parameters:
-      - in: path
-        name: id
-        schema:
-          type: integer
-        required: true
-        description: The user ID
-    get:
-      summary: Gets a user by ID
-      ...
-    patch:
-      summary: Updates an existing user with the specified ID
-      ...
-    delete:
-      summary: Deletes the user with the specified ID
-      ...
-```
+パスレベルのの共通パラメータを指定する。
 
 </details>
 
@@ -461,6 +440,8 @@ tags:
   - <operation_tag>
 summary: <operation_summary>
 description: <operation_discripton>
+security:
+  - SecurityRuquirement
 servers:
   - Server
 parameters:
@@ -468,15 +449,15 @@ parameters:
 requestBody:
   RequestBody | Reference
 responses:  # required
-  ResponseMap
+  Responses
 deprecated: <operation_deprecated>
 ```
 
-### パラメータ
+### 属性
 
-<details><summary>&lt;operation_id&gt;</summary>
+<details><summary>operationId</summary>
 
-#### &lt;operation_id&gt;
+#### operationId
 
 操作を識別するために使用される一意の文字列です。
 
@@ -484,35 +465,100 @@ deprecated: <operation_deprecated>
 
 </details>
 
-<details><summary>&lt;operation_tag&gt;</summary>
+<details><summary>tags</summary>
 
-#### &lt;operation_tag&gt;
+#### tags
 
 操作にタグをつけることで、ほかの操作とグループ化することができます
 
 </details>
 
-<details><summary>&lt;operation_summary&gt;</summary>
+<details><summary>summary</summary>
 
-#### &lt;operation_summary&gt;
+#### summary
 
 操作の概要。
 
 </details>
 
-<details><summary>&lt;operation_description&gt;</summary>
+<details><summary>description</summary>
 
-#### &lt;operation_description&gt;
+#### description
 
 操作の詳細。マークダウンをサポート。
 
 </details>
 
-<details><summary>&lt;operation_deprecated&gt;</summary>
+<details><summary>security</summary>
 
-#### &lt;operation_deprecated&gt;
+#### security
+
+必要なセキュリティスキームを指定する。
+
+</details>
+
+<details><summary>deprecated</summary>
+
+#### deprecated
 
 操作が非推奨かどうかの真偽値を返す。
+
+</details>
+
+</details>
+
+<details><summary>SecurityRequirement</summary>
+
+必要なセキュリティを指定する。
+
+## SecurityRequirement
+
+```yaml
+<security_scheme_name>:
+  - <scope_name>
+```
+
+### 属性
+
+<details><summary>&lt;security_scheme_name&gt;</summary>
+
+`Components`の`SecuritySchemes`で定義したスキーム名で、
+
+必要なセキュリティ要求をわたす。
+
+`OAuth2`と`OpenIDConnect`の場合は必要なスコープのリストを指定し、
+
+それ以外は、空のリストを渡す。
+
+</details>
+
+### 例
+
+<details><summary>OR</summary>
+
+複数のスキームをリストで渡すとそのどれかを満たしていれば
+
+許可されます。
+
+```yaml
+security:
+  - basicAuth: []
+  - apiKey: []
+```
+
+</details>
+
+<details><summary>AND</summary>
+
+ひとつの要素に複数のスキームを指定するとどちらも
+
+満たす必要があrます。
+
+```yaml
+security:
+  - apiKey1: []
+    apiKey2: []
+```
 
 </details>
 
@@ -523,15 +569,17 @@ deprecated: <operation_deprecated>
 ## ParameterMap
 
 ```yaml
-<parameter_model>:
+<parameter_model_name>:
   Parameter
 ```
 
-### パラメータ
+### 属性
 
-<details><summary>&lt;parameter_model&gt;</summary>
+<details><summary>&lt;parameter_model_name&gt;</summary>
 
-任意のパラメータのモデル名。
+#### &lt;parameter_model_name&gt;
+
+任意のパラメータのモデルの名前。
 
 </details>
 
@@ -541,11 +589,7 @@ deprecated: <operation_deprecated>
 
 ## Parameter
 
-パラメータの属性を設定する。
-
-`schema`と`content`は排他であり、どちらかを
-
-指定する。
+属性の属性を設定する。
 
 ```yaml
 name: <parameter_name>  # required
@@ -555,7 +599,7 @@ required: <parameter_required>
 schema:
     Schema | Reference
 content:
-    MediaTypes
+    MediaTypeMap
 style: <style_value>
 explode: <parameter_explode>
 allowReserved: <parameter_allow_reserved>
@@ -566,21 +610,21 @@ examples:
 deprecated: <parameter_deprecated>
 ```
 
-### パラメータ
+### 属性
 
-<details><summary>&lt;parameter_name&gt;</summary>
+<details><summary>name</summary>
 
-#### &lt;parameter_name&gt;
+#### name
 
-パラメータ名
+属性名
 
 </details>
 
-<details><summary>&lt;parameter_in&gt;</summary>
+<details><summary>in</summary>
 
-#### &lt;parameter_in&gt;
+#### in
 
-パラメータの種類。
+属性の種類。
 
 - query
 - header
@@ -591,7 +635,7 @@ deprecated: <parameter_deprecated>
 
 <details><summary>パスパラメータ</summary>
 
-###### パスパラメータ
+###### パス属性
 
 URLパスの可変の部分です。これらは通常、IDで識別される
 
@@ -601,7 +645,7 @@ URLパスの可変の部分です。これらは通常、IDで識別される
 
 パスで指定されたもの同じである必要があります。また
 
-パスパラメータは必須パラメータなので、`required: true`が
+パスパラメータは必須属性なので、`required: true`が
 
 必要になります。
 
@@ -625,7 +669,7 @@ paths:
 
 ###### クエリパラメータ
 
-クエリパラメータはリクエスト`URL`の末尾の`?`のあとに表示され
+クエリ属性はリクエスト`URL`の末尾の`?`のあとに表示され
 
 複数指定する場合は`&`で区切られます。クエリパラメータは
 
@@ -649,7 +693,7 @@ parameters:
 
 <details><summary>ヘッダパラメータ</summary>
 
-###### ヘッダパラメータ
+###### ヘッダ属性
 
 カスタムリクエストヘッダーを定義する。
 
@@ -671,6 +715,8 @@ paths:
 
 <details><summary>クッキーパラメータ</summary>
 
+###### クッキーパラメータ
+
 `in: cookie`を指定します。
 
 ```yaml
@@ -683,17 +729,17 @@ Cookie: debug=0; csrftoken=BUSe35dohU3O1MZvDCUOJ
 
 </details>
 
-<details><summary>&lt;parameter_description&gt;</summary>
+<details><summary>description</summary>
 
-#### &lt;parameter_description&gt;
+#### description
 
-パラメータの説明。マークダウンをサポート。
+属性の説明。マークダウンをサポート。
 
 </details>
 
-<details><summary>&lt;parameter_required&gt;</summary>
+<details><summary>required</summary>
 
-#### &lt;parameter_required&gt;
+#### required
 
 必須パラメータかどうかの真偽値。
 
@@ -703,15 +749,23 @@ Cookie: debug=0; csrftoken=BUSe35dohU3O1MZvDCUOJ
 
 </details>
 
-<details><summary>&lt;style_value&gt;</summary>
+<details><summary>content</summary>
 
-#### &lt;style_value&gt;
+#### content
+
+`schema`の代わりに指定できる。
+
+</details>
+
+<details><summary>style</summary>
+
+#### style
 
 `RFC6570`に基づき、
 
-パスパラメータ、クエリパラメータ、ヘッダパラメータ、
+パス属性、クエリ属性、ヘッダ属性、
 
-クッキーパラメータで配列やオブジェクトをうけとれるように
+クッキー属性で配列やオブジェクトをうけとれるように
 
 指定する。
 
@@ -727,9 +781,9 @@ Cookie: debug=0; csrftoken=BUSe35dohU3O1MZvDCUOJ
 
 </details>
 
-<details><summary>&lt;parameter_explode&gt;</summary>
+<details><summary>explode</summary>
 
-#### &lt;parameter_explode&gt;
+#### explode
 
 `object`や`array`をうけとるときに要素ごとにパラメータをつくる。
 
@@ -739,19 +793,21 @@ Cookie: debug=0; csrftoken=BUSe35dohU3O1MZvDCUOJ
 
 </details>
 
-<details><summary>&lt;parameter_allow_reserved&gt;</summary>
+<details><summary>allowReserved</summary>
 
-#### &lt;parameter_allow_reserved&gt;
+#### allowReserved
 
-パスに含まれるクエリパラメータなどをパーセントエンコード
+パスに含まれるクエリ属性などをパーセントエンコード
 
-しないようにするかどうか。
+しないようにするかどうかの真偽値を指定する。デフォルトはfalse
 
 </details>
 
-<details><summary>&lt;parameter_allow_empty_value&gt;</summary>
+<details><summary>allowEmptyValue</summary>
 
-クエリパラメータなどの名前のみで値を指定しない表現を許可するかどうか。
+#### allowEmptyValue
+
+クエリパラメータのパラメータ名のみで値を指定しない表現を許可するかどうか。
 
 ```
 Get /foo?metadata
@@ -759,9 +815,11 @@ Get /foo?metadata
 
 </details>
 
-<details><summary>&lt;parameter_deprecated&gt;</summary>
+<details><summary>deprecated</summary>
 
-パラメータが非推奨かどうかをいれる。
+#### deprecated
+
+属性が非推奨かどうかをいれる。
 
 </details>
 
@@ -776,7 +834,7 @@ Get /foo?metadata
   RequestBody
 ```
 
-### パラメータ
+### 属性
 
 <details><summary>&lt;request_body_name&gt;</summary>
 
@@ -793,36 +851,62 @@ Get /foo?metadata
 ```yaml
 description: <request_body_description>
 content:  # required
-  MediaTypes
+  MediaTypeMap
 required: <request_body_required>
 ```
 
-### パラメータ
+### 属性
 
-<details><summary>&lt;request_body_description&gt;</summary>
+<details><summary>description</summary>
 
-#### &lt;request_body_description&gt;
+#### description
 
 リクエストボディの説明文。マークダウンをサポート
 
 </details>
 
-<details><summary>&lt;request_body_required&gt;</summary>
+<details><summary>required</summary>
 
-#### &lt;request_body_required&gt;
+#### required
 
-リクエストボディが必須かどうかのパラメータ
+リクエストボディが必須かどうかの真偽値を指定。
+
+</details>
+
+### 例
+
+<details><summary>ファイルのアップロード</summary>
+
+#### ファイルのアップロード
+
+```yaml
+requestBody:
+  content:
+    multipart/form-data:
+      schema:
+        type: object
+        properties:
+          orderId:
+            type: integer
+          userId:
+            type: integer
+          fileName:
+            type: string
+            format: binary
+        encoding:
+          fileName:
+            contentType: image/png, image/jpeg
+```
 
 </details>
 
 </details>
 
-<details><summary>MediaTypes</summary>
+<details><summary>MediaTypeMap</summary>
 
-## MediaTypes
+## MediaTypeMap
 
 メディアタイプごとのリクエストやレスポンスを定義します。
-
 
 ```yaml
 <media_type>:
@@ -830,9 +914,9 @@ required: <request_body_required>
   [...]
 ```
 
-### パラメータ
+### 属性
 
-<details><summary>media_type</summary>
+<details><summary>&lt;media_type&gt;</summary>
 
 #### &lt;media_type&gt;
 
@@ -950,41 +1034,53 @@ example:
 
 <details><summary>EncodingMap</summary>
 
-# EncodingMap
+## EncodingMap
 
 ```yaml
-<propertie_name>:
+<property_name>:
   Encoding
 ```
+
+### 属性
+
+<details><summary>&lt;property_name&gt;</summary>
+
+#### &lt;property_name&gt;
+
+エンコードを指定するプロパティー名を入れる。
+
+</details>
 
 </details>
 
 <details><summary>Encoding</summary>
+
+## Encoding
 
 ```yaml
 contentType: <encoding_content_type>
 allowReserved: <encoding_allow_reserved>
 ```
 
-### パラメータ
+### 属性
 
-<details><summary>&lt;encoding_allow_reserved&gt;</summary>
+<details><summary>contentType</summary>
 
-#### &lt;encoding_allow_reserved&gt;
+#### contentType
 
-受け取るパラメータの`:/?#[]@!$&'()*+,;=`などの予約語
+受け取った値を指定のコンテントタイプにエンコーディングする。
+
+</details>
+
+<details><summary>allowReserved</summary>
+
+#### allowReserved
+
+受け取る属性の`:/?#[]@!$&'()*+,;=`などの予約語
 
 パーセントエンコーディングしないようにするかどうか、
 
 デフォルトでは`false`
-
-</details>
-
-<details><summary>&lt;encoding_content_type&gt;</summary>
-
-#### &lt;encoding_content_type&gt;
-
-受け取った値を指定のコンテントタイプにエンコーディングする。
 
 </details>
 
@@ -993,6 +1089,25 @@ allowReserved: <encoding_allow_reserved>
 <details><summary>ResponseMap</summary>
 
 ## ResponseMap
+
+```yaml
+<resopnse_name>:
+  Response
+```
+
+### 属性
+
+<details><summary>&lt;response_name&gt;</summary>
+
+レスポンスの名前とレスポンスの属性を指定する。
+
+</details>
+
+</details>
+
+<details><summary>Responses</summary>
+
+## Responses
 
 HTTPステータスコードに期待されるレスポンスを
 
@@ -1006,7 +1121,17 @@ default:
   [...]
 ```
 
-### パラメータ
+### 属性
+
+<details><summary>default</summary>
+
+#### default
+
+指定した以外のHTTPステータスコードが返された時の
+
+デフォルトのレスポンス。
+
+</details>
 
 <details><summary>&lt;http_status_code&gt;</summary>
 
@@ -1026,13 +1151,64 @@ HTTPステータスコードを記述する。
 Resopnse:
   description: <response_description>  # required
   content: MediaType
+  headers:
+    HeaderMap
 ```
 
-### パラメータ
+### 属性
 
-<details><summary>response_description</summary>
+<details><summary>description</summary>
+
+#### description
 
 レスポンスの説明
+
+</details>
+
+</details>
+
+<details><summary>HeaderMap</summary>
+
+## HeaderMap
+
+```yaml
+<custom_header_name>:
+  Header | Reference
+```
+
+### 属性
+
+<details><summary>&lt;custom_header_name&lt;</summary>
+
+#### custom_header_name
+
+カスタムヘッダーの名前をいれ、ヘッダの属性をしていする。
+
+</details>
+
+</details>
+
+<details><summary>Header</summary>
+
+## Header
+
+```yaml
+description: <header_description>
+schema:
+  Schema
+```
+
+### 属性
+
+<details><summary>description</summary>
+
+ヘッダの説明。マークダウンをサポート
+
+</details>
+
+<details><summary>schema</summary>
+
+ヘッダのスキーマを指定する。
 
 </details>
 
@@ -1050,7 +1226,7 @@ Resopnse:
   [...]
 ```
 
-### パラメータ
+### 属性
 
 <details><summary>&lt;schema_name&gt;</summary>
 
@@ -1068,15 +1244,31 @@ Resopnse:
 
 スキーマを定義する。
 
+`Wright Draft 00 (Draft 5)`に基づいています。
+
+型を指定しない場合は、全ての型を受け入れます。
+
 ```yaml
 type: <schema_type>
 format: <type_format>
-default: <schema_defualt>
+default: <schema_default>
+items:
+  Schema
+uniqueItems: <unique_items>
+minItems: <min_itmes>
+maxItems: <max_items>
 minimum: <schema_minimum>
+exclusiveMinimum: <exclusive_minimum>
 maximum: <schema_maximum>
+exclusiveMaximum: <exclusive_maximum>
+maxLength: <max_length>
+minLength: <min_length>
+pattern: <regex>
 properties:
-    SchemaMap
-example: <schema_example> | Example | Reference
+  SchemaMap
+enum:
+  - <enum_value>
+example: Any
 required:
   - <required_param>
 nullable: <schema_nullable>
@@ -1084,69 +1276,274 @@ oneOf:
   - Schema
 anyOf:
   - Schema
+allOf:
+  - Schema
+multipleOf: <multiple>
+readOnly: <read_only>
+writeOnly: <write_only>
+minProperties: <min_properties>
+maxProperties: <max_Properties>
+additionalProperties:
+  Schema
+descriminator:
+  Discriminator
 ```
 
-### パラメータ
+### 属性
 
-<details><summary>&lt;schema_type&gt;</summary>
+<details><summary>type</summary>
 
-#### &lt;schema_type&gt;
+#### type
 
 スキーマの型
 
 </details>
 
-<details><summary>&lt;format&gt;</summary>
+<details><summary>format</summary>
 
-#### &lt;format&gt;
+#### format
 
 型のフォーマットを指定する。
 
+ファイルは`type: string`で`format: binary`もしくは
+
+`format: byte`で受け取ることができます。
+
 </details>
 
-<details><summary>&lt;schema_default&gt;</summary>
+<details><summary>default</summary>
 
-#### &lt;schema_default&gt;
+#### default
 
 デフォルト値をいれる。
 
 </details>
 
-<details><summary>&lt;schema_minimum&gt;</summary>
+<details><summary>items</summary>
 
-#### &lt;schema_minimum&gt;
+#### items
+
+`type: array`のとき、配列の要素となるスキーマ
+
+</details>
+
+<details><summary>uniqueItems</summary>
+
+#### uniqueItems
+
+配列の要素がユニークかどうかの真偽値を指定する。
+
+</details>
+
+<details><summary>minItems</summary>
+
+#### minItems
+
+配列の要素数の最小値。
+
+</details>
+
+<details><summary>maxItems</summary>
+
+#### maxItems
+
+配列の要素数の最大値。
+
+</details>
+
+<details><summary>minimum</summary>
+
+#### minimum
 
 スキーマの最小値を定義する。
 
 </details>
 
-<details><summary>&lt;schema_maximum&gt;</summary>
+<details><summary>exclusiveMinimum</summary>
 
-#### &lt;schema_maximum&gt;
+#### exclusiveMinimum
+
+`true`にすることで`minimum`の値を範囲に含めない。
+
+(以上 ではなく より大きい になる。)
+
+</details>
+
+<details><summary>maximum</summary>
+
+#### maximum
 
 スキーマの最大値を定義する。
 
 </details>
 
-<details><summary>&lt;schema_example&gt;</summary>
+<details><summary>exclusiveMaximum</summary>
 
-#### &lt;schema_example&gt;
+#### exclusiveMaximum
 
-スキーマの値の例を示す。
+`true`にすることで`maximum`の値を範囲に含めない。
 
-</details>
-
-<details><summary>&lt;required_param&gt;</summary>
-
-#### &lt;required_param&gt;
-
-必須のパラメータ名
+(以下 ではなく、 未満 になる。)
 
 </details>
 
-<details><summary>&lt;nullable&gt;</summary>
+<details><summary>maxLength</summary>
 
-#### &lt;nullable&gt;
+#### maxLength
+
+文字列の最大文字数。
+
+</details>
+
+<details><summary>minLength</summary>
+
+#### minLength
+
+文字列の最小文字列。
+
+</details>
+
+<details><summary>pattern</summary>
+
+#### pattern
+
+正規表現でバリデーションできる。
+
+</details>
+
+<details><summary>properties</summary>
+
+#### properties
+
+`type: object`のとき、属性を指定する。
+
+</details>
+
+<details><summary>enum</summary>
+
+#### enum
+
+受け入れられる値の列挙型を指定する。
+
+`nullable: true`のときは、明示的に
+
+列挙の値を指定する必要がある。
+
+```yaml
+enum:
+  - null
+  ...
+```
+
+</details>
+
+<details><summary>example</summary>
+
+#### example
+
+スキーマの例を示す。
+
+##### 例
+
+<details><summary>オブジェクトレベル</summary>
+
+###### オブジェクトレベル
+
+```yaml
+components:
+  schemas:
+    User:    # Schema name
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+          example: 1          # Property example
+        name:
+          type: string
+          example: New order  # Property example
+```
+
+</details>
+
+<details><summary>プロパティレベル</summary>
+
+###### プロパティレベル
+
+```yaml
+components:
+  schemas:
+    User:       # Schema name
+      type: object
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+      example:   # Object-level example
+        id: 1
+        name: Jessica Smith
+```
+
+</details>
+
+<details><summary>複数のアイテムを含む配列の例</summary>
+
+###### 複数のアイテムを含む配列の例
+
+```yaml
+components:
+  schemas:
+    ArrayOfInt:
+      type: array
+      items:
+        type: integer
+        format: int64
+      example: [1, 2, 3]
+```
+
+</details>
+
+<details><summary>複数のオブジェクトを含む配列の例</summary>
+
+###### 複数のオブジェクトを含む配列の例
+
+```yaml
+components:
+  schemas:
+    ArrayOfUsers:
+      type: array
+      items:
+        type: object
+        properties:
+          id:
+            type: integer
+          name:
+            type: string
+      example:
+        - id: 10
+          name: Jessica Smith
+        - id: 20
+          name: Ron Stewart
+```
+
+</details>
+
+</details>
+
+<details><summary>required</summary>
+
+#### required
+
+必須の属性名を指定する。
+
+真偽値ではなく、プロパティ名のリストを渡す。
+
+</details>
+
+<details><summary>nullable</summary>
+
+#### nullable
 
 `null`を指定できるかどうかの真偽値をいれる。
 
@@ -1154,11 +1551,17 @@ anyOf:
 
 </details>
 
-### 例
+<details><summary>oneOf</summary>
+
+#### oneOf
+
+混合型を指定できる。
+
+##### 例
 
 <details><summary>代替のスキーマ</summary>
 
-#### 代替のスキーマ
+###### 代替のスキーマ
 
 ```yaml
 requestBody:
@@ -1176,6 +1579,160 @@ requestBody:
 
 </details>
 
+<details><summary>anyOf</summary>
+
+指定したスキーマの混合型を作ります。
+
+`oneOf`はスキーマのどれかひとつに当てはまりますが、
+
+`anyOf`はスキーマの2以上に当てはまる場合があります。
+
+</details>
+
+<details><summary>allOf</summary>
+
+#### allOf
+
+スキーマを組み合わせたり、継承する。
+
+##### 例
+
+<details><summary>拡張</summary>
+
+##### 拡張
+
+```yaml
+paths:
+  /pets:
+    patch:
+      requestBody:
+        content:
+          application/json:
+            schema:
+              oneOf:
+                - $ref: '#/components/schemas/Cat'
+                - $ref: '#/components/schemas/Dog'
+              discriminator:
+                propertyName: pet_type
+      responses:
+        '200':
+          description: Updated
+components:
+  schemas:
+    Pet:
+      type: object
+      required:
+        - pet_type
+      properties:
+        pet_type:
+          type: string
+      discriminator:
+        propertyName: pet_type
+    Dog:     # "Dog" is a value for the pet_type property (the discriminator value)
+      allOf: # Combines the main `Pet` schema with `Dog`-specific properties 
+        - $ref: '#/components/schemas/Pet'
+        - type: object
+          # all other properties specific to a `Dog`
+          properties:
+            bark:
+              type: boolean
+            breed:
+              type: string
+              enum: [Dingo, Husky, Retriever, Shepherd]
+    Cat:     # "Cat" is a value for the pet_type property (the discriminator value)
+      allOf: # Combines the main `Pet` schema with `Cat`-specific properties 
+        - $ref: '#/components/schemas/Pet'
+        - type: object
+          # all other properties specific to a `Cat`
+          properties:
+            hunts:
+              type: boolean
+            age:
+              type: integer
+```
+
+</details>
+
+</details>
+
+<details><summary>multipleOf</summary>
+
+#### multipleOf
+
+指定した倍数のバリデーションをかける。
+
+</details>
+
+<details><summary>readOnly</summary>
+
+#### readOnly
+
+読み取り専用にするかどうかの真偽値を指定する。
+
+これはリクエストには含まれず、
+
+レスポンスのみに含まれることを示します。
+
+</details>
+
+<details><summary>writeOnly</summary>
+
+#### writeOnly
+
+書き込み専用にするかどうかの真偽値を指定する。
+
+これはレスポンスには含まれず、リクエストのみに
+
+ふくまれることを示します。
+
+</details>
+
+<details><summary>minProperties</summary>
+
+#### minProperties
+
+プロパティの数の最小値。
+
+`propeties`を指定しないで自由なオブジェクトを受け入れる時に
+
+有効です。
+
+</details>
+
+<details><summary>maxProperties</summary>
+
+#### maxProperties
+
+プロパティの数の最大値
+
+`properties`を指定しないで自由なオブジェクトを受け入れる時に
+
+有効です。
+
+</details>
+
+<details><summary>additionalProperties</summary>
+
+#### additionalProperties
+
+`type: object`しか指定せず、そのオブジェクトを
+
+辞書として受け取るとき、その辞書の属性を定義する。
+
+</details>
+
+<details><summary>discriminator</summary>
+
+#### discriminator
+
+`oneOf, anyOf`などで複数のオブジェクトを許可する時に、
+
+それらのオブジェクトを区別するパラメータを指定する。
+
+</details>
+
+</details>
+
 <details><summary>ExampleMap</summary>
 
 ## ExampleMap
@@ -1185,7 +1742,7 @@ requestBody:
   Example | Reference
 ```
 
-### パラメータ
+### 属性
 
 <details><summary>&lt;example_name&gt;</summary>
 
@@ -1203,7 +1760,38 @@ requestBody:
 
 ```yaml
 value: Any
+summary: <example_summary>
+description: <example_description>,
+externalValue: <external_url>
 ```
+
+### 属性
+
+<details><summary>summary</summary>
+
+#### summary
+
+例の概要。
+
+</details>
+
+<details><summary>description</summary>
+
+#### description
+
+例の説明。
+
+</details>
+
+<details><summary>externalValue</summary>
+
+#### externalValue
+
+なんらかの理由で例を挿入できない場合は、
+
+その例をしめす外部urlを指定できる。
+
+</details>
 
 </details>
 
@@ -1217,11 +1805,11 @@ value: Any
 $ref: '<reference>'  # required
 ```
 
-### パラメータ
+### 属性
 
-<details><summary>&lt;reference&gt;</summary>
+<details><summary>&dollar;ref</summary>
 
-#### &lt;reference&gt;
+#### &dollar;ref
 
 参照先。フォーマットは`json`参照に基づく。
 
@@ -1263,6 +1851,100 @@ $ref: definitions.yaml#/Pet
 
 </details>
 
+<details><summary>Discriminator</summary>
+
+`Schema`の`anyOf, oneOf`で許可された複数のオブジェクトを
+
+区別するためのパラメータを定義する。
+
+## Discriminator
+
+```yaml
+propertyName: <property_name>
+mapping:
+  DiscriminatorMapping
+```
+
+### 属性
+
+<details><summary>propertyName</summary>
+
+#### propertyName
+
+区別に使用するパラメータ
+
+</details>
+
+### 例
+
+<details><summary>マッピング</summary>
+
+#### マッピング
+
+```yaml
+components:
+  responses:
+    sampleObjectResponse:
+      content:
+        application/json:
+          schema:
+            oneOf:
+              - $ref: '#/components/schemas/Object1'
+              - $ref: '#/components/schemas/Object2'
+              - $ref: 'sysObject.json#/sysObject'
+            discriminator:
+              propertyName: objectType
+              mapping:
+                obj1: '#/components/schemas/Object1'
+		obj2: '#/components/schemas/Object2'
+                system: 'sysObject.json#/sysObject'
+  …
+  schemas:
+    Object1:
+      type: object
+      required:
+        - objectType
+      properties:
+        objectType:
+          type: string
+      …
+    Object2:
+      type: object
+      required:
+        - objectType
+      properties:
+        objectType:
+          type: string
+```
+</details>
+
+</details>
+
+<details><summary>DiscriminatorMapping</summary>
+
+`Discrminator`が区別するプロパティの値とオブジェクトを
+
+マッピングする。
+
+## DiscriminatorMapping
+
+```yaml
+<property_value>: <reference_path>
+[...]
+```
+
+### 属性
+
+<details><summary>&lt;property_value&gt;</summary>
+
+#### &lt;property_value&gt;
+
+区別するプロパティがとりうる値とスキーマを紐づける。
+
+</details>
+
+</details>
+
 <details><summary>Components</summary>
 
 ## Components
@@ -1278,6 +1960,8 @@ examples:
   ExampleMap
 requestBodies:
   RequestBodyMap
+responses:
+  ResponseMap
 ```
 
 ### 例
@@ -1344,7 +2028,7 @@ paths:
   SecurityScheme | Reference
 ```
 
-### パラメータ
+### 属性
 
 <details><summary>&lt;scheme_name&gt;</summary>
 
@@ -1365,15 +2049,19 @@ paths:
 ```yaml
 type: <scheme_type>  # required
 description: <scheme_description>
+name: <apikey_name>
+in: <apikey_in>
+scheme: <http_authorization_scheme>
+openIdConnectUrl: <open_id_connect_url>
 flows:
-  OAuthFlowMapObject
+  OAuthFlows
 ```
 
-### パラメータ
+### 属性
 
-<details><summary>&lt;scheme_type&gt;</summary>
+<details><summary>type</summary>
 
-#### &lt;scheme_type&gt;
+#### type
 
 セキュリティ構成の種類を指定します。
 
@@ -1384,19 +2072,139 @@ flows:
 
 </details>
 
-<details><summary>&lt;scheme_description&gt;</summary>
+<details><summary>description</summary>
 
-#### &lt;scheme_description&gt;
+#### description
 
 セキュリティ構成の説明。マークダウンをサポートしています。
 
 </details>
 
+<details><summary>name</summary>
+
+`type: apiKey`のときの`apikey`パラメータの
+
+名前。
+
 </details>
 
-<details><summary>OAuthFlowMap</summary>
+<details><summary>in</summary>
 
-## OAuthFlowMap
+#### in
+
+`type: apiKey`のときの必須パラメータで、
+
+`apiKey`を含める場所を指定する。
+
+- query
+- header
+- cookie
+
+</details>
+
+<details><summary>scheme</summary>
+
+#### scheme
+
+`type: http`のときは必須パラメータであり、
+
+`Authorization`ヘッダのスキームを指定する。
+
+- bearer
+- basic
+
+</details>
+
+<details><summary>openIdConnectUrl</summary>
+
+#### openIdConnectUrl
+
+`type: OpenIdConnect`のとき、`OAuth2`を構成する
+
+`url`を指定する。
+
+</details>
+
+### 備考
+
+<details><summary>Basic Authentication</summary>
+
+`Basic`認証は`Authorization`ヘッダに`base64`で
+
+エンコードされた`<user>:<password>`を`Basic`という
+
+キーワードの後につけて渡す認証です。
+
+フォーマットは次のようになります。
+
+`Autorization: Basic <base64_encoded_string>`
+
+`<base64_encoded_string>`は`base64`でエンコードした
+
+`<user>:<password>`です。
+
+</details>
+
+### 例
+
+<details><summary>Basic Authentication</summary>
+
+```yaml
+openapi: 3.0.0
+paths:
+  /something:
+    get:
+      security:
+        - basicAuth: []
+...
+components:
+  securitySchemes:
+    basicAuth:     # <-- arbitrary name for the security scheme
+      type: http
+      scheme: basic
+security:
+  - basicAuth: []  # 
+```
+
+</details>
+
+<details><summary>Unauthorized</summary>
+
+認証に失敗した時のエラーを定義する。
+
+```yaml
+paths:
+  /something:
+    get:
+      ...
+      responses:
+        ...
+        '401':
+           $ref: '#/components/responses/UnauthorizedError'
+    post:
+      ...
+      responses:
+        ...
+        '401':
+          $ref: '#/components/responses/UnauthorizedError'
+...
+components:
+  responses:
+    UnauthorizedError:
+      description: Authentication information is missing or invalid
+      headers:
+        WWW_Authenticate:
+          schema:
+            type: string
+```
+
+</details>
+
+</details>
+
+<details><summary>OAuthFlows</summary>
+
+## OAuthFlows
 
 セキュリティ構成に`oauth2`を選択したときに
 
@@ -1420,19 +2228,19 @@ scopes:
   ScopeMap
 ```
 
-### パラメータ
+### 属性
 
-<details><summary>&lt;authorization_url&gt;</summary>
+<details><summary>authorizationUrl</summary>
 
-#### &lt;authorization_url&gt;
+#### authorizationUrl
 
 認証URLの相対パス。
 
 </details>
 
-<details><summary>&lt;token_url&gt;</summary>
+<details><summary>tokenUrl</summary>
 
-#### &lt;token_url&gt;
+#### tokenUrl
 
 トークンURLの相対パス
 
@@ -1448,21 +2256,13 @@ scopes:
 <scope_name>: <scope_description>
 ```
 
-### パラメータ
+### 属性
 
 <details><summary>&lt;scope_name&gt;</summary>
 
 #### &lt;scope_name&gt;
 
-スコープ名
-
-</details>
-
-<details><summary>&lt;scope_description&gt;</summary>
-
-#### &lt;scope_description&gt;
-
-スコープの説明
+スコープ名とその説明を記述する。
 
 </details>
 
@@ -1477,19 +2277,13 @@ scopes:
   - <scope>
 ```
 
-### パラメータ
+### 属性
 
 <details><summary>&lt;scheme_name&gt;</summary>
 
 #### &lt;scheme_name&gt;
 
-定義したセキュリティ構成の名前
-
-</details>
-
-<details><summary>&lt;scope&gt;</summary>
-
-#### &lt;scope&gt;
+定義したセキュリティ構成の名前。
 
 `oauth2`と`openConnectId`の場合は、利用可能な
 
@@ -1512,17 +2306,19 @@ url: <doc_url>  # required
 description: <doc_description>
 ```
 
-### パラメータ
+### 属性
 
-<details><summary>&lt;doc_url&gt;</summary>
+<details><summary>url</summary>
 
-#### &lt;doc_url&gt;
+#### url
 
 拡張ドキュメントの相対パス。
 
 </details>
 
-<details><summary>&lt;doc_description&gt;</summary>
+<details><summary>description</summary>
+
+#### description
 
 ドキュメントの説明を指定する。
 
