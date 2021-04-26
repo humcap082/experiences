@@ -51,6 +51,10 @@ title: <api_title>  # required
 description: <api_description>
 version: <api_version>  # required
 termesOfService: <terms_of_service_path>
+contact:
+  Contact
+license
+  Licence
 ```
 
 ### 属性
@@ -92,6 +96,39 @@ APIのバージョンを指定する。
 #### termsOfService
 
 利用規約への相対パスを記述
+
+</details>
+
+</details>
+
+<details><summary>Contact</summary>
+
+## Contact
+
+連絡先の情報
+
+```yaml
+name: <contact_organization>
+url: <contact_url>
+email: <contact_email>
+```
+
+</details>
+
+<details><summary>License</summary>
+
+## License
+
+```yaml
+name: <license_name>
+url: <license_url>
+```
+
+### 属性
+
+<details><summary>url</summary>
+
+APIのライセンス情報をもつページのurl
 
 </details>
 
@@ -395,7 +432,7 @@ head:
 trace:
   Operation
 parameters:
-  - Parameter | References
+  - Parameter | Reference
 ```
 
 ### 属性
@@ -451,6 +488,8 @@ requestBody:
 responses:  # required
   Responses
 deprecated: <operation_deprecated>
+callbacks:
+  CallbackMap
 ```
 
 ### 属性
@@ -505,6 +544,59 @@ deprecated: <operation_deprecated>
 
 </details>
 
+### 例
+
+<details><summary>コールバックの登録</summary>
+
+```yaml
+openapi: 3.0.0
+info:
+  version: 0.0.0
+  title: test
+paths:
+  /subscribe:
+    post:
+      summary: Subscribe to a webhook
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                callbackUrl:   # Callback URL
+                  type: string
+                  format: uri
+                  example: https://myserver.com/send/callback/here
+              required:
+                - callbackUrl
+      responses:
+        '201':
+          description: Webhook created
+      callbacks:   # Callback definition
+        myEvent:   # Event name
+          '{$request.body#/callbackUrl}':   # The callback URL,
+                                            # Refers to the passed URL
+            post:
+              requestBody:   # Contents of the callback message
+                required: true
+                content:
+                  application/json:
+                    schema:
+                      type: object
+                      properties:
+                        message:
+                          type: string
+                          example: Some event happened
+                      required:
+                        - message
+              responses:   # Expected responses to the callback message
+                '200':
+                  description: Your server returns this code if it accepts the callback
+```
+
+</details>
+
 </details>
 
 <details><summary>SecurityRequirement</summary>
@@ -522,7 +614,7 @@ deprecated: <operation_deprecated>
 
 <details><summary>&lt;security_scheme_name&gt;</summary>
 
-`Components`の`SecuritySchemes`で定義したスキーム名で、
+`Components`の`securitySchemes`で定義したスキーム名で、
 
 必要なセキュリティ要求をわたす。
 
@@ -820,6 +912,59 @@ Get /foo?metadata
 #### deprecated
 
 属性が非推奨かどうかをいれる。
+
+</details>
+
+</details>
+
+<details><summary>CallbackMap</summary>
+
+## CallbackMap
+
+イベントをうけためコールバックのスキーマを
+
+定義する。
+
+```yaml
+<callback_name>:
+  Callback | Reference
+```
+
+</details>
+
+<details><summary>Callback</summary>
+
+## Callback
+
+```yaml
+'<callback_url>':
+  Path
+```
+
+### 属性
+
+<details><summary>&lt;callback_url&gt;</summary>
+
+#### &lt;callback_url&gt;
+
+ランタイム形式で、コールバックに登録された
+
+`url`を指定する。
+
+|表現|説明|
+|:---|:---|
+|&dollar;url|クエリ文字列を含む完全なリクエストURL|
+|&dollar;method|HTTPメソッドをリクエストする。|
+|&dollar;request.query.&lt;param_name&gt;|指定されたクエリパラメータの値|
+|&dollar;request.path.&lt;param_name&gt;|指定されたパスパラメータの値|
+|&dollar;request.header.&lt;param_name&gt;|指定されたヘッダパラメータの値|
+|&dollar;request.body|リクエスト本文全体|
+|&dollar;request.body#/foo/bar|jsonポインタによって指定された本文の一部|
+|&dollar;statusCode|レスポンスのHTTPステータスコード|
+|&dollar;response.header.&lt;header_name&gt;|指定されたレスポンスヘッダの値|
+|&dollar;response.body|指定されたレスポンス本文全体|
+|&dollar;response.body#/foo/bar|Jsonポインタによって指定されたレスポンス本部の一部|
+|foo{<runtime_param>}bar|ランタイム形式の変数を埋め込む|
 
 </details>
 
@@ -1151,6 +1296,8 @@ HTTPステータスコードを記述する。
 Resopnse:
   description: <response_description>  # required
   content: MediaType
+  links:
+    linkMap
   headers:
     HeaderMap
 ```
@@ -1162,6 +1309,226 @@ Resopnse:
 #### description
 
 レスポンスの説明
+
+</details>
+
+<details><summary>links</summary>
+
+#### links
+
+レスポンスに返されるパラメータを別のリクエストのパラメータ
+
+として利用できるように定義する。
+
+</details>
+
+### 例
+
+<details><summary>リンク</summary>
+
+```yaml
+openapi: 3.0.0
+info:
+  version: 0.0.0
+  title: Links example
+paths:
+  /users:
+    post:
+      summary: Creates a user and returns the user ID
+      operationId: createUser
+      requestBody:
+        required: true
+        description: A JSON object that contains the user name and age.
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/User'
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                    format: int64
+                    description: ID of the created user.
+          # -----------------------------------------------------
+          # Links
+          # -----------------------------------------------------
+          links:
+            GetUserByUserId:   # <---- arbitrary name for the link
+              operationId: getUser
+              # or
+              # operationRef: '#/paths/~1users~1{userId}/get'
+              parameters:
+                userId: '$response.body#/id'
+              description: >
+                The `id` value returned in the response can be used as
+                the `userId` parameter in `GET /users/{userId}`.
+          # -----------------------------------------------------
+  /users/{userId}:
+    get:
+      summary: Gets a user by ID
+      operationId: getUser
+      parameters:
+        - in: path
+          name: userId
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: A User object
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+components:
+  schemas:
+    User:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+          readOnly: true
+        name:
+          type: string
+```
+
+</details>
+
+</details>
+
+<details><summary>LinkMap</summary>
+
+```yaml
+<link_name>:
+  Link | Reference
+```
+
+### 属性
+
+<details><summary>&lt;link_name&gt;</summary>
+
+#### &lt;link_name&gt;
+
+任意のリンクの名前
+
+</details>
+
+</details>
+
+<details><summary>Link</summary>
+
+## Link
+
+レスポンスのパラメータとリクエストのパラメータを
+
+紐づける。
+
+```yaml
+operationId: <operation_id>
+operationRef: '<operation_ref>'
+parameters:
+  LinkParameterMap
+description: <link_description>
+```
+
+### 属性
+
+<details><summary>operationId</summary>
+
+#### operationId
+
+`Operation`の`oprationId`を指定する。
+
+</details>
+
+<details><summary>operationRef</summary>
+
+#### operationRef
+
+operationIdの代わりに使用できますが、推奨されません。
+
+次のようなフォーマットで指定する。
+
+`#paths/<path>/<method>`
+
+これは`json`の参照に基づきます。
+
+外部ファイルも参照できます。
+
+`Reference`の`$ref`と同じです。
+
+また、`<path>`のなかの`/`は`~1`でエンコーディングする
+
+必要がある。
+
+</details>
+
+</details>
+
+<details><summary>LinkParameterMap</summary>
+
+## LinkParameterMap
+
+リンクするパラメータを指定する。
+
+```yaml
+<parameter_name>: '<body_parameter_name>'
+```
+
+### 属性
+
+<details><summary>&lt;parameter_name&gt;</summary>
+
+#### &lt;parameter_name&gt;
+
+リンクするリクエストのパラメータ名をいれ、
+
+同じパラメータ名が複数ある場合は、
+
+`query.id`や`path.id`など、プレフィックスをつけます。
+
+そして、&lt;body_parameter_name&gt;に対応するレスポンスのパラメータを渡す。
+
+レスポンスのパラメータは次のように渡す。
+
+`$response.body#/<param_name>`
+
+これはランタイム形式です。
+
+`<param_name>`は定数の値でもかまいません。
+
+</details>
+
+### 備考
+
+<details><summary>ランタイム形式</summary>
+
+#### ランタイム形式
+
+&lt;body_parameter_name&gt;の次の形式で指定します。
+
+|表現|説明|
+|:---|:---|
+|&dollar;url|クエリ文字列を含む完全なリクエストURL|
+|&dollar;method|HTTPメソッドをリクエストする。|
+|&dollar;request.query.&lt;param_name&gt;|指定されたクエリパラメータの値|
+|&dollar;request.path.&lt;param_name&gt;|指定されたパスパラメータの値|
+|&dollar;request.header.&lt;param_name&gt;|指定されたヘッダパラメータの値|
+|&dollar;request.body|リクエスト本文全体|
+|&dollar;request.body#/foo/bar|jsonポインタによって指定された本文の一部|
+|&dollar;statusCode|レスポンスのHTTPステータスコード|
+|&dollar;response.header.&lt;header_name&gt;|指定されたレスポンスヘッダの値|
+|&dollar;response.body|指定されたレスポンス本文全体|
+|&dollar;response.body#/foo/bar|Jsonポインタによって指定されたレスポンス本部の一部|
+|foo{<runtime_param>}bar|ランタイム形式の変数を埋め込む|
 
 </details>
 
@@ -1182,7 +1549,7 @@ Resopnse:
 
 #### custom_header_name
 
-カスタムヘッダーの名前をいれ、ヘッダの属性をしていする。
+カスタムヘッダーの名前をいれ、ヘッダの属性を指定する。
 
 </details>
 
@@ -1202,11 +1569,15 @@ schema:
 
 <details><summary>description</summary>
 
+#### description
+
 ヘッダの説明。マークダウンをサポート
 
 </details>
 
 <details><summary>schema</summary>
+
+#### schema
 
 ヘッダのスキーマを指定する。
 
@@ -1815,11 +2186,18 @@ $ref: '<reference>'  # required
 
 `[<external_file_path>][#<internal_json_path>]`
 
-### 例
+また、特定の文字はエスケープする必要があります。
+
+|記号|エスケープ文字|
+|:---|:---|
+|`~`|`~0`|
+|`/`|`~1`|
+
+##### 例
 
 <details><summary>内部ファイルのコンポーネントのドキュメント</summary>
 
-#### 内部ファイルのコンポーネントのドキュメント
+###### 内部ファイルのコンポーネントのドキュメント
 
 ```yaml
 $ref: '#/components/schemas/Pet'
@@ -1829,7 +2207,7 @@ $ref: '#/components/schemas/Pet'
 
 <details><summary>外部ファイルのドキュメント</summary>
 
-#### 外部ファイルのドキュメント
+###### 外部ファイルのドキュメント
 
 ```yaml
 $ref: Pet.yaml
@@ -1839,7 +2217,7 @@ $ref: Pet.yaml
 
 <details><summary>外部ファイルと相対ドキュメント</summary>
 
-#### 外部ファイルと相対ドキュメント
+###### 外部ファイルと相対ドキュメント
 
 ```yaml
 $ref: definitions.yaml#/Pet
@@ -1962,6 +2340,12 @@ requestBodies:
   RequestBodyMap
 responses:
   ResponseMap
+links:
+  LinkMap
+callbacks:
+  CallbackMap
+headers:
+  HeaderMap
 ```
 
 ### 例
@@ -2052,6 +2436,7 @@ description: <scheme_description>
 name: <apikey_name>
 in: <apikey_in>
 scheme: <http_authorization_scheme>
+bearerFormat: <bearere_format>
 openIdConnectUrl: <open_id_connect_url>
 flows:
   OAuthFlows
@@ -2115,19 +2500,38 @@ flows:
 
 </details>
 
+<details><summary>bearerFormat</summary>
+
+#### bearerFormat
+
+`Bearer`認証のトークンのフォーマット方法。
+
+- JWT
+
+</details>
+
 <details><summary>openIdConnectUrl</summary>
 
 #### openIdConnectUrl
 
 `type: OpenIdConnect`のとき、`OAuth2`を構成する
 
-`url`を指定する。
+情報もつ`url`を指定する。
+
+通常は次のようなものを含んだ`json`を返す。
+
+- OAuthエンドポイント
+- スコープとクレームのリスト
+- トークンの署名に使用される公開鍵
+- etc...
 
 </details>
 
 ### 備考
 
 <details><summary>Basic Authentication</summary>
+
+#### Basic Authentication
 
 `Basic`認証は`Authorization`ヘッダに`base64`で
 
@@ -2145,9 +2549,104 @@ flows:
 
 </details>
 
+<details><summary>API Key Authentication</summary>
+
+#### API Key Authentication
+
+クライアントとサーバーだけが知るキーを
+
+クエリもしくは、ヘッダ、もしくはクッキーに含ませる
+
+認証。複数の認証方式と組み合わせることが推奨される。
+
+</details>
+
+<details><summary>Bearer Authentication</summary>
+
+#### Bearer Authentication
+
+`Bearer`トークンとう呼ばれるトークンを`Authorization`ヘッダに
+
+含ませる`http`認証です。フォーマットは次のようになります。
+
+`Authorization: Bearer <token>`
+
+このトークンはログインのリクエストごとにサーバーで
+
+生成されます。`Bearer`はもともと`OAuth2`の一部として`RFC6750`で
+
+作成されました。時にはそれ単体で使用することがあります。
+
+</details>
+
+<details><summary>OAuth2.0</summary>
+
+#### OAuth2.0
+
+`OAuth2.0`はユーザーデータへの制限をかけるプロトコルです。
+
+`GitHub, Google, FacebookAPI`はこれを利用しています。
+
+`OAuth2.0`は`flows`と呼ばれる認証シナリオに依存しています。
+
+詳細については`oauth.net`もしくは`RFC6749`にあります。
+
+</details>
+
+<details><summary>OpenID Connect(OIDC)</summary>
+
+#### OpenID Connect(OIDC)
+
+`OpenID Connect`は`OAuth2`プロトコル上で構築され、
+
+`Google`や`Azure`の`ActiveDirectory`などの一部の
+
+OAuth2.0プロバイダーによってサポートとされているIDレイヤーです。
+
+これは、クライアントアプリケーションがユーザーを認証し、
+
+ユーザー名や電子メールなどのユーザー情報を取得できるようにする
+
+サインインフローを定義します。ユーザー識別情報は
+
+`JWT`によってエンコードされます。`OpenID Connect`は
+
+`OpenID Connect Discovery`と呼ばれる検出メカニズムを定義します。
+
+`openIdConnectUrl`は`OAuth`の構成情報を返すエンドポイントです。
+
+その構成情報の例を示します。
+
+```json
+{
+  "issuer": "https://example.com/",
+  "authorization_endpoint": "https://example.com/authorize",
+  "token_endpoint": "https://example.com/token",
+  "userinfo_endpoint": "https://example.com/userinfo",
+  "jwks_uri": "https://example.com/.well-known/jwks.json",
+  "scopes_supported": [
+    "pets_read",
+    "pets_write",
+    "admin"
+  ],
+  "response_types_supported": [
+    "code",
+    "id_token",
+    "token id_token"
+  ],
+  "token_endpoint_auth_methods_supported": [
+    "client_secret_basic"
+  ]
+}
+```
+
+</details>
+
 ### 例
 
 <details><summary>Basic Authentication</summary>
+
+#### BasicAuthentication
 
 ```yaml
 openapi: 3.0.0
@@ -2168,7 +2667,135 @@ security:
 
 </details>
 
+<details><summary>API Key and App ID</summary>
+
+#### API Key and App ID
+
+一部のAPIはアプリIDとAPIキーをペアにして使用します。
+
+```yaml
+components:
+  securitySchemes:
+    apiKey:
+      type: apiKey
+      in: header
+      name: X-API-KEY
+    appId:
+      type: apiKey
+      in: header
+      name: X-APP-ID
+security:
+  - apiKey: []
+    appId:  []   # <-- no leading dash (-)
+```
+
+</details>
+
+<details><summary>Bearer Authentication</summary>
+
+#### Bearer Authentication
+
+```yaml
+paths:
+  /something:
+    get:
+      security:
+        - bearerAuth: []
+
+openapi: 3.0.0
+...
+# 1) Define the security scheme type (HTTP bearer)
+components:
+  securitySchemes:
+    bearerAuth:            # arbitrary name for the security scheme
+      type: http
+      scheme: bearer
+      bearerFormat: JWT    # optional, arbitrary value for documentation purposes
+# 2) Apply the security globally to all operations
+security:
+  - bearerAuth: []       
+```
+
+</details>
+
+<details><summary>OAuth2.0</summary>
+
+#### OAuth2.0
+
+```yaml
+# Step 1 - define the security scheme
+components:
+  securitySchemes:
+    oAuthSample:    # <---- arbitrary name
+      type: oauth2
+      description: This API uses OAuth 2 with the implicit grant flow. [More info](https://api.example.com/docs/auth)
+      flows:
+        implicit:   # <---- OAuth flow(authorizationCode, implicit, password or clientCredentials)
+          authorizationUrl: https://api.example.com/oauth2/authorize
+          scopes:
+            read_pets: read your pets
+            write_pets: modify pets in your account
+# Step 2 - apply security globally...
+security: 
+  - oAuthSample: 
+    - write_pets
+    - read_pets
+# ... or to individual operations
+paths:
+  /pets:
+    patch:
+      summary: Add a new pet
+      security: 
+        - oAuthSample: 
+          - write_pets
+          - read_pets
+      ...
+```
+
+</details>
+
+<details><summary>OpenID Connect</summary>
+
+#### OpenID Connect
+
+```yaml
+openapi: 3.0.0
+...
+
+paths:
+  /pets/{petId}:
+    get:
+      summary: Get a pet by ID
+      security:
+        - openId:
+          - pets_read
+      ...
+    delete:
+      summary: Delete a pet by ID
+      security:
+        - openId:
+          - pets_write
+      ...
+
+# 1) Define the security scheme type and attributes
+components:
+  securitySchemes:
+    openId:   # <--- Arbitrary name for the security scheme. Used to refer to it from elsewhere.
+      type: openIdConnect
+      openIdConnectUrl: https://example.com/.well-known/openid-configuration
+# 2) Apply security globally to all operations
+security:
+  - openId:   # <--- Use the same name as specified in securitySchemes
+      - pets_read
+      - pets_write
+      - admin
+```
+
+</details>
+
 <details><summary>Unauthorized</summary>
+
+#### Unauthorized
 
 認証に失敗した時のエラーを定義する。
 
@@ -2213,7 +2840,176 @@ components:
 ```yaml
 authorizationCode:
   OAuthFlow
+implicit:
+  OAuthFlow
+clientCredentials:
+  OAuthFlow
+password:
+  OAuthFlow
 ```
+
+### 属性
+
+<details><summary>authorizationCode</summary>
+
+#### authorizationCode
+
+もっとも一般的に使用されるフローで、主にサーバーや
+
+モバイルWebアプリケーションに使用されます。これは
+
+ユーザーが`Facebook`または`Google`アカウントを使用して
+
+Webアプリケーションにサインアップする方法に似ています。
+
+</details>
+
+<details><summary>implicit</summary>
+
+#### implicit
+
+このフローでは、クライアントがアクセストークンを直接取得する
+
+必要があります。主に、サーバーコンポーネントを含まないWeb、
+
+デスクトップ、およびモバイルアプリケーションに適しています。
+
+</details>
+
+<details><summary>password</summary>
+
+#### password
+
+ユーザー名とパスワードを使用してログインする必要があります。
+
+`API`プロバイダー自身のアプリケーションに適しています。
+
+</details>
+
+<details><summary>clientCredentials</summary>
+
+#### clientCredentials
+
+サーバー間の認証を目的としたフローです。
+
+</details>
+
+### 例
+
+<details><summary>authorizationCode</summary>
+
+#### authorizationCode
+
+```yaml
+components:
+  securitySchemes:
+    oAuth2AuthCode:
+      type: oauth2
+      description: For more information, see https://api.slack.com/docs/oauth
+      flows: 
+        authorizationCode:
+          authorizationUrl: https://slack.com/oauth/authorize
+          tokenUrl: https://slack.com/api/oauth.access
+          scopes:
+            users:read: Read user information
+            users:write: Modify user information
+            im:read: Read messages
+            im:write: Write messages
+            im:history: Access the message archive
+            search:read: Search messages, files, and so on
+            # etc.
+```
+
+</details>
+
+<details><summary>implicit</summary>
+
+#### implicit
+
+`authorizationUrl`からアクセストークンを取得します。
+
+```yaml
+components:
+  securitySchemes:
+    oAuth2Implicit:
+      type: oauth2
+      description: For more information, see https://developers.getbase.com/docs/rest/articles/oauth2/requests
+      flows: 
+        implicit:
+          authorizationUrl: https://api.getbase.com/oauth2/authorize
+          scopes:
+            read: Grant read-only access to all your data except for the account and user info
+            write: Grant write-only access to all your data except for the account and user info
+            profile: Grant read-only access to the account and user info only
+```
+
+</details>
+
+<details><summary>password</summary>
+
+#### password
+
+```yaml
+components:
+  securitySchemes:
+    oAuth2Password:
+      type: oauth2
+      description: See https://developers.getbase.com/docs/rest/articles/oauth2/requests
+      flows: 
+        password: 
+          tokenUrl: https://api.getbase.com/oauth2/token
+          scopes: 
+            read: Grant read-only access to all your data except for the account and user info
+            write: Grant write-only access to all your data except for the account and user info
+            profile: Grant read-only access to the account and user info only
+```
+
+</details>
+
+<details><summary>clientCredentials</summary>
+
+#### clientCredentials
+
+```yaml
+components:
+  securitySchemes:
+    oAuth2ClientCredentials:
+      type: oauth2
+      description: See http://developers.gettyimages.com/api/docs/v3/oauth2.html
+      flows: 
+        clientCredentials: 
+          tokenUrl: https://api.gettyimages.com/oauth2/token/
+          scopes: {} # Getty Images does not use scopes
+```
+
+</details>
+
+<details><summary>複数のフロー</summary>
+
+#### 複数のフロー
+
+```yaml
+components:
+  securitySchemes:
+    oAuth2:
+      type: oauth2
+      description: For more information, see https://developers.getbase.com/docs/rest/articles/oauth2/requests
+      flows: 
+        implicit:
+          authorizationUrl: https://api.getbase.com/oauth2/authorize
+          scopes:
+            read: Grant read-only access to all your data except for the account and user info
+            write: Grant write-only access to all your data except for the account and user info
+            profile: Grant read-only access to the account and user info only
+        password: 
+          tokenUrl: https://api.getbase.com/oauth2/token
+          scopes: 
+            read: Grant read-only access to all your data except for the account and user info
+            write: Grant write-only access to all your data except for the account and user info
+            profile: Grant read-only access to the account and user info only
+```
+
+</details>
 
 </details>
 
@@ -2223,7 +3019,8 @@ authorizationCode:
 
 ```yaml
 authorizationUrl: <authorization_url>  #required
-tokenUrl: <token_url>  # required
+tokenUrl: <token_url>
+refreshUrl: <refresh_url>
 scopes:
   ScopeMap
 ```
@@ -2234,7 +3031,7 @@ scopes:
 
 #### authorizationUrl
 
-認証URLの相対パス。
+ログインページなどのユーザー情報を入力させるページの相対url
 
 </details>
 
@@ -2242,7 +3039,40 @@ scopes:
 
 #### tokenUrl
 
-トークンURLの相対パス
+トークンを取得するURLの相対url
+
+</details>
+
+<details><summary>refreshUrl</summary>
+
+#### refreshUrl
+
+更新用トークンを取得する。相対url
+
+</details>
+
+<details><summary>scopes</summary>
+
+#### scopes
+
+リソースにアクセスするための権限のリストです。
+
+通常はトークンに付与されます。
+
+</details>
+
+### 備考
+
+<details><summary>フローと属性の対応表</summary>
+
+#### フロート属性の対応表
+
+|属性|authorizationCode|implicit|password|clientCredentials|
+|:---|:---|:---|:---|:---|
+|authorizationUrl|+|+|-|-|
+|tokenUrl|+|-|+|+|
+|refreshUrl|+|+|+|+|
+|scopes|+|+|+|+|
 
 </details>
 
