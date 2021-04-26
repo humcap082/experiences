@@ -8,14 +8,9 @@
 
 [title]
 
-[skinparam]
-
 [box]
 
-[
-    <class> {<instance> | "<instance>"} [\<\< \>\>]
-    [as] [order] [#<color>]
-]
+[<class>]
 
 [autonumber]
 
@@ -39,9 +34,18 @@
 [== ==]
 ```
 
-## パラメータ
+## 属性
 
-<details><summary>class</summary>
+<details><summary>&lt;class&gt;</summary>
+
+### &lt;class&gt;
+
+インスタンスを定義する。
+
+```uml
+<class> {<instance> | "<instance>"} [\<\< \>\>]
+[as] [order] [#<color>]
+```
 
 |class|説明|
 |:---|:---|
@@ -54,9 +58,53 @@
 |collections|集合や配列を表す。|
 |queue|キューを表す。|
 
+#### 属性
+
+<details><summary>as</summary>
+
+##### as
+
+インスタンスのエイリアスを指定する。
+
+```uml
+as <alias>
+```
+
+###### 属性
+
+<details><summary>&lt;alias&gt;</summary>
+
+###### &lt;alias&gt;
+
 </details>
 
-<details><summary>arrow</summary>
+</details>
+
+<details><summary>order</summary>
+
+###### order
+
+指定した数字で小さい順に左から並べる。
+
+```uml
+order <number>
+```
+
+###### 属性
+
+<details><summary>&lt;number&gt;</summary>
+
+###### &lt;number&gt;
+
+</details>
+
+</details>
+
+</details>
+
+<details><summary>&lt;arrow&gt;</summary>
+
+### &lt;arrow&gt;
 
 矢印
 
@@ -73,9 +121,11 @@
 |-&gt;o|先端に円がついた矢印|
 |&lt;-&gt;|両端の矢印|
 
-### 例
+#### 例
 
 <details><summary>矢印に色をつける</summary>
+
+##### 矢印に色を付ける。
 
 色をつける場合は、間に`[#color]`をはさむ。
 
@@ -87,6 +137,8 @@ client <-[#0000FF]- server
 </details>
 
 <details><summary>インとアウト</summary>
+
+##### インとアウト
 
 インスタンスの変わりに矢印の両端どちらかに`[`または`]`を
 
@@ -121,6 +173,8 @@ Bob x<-]
 
 <details><summary>短いインとアウト</summary>
 
+##### 短いインとアウト
+
 `[`ではなく`?`を使用することで跨ぐことなく、直近の余白から
 
 インアウトの先端をつける。
@@ -141,7 +195,9 @@ Alice -> Bob : ""->"" \nfrom actor1 to actor2
 
 </details>
 
-<details><summary>note</summary>
+<details><summary>&lt;note&gt;</summary>
+
+### &lt;note&gt;
 
 ノートをつける
 
@@ -155,7 +211,7 @@ Alice -> Bob : ""->"" \nfrom actor1 to actor2
 [#<color>]{: <message> | <multi_lines> end note}
 ```
 
-### パラメータ
+### 属性
 
 <details><summary>color</summary>
 </details>
@@ -303,7 +359,9 @@ Bob -> Alice : hello
 
 </details>
 
-<details><summary>group</summary>
+<details><summary>&lt;group&gt;</summary>
+
+#### &lt;group&gt;
 
 グループ化する。
 
@@ -315,7 +373,7 @@ Bob -> Alice : hello
 end
 ```
 
-### パラメータ
+### 属性
 
 <details><summary>message</summary>
 </details>
@@ -418,8 +476,6 @@ end
 
 </details>
 
-## 属性
-
 <details><summary>&lt;&lt; &gt;&gt;</summary>
 
 ```uml
@@ -428,7 +484,7 @@ end
 
 インスタンスを定義時にステレオタイプを指定できる。
 
-### パラメータ
+### 属性
 
 <details><summary>a</summary>
 </details>
@@ -455,35 +511,6 @@ Bob->Alice: First message
 
 </details>
 
-<details><summary>as</summary>
-
-インスタンスのエイリアスを指定する。
-
-```uml
-as <alias>
-```
-
-### パラメータ
-
-<details><summary>alias</summary>
-</details>
-
-</details>
-
-<details><summary>order</summary>
-
-指定した数字で小さい順に左から並べる。
-
-```uml
-order <number>
-```
-
-### パラメータ
-
-<details><summary>number</summary>
-</details>
-
-</details>
 
 <details><summary>autonumber</summary>
 
@@ -493,7 +520,7 @@ order <number>
 autonumber [stop | resume] [<n>] [<s>] ["<format>"]
 ```
 
-### パラメータ
+### 属性
 
 <details><summary>n</summary>
 </details>
@@ -571,59 +598,6 @@ Bob <- Alice : Yet another authentication Response
 
 </details>
 
-<details><summary>skinparam</summary>
-
-スキンパラメータを設定する。
-
-```uml
-skinparam <param_name> <value>
-```
-
-### パラメータ
-
-<details><summary>param_name</summary>
-
-#### パラメータ
-
-<details><summary>responseMessageBelowArrow</summary>
-
-シーケンス図のレスポンスのメッセージを矢印の下に配置するかどうか。
-
-```uml
-bool responseMessageBelowArrow
-```
-
-</details>
-
-<details><summary>maxMessageSize</summary>
-
-一行の文字数を制限し、制限を超えた場合は折り返す。
-
-```uml
-int maxMessageSize
-```
-
-</details>
-
-<details><summary>lifelineStrategy</summary>
-
-ライフラインのスタイル
-
-```uml
-border_style lifelineStyle
-```
-
-|border_style|説明|
-|:---|:---|
-|solid|実線|
-|unsolid|デフォルトの点線|
-
-</details>
-
-</details>
-
-</details>
-
 <details><summary>header</summary>
 
 ヘッダー
@@ -632,7 +606,7 @@ border_style lifelineStyle
 header <message>
 ```
 
-### パラメータ
+### 属性
 
 <details><summary>message</summary>
 </details>
@@ -647,7 +621,7 @@ header <message>
 footer <message>
 ```
 
-### パラメータ
+### 属性
 
 <details><summary>message</summary>
 </details>
@@ -687,7 +661,7 @@ Bob --> Alice: Authentication Response
 title {<message> | multi_lines end title}
 ```
 
-### パラメータ
+### 属性
 
 <details><summary>message</summary>
 </details>
@@ -735,7 +709,7 @@ Bob -> Alice: Authentication Response
 newpage [<title>]
 ```
 
-### パラメータ
+### 属性
 
 <details><summary>title</summary>
 </details>
@@ -750,7 +724,7 @@ newpage [<title>]
 == <message> ==
 ```
 
-### パラメータ
+### 属性
 
 <details><summary>message</summary>
 </details>
@@ -765,7 +739,7 @@ newpage [<title>]
 ref over <instance>[, <end_instance>]: {<message> | <multi_lines> end ref}
 ```
 
-### パラメータ
+### 属性
 
 <details><summary>instance</summary>
 </details>
@@ -809,7 +783,7 @@ end ref
 [||| | ||<size>||]  ` この行で連続する|はorを意味しない。
 ```
 
-### パラメータ
+### 属性
 
 <details><summary>size</summary>
 </details>
@@ -828,7 +802,7 @@ end ref
 {deactivate | destroy| return}
 ```
 
-### パラメータ
+### 属性
 
 <details><summary>instance</summary>
 </details>
@@ -964,7 +938,7 @@ bob -> alice !!: failed
 [create [<class>] <instance>]
 ```
 
-### パラメータ
+### 属性
 
 <details><summary>class</summary>
 </details>
@@ -1003,7 +977,7 @@ box <group_name> [#<color>]
 end box
 ```
 
-### パラメータ
+### 属性
 
 <details><summary>color</summary>
 </details>
