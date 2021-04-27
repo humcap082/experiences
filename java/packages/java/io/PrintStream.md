@@ -33,6 +33,8 @@ public class PrintStream extends FilterOutputStream
 
 <details><summary>println()</summary>
 
+### println()
+
 ```java
 public void println();
 
