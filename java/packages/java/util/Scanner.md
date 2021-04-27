@@ -16,6 +16,8 @@ public final class Scanner implements Iterator<String>, Closeable {
 
 <details><summary>nextInt()</summary>
 
+### nextInt()
+
 ```java
 public int nextInt();
 
@@ -26,6 +28,8 @@ public int nextInt(int radix);
 
 <details><summary>nextDouble()</summary>
 
+### nextDouble()
+
 ```java
 public double nextDouble();
 ```
@@ -35,8 +39,20 @@ public double nextDouble();
 
 <details><summary>nextLine()</summary>
 
+### nextLine()
+
 ```java
 public String nextLine();
+```
+
+</details>
+
+<details><summary>close()</summary>
+
+### close()
+
+```java
+public void close();
 ```
 
 </details>
