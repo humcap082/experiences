@@ -41,6 +41,12 @@ public double nextDouble();
 
 ### nextLine()
 
+直前に別の標準入力の改行が残っているとそちらの
+
+入力値を受け取ってしまうので、改行削除ために一度実行したあとに、
+
+もう一度、入力値をうけとる必要がある。
+
 ```java
 public String nextLine();
 ```
