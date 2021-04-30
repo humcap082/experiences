@@ -46,6 +46,15 @@
 
 ## Adapter
 
+クラスのインターフェースをクライアントが期待する別のインターフェースに
+
+変換することで、互換性がない他のクラスを連携する。
+
+```puml
+@startuml
+@enduml
+```
+
 </details>
 
 <details><summary>Bridge</summary>
@@ -116,11 +125,106 @@
 
 ## Iterator
 
-集約クラスに順番にアクセスするイテレータクラスを返すメソッド用意する。
+集約クラスに順番にアクセスする方法を提供する。
 
 ```puml
+@startuml
+interface Iterable {
+    +Iterator iterator();
+}
 
+interface Iterator {
+    +hasNext();
+    +next();
+}
+
+class ConcreteIterable {
+    +Iterator iterator();
+}
+
+class ConcreteIterator {
+    -concreteIterable: ConcreteIterable
+    +hasNext();
+    +next();
+}
+
+ConcreteIterable ..|> Iterable
+ConcreteIterator ..|> Iterator
+ConcreteIterator --o ConcreteIterable
+@enduml
 ```
+
+### 例
+
+<details><summary>iterator in java</summary>
+
+```java
+class IntegerBox {
+    private List<Integer> list = new ArrayList<>();
+
+    public class Iterator {
+        private IntegerBox box;
+        private java.util.Iterator iterator;
+        private int value;
+
+        public Iterator(IntegerBox integerBox) {
+            box = integerBox;
+        }
+
+        public void first() {
+            iterator = box.list.iterator();
+            next();
+        }
+
+        public void next() {
+            try {
+                value = (Integer)iterator.next();
+            } catch (NoSuchElementException ex) {
+                value =  -1;
+            }
+        }
+
+        public boolean isDone() {
+            return value == -1;
+        }
+
+        public int currentValue() {
+            return value;
+        }
+    }
+
+    public void add(int in) {
+        list.add(in);
+    }
+
+    public Iterator getIterator() {
+        return new Iterator(this);
+    }
+}
+
+public class IteratorDemo {
+    public static void main(String[] args) {
+        IntegerBox integerBox = new IntegerBox();
+        for (int i = 9; i > 0; --i) {
+            integerBox.add(i);
+        }
+        // getData() has been removed.
+        // Client has to use Iterator.
+        IntegerBox.Iterator firstItr = integerBox.getIterator();
+        IntegerBox.Iterator secondItr = integerBox.getIterator();
+        for (firstItr.first(); !firstItr.isDone(); firstItr.next()) {
+            System.out.print(firstItr.currentValue() + "  ");
+        }
+        System.out.println();
+        // Two simultaneous iterations
+        for (firstItr.first(), secondItr.first(); !firstItr.isDone(); firstItr.next(), secondItr.next()) {
+            System.out.print(firstItr.currentValue() + " " + secondItr.currentValue() + "  ");
+        }
+    }
+}
+```
+
+</details>
 
 </details>
 
