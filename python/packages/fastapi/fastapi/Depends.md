@@ -15,6 +15,8 @@ def Depends(  # noqa: N802
 
 <details><summary>dependency</summary>
 
+### dependency
+
 引数を受け取り、引数を返す関数やクラスなどを指定する
 
 ```python
@@ -24,6 +26,8 @@ dependency: Callable = None
 </details>
 
 <details><summary>use_cache</summary>
+
+### use_cache
 
 引数を受け取り、引数を返す関数やクラスなどを指定する
 
