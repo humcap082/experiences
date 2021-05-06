@@ -17,7 +17,11 @@ class APIRouter(routing.Router):
     ) -> None:
 ```
 
+## メソッド
+
 <details><summary>get()</summary>
+
+### get()
 
 `GET`リクエストを処理する関数をルーティングするデコレータ
 
@@ -54,6 +58,8 @@ def get(
 
 <details><summary>post()</summary>
 
+### post()
+
 `POST`リクエストを処理する関数をルーティングするデコレータ
 
 ```python
@@ -88,6 +94,8 @@ def post(
 </details>
 
 <details><summary>put()</summary>
+
+### put()
 
 `PUT`リクエストを処理する関数をルーティングするデコレータ
 
@@ -124,6 +132,8 @@ def put(
 
 <details><summary>patch()</summary>
 
+### ptach()
+
 `PATCH`リクエストを処理する関数をルーティングするデコレータ
 
 ```python
@@ -158,6 +168,8 @@ def patch(
 </details>
 
 <details><summary>delete()</summary>
+
+### delete()
 
 `DELETE`リクエストを処理する関数をルーティングするデコレータ
 

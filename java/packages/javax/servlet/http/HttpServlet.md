@@ -34,3 +34,15 @@ protected void doPost(HttpServletRequest req, HttpServletResponse resp);
 ```
 
 </details>
+
+<details><summary>getServletContext()</summary>
+
+### getServletContext()
+
+サーブレットのコンテキストを取得するメソッド。
+
+```java
+public ServletContext getServletContext();
+```
+
+</details>
