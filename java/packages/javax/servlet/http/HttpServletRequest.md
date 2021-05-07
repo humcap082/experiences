@@ -21,6 +21,36 @@ public String getParameter(String name);
 
 </details>
 
+<details><summary>setAttribute()</summary>
+
+### setAttribute()
+
+任意の属性名にオブジェクトを設定する。
+
+オブジェクトは`Serializable`を実装している必要がある。
+
+```java
+public void setAttribute(String name, Object o);
+
+```
+
+</details>
+
+<details><summary>getAttribute()</summary>
+
+### getAttribute()
+
+任意の属性のオブジェクトを取得する。
+
+キャストする必要がある。
+
+```java
+public Object getAttribute(String name);
+
+```
+
+</details>
+
 <details><summary>setCharacterEncoding()</summary>
 
 ### setCharacterEncoding()
