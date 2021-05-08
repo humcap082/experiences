@@ -21,3 +21,22 @@ public class Exception extends Throwable {
         boolean writableStackTrace
     );
 ```
+
+### メソッド
+
+
+<details><summary>printStackTrace()</summary>
+
+### printStackTrace()
+
+```java
+public void printStackTrace();
+
+public void printStackTrace(PrintStream s);
+
+private void printStackTrace(PrintStreamOrWriter s);
+
+```
+
+</details>
+
