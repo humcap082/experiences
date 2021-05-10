@@ -6,17 +6,106 @@
 
 ## Abstract Factory
 
+オブジェクトを作成する一連の抽象クラスを作成する。
+
+```puml
+@startuml
+abstract AbstractFactory {
+    +{abstract}getProduct1(): AbstractProduct1
+    +{abstract}getProduct2(): AbstractProduct2
+}
+
+abstract AbstractProduct1 {}
+
+abstract AbstractProduct2 {}
+
+class ConcreteFactory {
+    +getProduct1(): ConcreteProduct1
+    +getProduct2(): ConcreteProduct2
+}
+
+class ConcreteProduct1 {}
+
+class ConcreteProduct2 {}
+
+ConcreteFactory --|> AbstractFactory
+ConcreteProduct1 --|> AbstractProduct1
+ConcreteProduct2 --|> AbstractProduct2
+AbstractFactory --> AbstractProduct1 : create >
+AbstractFactory --> AbstractProduct2 : create >
+ConcreteFactory --> ConcreteProduct1 : create >
+ConcreteFactory --> ConcreteProduct2 : create >
+@enduml
+```
+
 </details>
 
 <details><summary>Builder</summary>
 
 ## Builder
 
+表現形式のインタフェースとそれを使用した
+
+作成過程を管理するクラスを用意するパターン。
+
+```puml
+@startuml
+class Director {
+    -builder: Builder
+    +build()
+}
+
+interface Builder {
+    +{abstract}buildPart()
+    +{abstract}getResult()
+}
+
+class ConcreteBuilder {
+    +buildPart()
+    +getResult()
+}
+
+Director o-- Builder
+ConcreteBuilder ..|> Builder
+
+@enduml
+```
+
 </details>
 
 <details><summary>Factory Method</summary>
 
-## Factory
+## Factory Method
+
+スーパークラスにインスタンスを生成するメソッドと
+
+そのインスタンスのインタフェースを用意することで、
+
+インスタンスの生成をオーバーライドできるパターン
+
+```puml
+@startuml
+abstract Factory {
+    +{abstract}factoryMethod(): Product
+}
+
+interface Product {
+}
+
+class ConcreteFactory {
+    +factoryMethod(): Product
+}
+
+class ConcreteProduct {
+}
+
+ConcreteFactory --|> Factory
+ConcreteProduct ..|> Product
+Factory --> Product : create >
+ConcreteFactory --> ConcreteProduct : create >
+note left of ConcreteFactory : factoryMethod() returns ConcreteProduct()
+@enduml
+```
 
 </details>
 
@@ -30,11 +119,46 @@
 
 ## Prototype
 
+自身のインスタンスをコピーして新しいインスタンスを作成する
+
+メソッドもったインタフェースを用意するパターン
+
+```uml
+@startuml
+interface ProtoType {
+    +{abstract}createClone(): ProtoType
+}
+
+class ConcreteProtoType {
+    +createClone(): ProtoType
+}
+
+ConcreteProtoType ..|> ProtoType
+User --> ProtoType : uses >
+@enduml
+```
+
 </details>
 
 <details><summary>Singleton</summary>
 
 ## Singleton
+
+一度、インスタンスを生成したクラスが
+
+その後、同じインスタンスしか返さないことで
+
+インスタンスが常に一つであることを保障するパターン。
+
+```puml
+@startuml
+class Singleton {
+    -instance: Singleton
+    -Singleton()
+    +getInstance(): Singleton
+}
+@enduml
+```
 
 </details>
 
@@ -52,6 +176,46 @@
 
 ```puml
 @startuml
+class Adapter {
+    +targetMethod()
+}
+
+interface Target {
+    +{abstract}targetMethod()
+}
+
+class Adaptee {
+    +method()
+}
+
+Adapter ..|> Target
+Adapter --|> Adaptee
+Client --> Target: Use >
+note left of Adapter: method() in targetMethod()
+@enduml
+```
+
+もしくは
+
+```puml
+@startuml
+class Adapter {
+    -adaptee: Adaptee
+    +targetMethod()
+}
+
+interface Target {
+    +{abstract}targetMethod()
+}
+
+class Adaptee {
+    +method()
+}
+
+Adapter --|> Target
+Adapter::adaptee o-- Adaptee
+Client --> Target: Use >
+note left of Adapter : "adaptee.method() in taregetMethod()"
 @enduml
 ```
 
@@ -130,12 +294,12 @@
 ```puml
 @startuml
 interface Iterable {
-    +Iterator iterator();
+    +{abstract}iterator(): Iterator;
 }
 
 interface Iterator {
-    +hasNext();
-    +next();
+    +{abstract}hasNext();
+    +{abstract}next();
 }
 
 class ConcreteIterable {
@@ -267,6 +431,28 @@ public class IteratorDemo {
 <details><summary>Template method</summary>
 
 ## Template method
+
+メソッドを組み合わせて使用するメソッドを
+
+抽象クラスのみに定義し、サブクラスは部分的な
+
+メソッドのみをオーバーライドするようなパターン
+
+```uml
+@startuml
+abstract AbstractClass {
+    +{abstract}method1()
+    +{abstract}method2()
+    +templateMethod()
+}
+class ConcreteClass {
+    +method1()
+    +method2()
+}
+
+ConcreteClass --|> AbstractClass
+@enduml
+```
 
 </details>
 

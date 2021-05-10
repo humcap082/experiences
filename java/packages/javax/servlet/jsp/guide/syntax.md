@@ -33,6 +33,12 @@
 
 ### include
 
+ファイルを埋め込む。
+
+```jsp
+<%@ include file="<file_path>"%>
+```
+
 </details>
 
 <details><summary>taglib</summary>
@@ -107,10 +113,10 @@
 
 ### include
 
-指定したファイルを埋め込む。
+指定したjspファイルを埋め込む。
 
 ```jsp
-<jsp:include page="<path>">
+<jsp:include page="<path>" />
 ```
 
 </details>
