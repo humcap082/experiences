@@ -5,7 +5,7 @@
 `SIMILAR TO`が上位互換で正規表現が使用できます。
 
 ```sql
-<string> [NOT] LIKE `<pattern>` [ESCAPE]
+<string> [NOT] LIKE '<pattern>' [ESCAPE]
 ```
 
 ## パラメータ
