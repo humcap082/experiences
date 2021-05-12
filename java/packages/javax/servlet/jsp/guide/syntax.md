@@ -121,6 +121,19 @@
 
 </details>
 
+<details><summary>forward</summary>
+
+### forward
+
+指定したパスにフォワードする。
+
+```jsp
+<jsp:forward page="<path>"/>
+```
+
+</details>
+
+
 ## 備考
 
 <details><summary>コメント</summary>
