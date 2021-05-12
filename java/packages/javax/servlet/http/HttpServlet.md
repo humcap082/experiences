@@ -46,3 +46,17 @@ public ServletContext getServletContext();
 ```
 
 </details>
+
+<details><summary>init()</summary>
+
+### init()
+
+パスにアクセスされたときに共通して実行するメソッド
+
+```java
+@Override
+public void init(ServletConfig config) throws ServletException {
+
+```
+
+</details>
