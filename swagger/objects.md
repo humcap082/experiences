@@ -2559,6 +2559,8 @@ flows:
 
 認証。複数の認証方式と組み合わせることが推奨される。
 
+セッション管理もここに含まれる。
+
 </details>
 
 <details><summary>Bearer Authentication</summary>
