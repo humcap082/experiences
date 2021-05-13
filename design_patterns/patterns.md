@@ -225,6 +225,45 @@ note left of Adapter : "adaptee.method() in taregetMethod()"
 
 ## Bridge
 
+実装と機能を独立させるパターンで、
+
+機能クラスのフィールドに実装クラスを集約することで、
+
+機能クラスのサブクラスが実装クラスのサブクラスを
+
+選択できるパターン。
+
+```puml
+@startuml
+class Abstraction {
+    -implementer: Implementer
+    +operation()
+}
+
+abstract Implementer {
+    +{abstract}operationImple()
+}
+
+class RefineAbstraction {
+    +operation()
+}
+
+class ConcreteImplementorA {
+    +operationImple()
+}
+
+class ConcreteImplementorB {
+    +operationImple()
+}
+
+RefineAbstraction --|> Abstraction
+ConcreteImplementorA --|> Implementer
+ConcreteImplementorB --|> Implementer
+Abstraction::implementer o-- Implementer
+note left of Abstraction : implementor.operationImple() in operation()
+@enduml
+```
+
 </details>
 
 <details><summary>Composite</summary>
