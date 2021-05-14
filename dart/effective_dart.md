@@ -187,6 +187,31 @@ Id id;
 </details>
 
 <details><summary>PREFER using \_, \_\_, etc. for unused callback parameters.</summary>
+
+#### PREFER using \_, \_\_, etc. for unused callback parameters.
+
+引数を求められる関数定義がありますが、もしその引数が関数内で
+
+使用されないとき、その引数をアンダースコアに置き換えることが
+
+好まれます。そのような引数が複数ある場合は、複数のアンダースコアを
+
+つなげます。
+
+##### 例
+
+<details><summary>good</summary>
+
+###### good
+
+```dart
+futureOfVoid.then((_) {
+    print('Operation complete);
+})
+```
+
+</details>
+
 </details>
 
 </details>

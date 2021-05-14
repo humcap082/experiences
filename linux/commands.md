@@ -2,6 +2,8 @@
 
 <details><summary>ls</summary>
 
+## ls
+
 ディレクトリ内のファイル一覧
 
 ```shell
@@ -11,6 +13,8 @@ ls [<path>]
 ## オプション
 
 <details><summary>-R</summary>
+
+### -R
 
 その下の階層まで表示
 
@@ -22,6 +26,8 @@ ls [<path>]
 
 <details><summary>-l</summary>
 
+### -l
+
 それぞれのフォルダとファイルを1行で詳細に表示
 
 ```bash
@@ -32,6 +38,8 @@ ls [<path>]
 
 <details><summary>-o</summary>
 
+### -o
+
 標準出力として出力(パイプを使用時に必要)
 
 ```bash
@@ -40,9 +48,11 @@ ls [<path>]
 
 </details>
 
-### 備考
+#### 備考
 
 <details><summary>ls -l フォーマット</summary>
+
+##### ls -l フォーマット
 
 `<mode> <number_of_link> <user> <group> <size> <at_updated> <name>`
 
@@ -72,7 +82,7 @@ ls [<path>]
 2. 所有グループのパーミッション　
 3. 第3者のパーミッション
 
-#### リンク数
+###### リンク数
 
 ハードリンクの数
 
@@ -1349,6 +1359,47 @@ df
 -i
 ```
 
+</details>
+
+</details>
+
+<details><summary>ssh-keygen</summary>
+
+## ssh-keygen
+
+sshの秘密鍵、公開鍵を作成する。
+
+鍵はデフォルトで`.ssh/`に配置され、
+
+拡張子に`.pub`ついているファイルが公開鍵になる。
+
+```bash
+ssh-keygen
+```
+
+### オプション
+
+<details><summary>-t</summary>
+
+暗号化のアルゴリズムを指定する。
+
+```bash
+-t <algorithm>
+```
+
+</details>
+
+<details><summary>-C</summary>
+
+メッセージをつける。
+
+```bash
+-C '<message>'
+```
+
+</details>
+
+<details><summary></summary>
 </details>
 
 </details>

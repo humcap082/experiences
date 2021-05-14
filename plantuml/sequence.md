@@ -818,7 +818,7 @@ end ref
 <details><summary>autoactivate on</summary>
 
 ```uml
-autoacativate
+autoactivate on
 ```
 
 </details>
