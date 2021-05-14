@@ -16,7 +16,7 @@
 6. リモート追跡ブランチを更新
     - `git fetch upstream/main`
 7. リモート追跡ブランチを結合
-    - `git rebase origin/main` 
+    - `git rebase upstream/main`(もしくは`git pull --rebase upstream main`、この場合`fetch`は必要ない。)
 8. 衝突が発生した場合、衝突箇所を修正して、`rebase`
     - `git rebase --continue`
 9. リモートブランチにプッシュ。

@@ -129,6 +129,16 @@ commit [<path>]
 
 </details>
 
+<details><summary>-a</summary>
+
+##### -a
+
+変更及び削除されたファイルを自動的にステージングしてからコミット。
+
+新しいファイルはステージングされません。
+
+</details>
+
 </details>
 
 <details><summary>push</summary>
@@ -137,8 +147,10 @@ commit [<path>]
 
 現在のローカルブランチからリモートブランチに追加する。
 
+また、タグもプッシュできる。
+
 ```bash
-push <url_alias> [<branch_name>]
+push <url_alias> [<branch_or_tag_name>]
 ```
 
 #### オプション
@@ -169,6 +181,26 @@ push <url_alias> [<branch_name>]
 
 </details>
 
+<details><summary>--delete</summary>
+
+##### --delete
+
+リモートレポジトリのブランチを削除する。
+
+```bash
+--delete
+```
+
+###### 備考
+
+<details><summary>ショートカット</summary>
+
+このオプションを省略し、ブランチ名の前に`:`(コロン)をつけて実行もできる。
+
+</details>
+
+</details>
+
 </details>
 
 <details><summary>clone</summary>
@@ -193,6 +225,18 @@ clone <remote_url>
 pull [<repository>] [<branch>]
 ```
 
+#### オプション
+
+<details><summary>--rebase</summary>
+
+マージではなく、`rebase`にする。
+
+```bash
+--rebase
+```
+
+</details>
+
 </details>
 
 <details><summary>fetch</summary>
@@ -204,6 +248,20 @@ pull [<repository>] [<branch>]
 ```bash
 fetch [<url_alias>]
 ```
+
+#### オプション
+
+<details><summary>--prune</summary>
+
+##### ---prune
+
+削除したリモートブランチをロカールブランチに反映する。
+
+```bash
+--prune
+```
+
+</details>
 
 </details>
 
@@ -218,6 +276,30 @@ fetch [<url_alias>]
 ```bash
 merge <branch_name>
 ```
+
+#### オプション
+
+<details><summary>--ff</summary>
+
+### --ff
+
+可能な場合はファーストフォワードします。
+
+不可能な場合は、マージコミットします。
+
+デフォルトです。
+
+</details>
+
+<details><summary>--no-ff</summary>
+
+ファーストフォワード可能な場合でも、
+
+マージコミットします。
+
+つけることで分岐の履歴が残ります。
+
+</details>
 
 </details>
 
@@ -405,16 +487,28 @@ git checkout <branch_name>
 remote
 ```
 
-### サブコマンド
+#### サブコマンド
 
 <details><summary>add</summary>
 
-#### add
+##### add
 
 リモートブランチのエイリアスをつくる。
 
 ```bash
-add [<remote_url>] [<alias>]
+add [<alias>] [<remote_url>]
+```
+
+</details>
+
+<details><summary>rm</summary>
+
+##### rm
+
+リモートブランチを削除する。
+
+```bash
+rm <alias>
 ```
 
 </details>
@@ -602,6 +696,54 @@ log
 
 </details>
 
+<details><summary>tag</summary>
+
+### tag
+
+直近のコメントタグをつける。
+
+```bash
+tag [<tag_name>]
+```
+
+#### オプション
+
+<details><summary>-a</summary>
+
+#### -a
+
+タグの名前を指定する。
+
+```bash
+-a <tag_name>
+```
+
+</details>
+
+<details><summary>-m</summary>
+
+#### -m
+
+メッセージをつける。
+
+```bash
+-m "<message>"
+```
+
+</details>
+
+<details><summary>-d</summary>
+
+タグの削除
+
+```bash
+-d
+```
+
+</details>
+
+</details>
+
 ## 備考
 
 <details><summary>ワーキングツリーの状態</summary>
@@ -617,3 +759,18 @@ log
 
 </details>
 
+<details><summary>git flow</summary>
+
+### git flow
+
+ブランチの構成
+
+|branch|説明|
+|:---|:---|
+|main|プロダクトとしてリリースするためのブランチ、リリースしたらタグ付けする。|
+|develop|開発ブランチ、コードが安定したらreleaseにマージする。リリース前は個のブランチが最新のバージョンとなる。|
+|feature|機能の追加をし、developにマージする。基本的にここで作業する。|
+|hotfix|リリース後のクリティカルなバグフィックスなど現在のバージョンに対する緊急の変更用|
+|release|mainにマージする前に機能追加中のコードや未使用のコードを削除し、きれいな状態にしてから、mainとdevelopにマージする。|
+
+</details>
