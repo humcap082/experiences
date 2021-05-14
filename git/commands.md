@@ -10,12 +10,38 @@ git
 
 ### init
 
-ローカルレポジトリを作成する。(`.git`を作成。)
+レポジトリを作成する。(`.git`を作成。)
 
 ```bash
 init [<directory_name>]
 
 ```
+
+#### オプション
+
+<details><summary>--bare</summary>
+
+##### --bare
+
+ワーキングツリーのないレポジトリを作成
+
+```bash
+--bare
+```
+
+</details>
+
+<details><summary>--shared</summary>
+
+##### --shared
+
+共有リポジトリとして作成する。
+
+```bash
+--shared[=<permission>]
+```
+
+</details>
 
 #### パラメータ
 
@@ -67,15 +93,19 @@ git add -A .
 
 <details><summary>commit</summary>
 
+### commit
+
 インデックスからローカルレポジトリに追加する。
 
 ```bash
 commit [<path>]
 ```
 
-### オプション
+#### オプション
 
 <details><summary>-m</summary>
+
+##### -m
 
 コミットメッセージをつける。
 
@@ -86,6 +116,8 @@ commit [<path>]
 </details>
 
 <details><summary>--amend</summary>
+
+##### --amend
 
 直前のコミットを修正
 
@@ -101,15 +133,19 @@ commit [<path>]
 
 <details><summary>push</summary>
 
+### push
+
 現在のローカルブランチからリモートブランチに追加する。
 
 ```bash
 push <url_alias> [<branch_name>]
 ```
 
-### オプション
+#### オプション
 
 <details><summary>-U</summary>
+
+##### -U
 
 現在のブランチを上流ブランチとする。
 
@@ -120,6 +156,8 @@ push <url_alias> [<branch_name>]
 </details>
 
 <details><summary>-f</summary>
+
+##### -f
 
 `git reset`でプッシュ以前のコミットに戻したときに、
 
@@ -147,6 +185,8 @@ clone <remote_url>
 
 <details><summary>pull</summary>
 
+### pull
+
 リモートレポジトリから`fetch`し、現在のブランチに`merge`する。
 
 ```bash
@@ -157,6 +197,8 @@ pull [<repository>] [<branch>]
 
 <details><summary>fetch</summary>
 
+### fetch
+
 リモートブランチを保持するローカルのリモート追跡ブランチを更新
 
 ```bash
@@ -166,6 +208,8 @@ fetch [<url_alias>]
 </details>
 
 <details><summary>merge</summary>
+
+### merge
 
 現在のブランチに指定したブランチを結合する。
 
@@ -329,15 +373,19 @@ branch [<branch_name>]
 
 <details><summary>checkout</summary>
 
+### checkout
+
 ブランチを切り替える。
 
 ```bash
 git checkout <branch_name>
 ```
 
-### オプション
+#### オプション
 
 <details><summary>-b</summary>
+
+##### -b
 
 ブランチを作成して切り替える。
 
@@ -351,6 +399,8 @@ git checkout <branch_name>
 
 <details><summary>remote</summary>
 
+### remote
+
 ```bash
 remote
 ```
@@ -358,6 +408,8 @@ remote
 ### サブコマンド
 
 <details><summary>add</summary>
+
+#### add
 
 リモートブランチのエイリアスをつくる。
 
@@ -370,6 +422,8 @@ add [<remote_url>] [<alias>]
 </details>
 
 <details><summary>rm</summary>
+
+#### rm
 
 インデックスやワークツリーからファイルを削除する。
 
@@ -511,6 +565,40 @@ config [<name> [<value>]]
 ```bash
 status
 ```
+
+</details>
+
+<details><summary>log</summary>
+
+### log
+
+コミット履歴を表示
+
+```bash
+log
+```
+
+##### オプション
+
+<details><summary>-p</summary>
+
+##### -p
+
+変更点を表示する。
+
+```bash
+-p [-<n>]
+```
+
+###### パラメータ
+
+<details><summary>&lt;n&gt;</summary>
+
+直近からの件数を指定する。
+
+</details>
+
+</details>
 
 </details>
 
