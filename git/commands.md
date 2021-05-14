@@ -6,7 +6,30 @@ git
 
 ## サブコマンド
 
+<details><summary>init</summary>
+
+### init
+
+ローカルレポジトリを作成する。(`.git`を作成。)
+
+```bash
+init [<directory_name>]
+
+```
+
+#### パラメータ
+
+<details><summary>&lt;directory_name&gt;</summary>
+
+新しいディレクトリを作成し、そこにレポジトリを作成する。
+
+</details>
+
+</details>
+
 <details><summary>add</summary>
+
+### add
 
 ワークツリーからインデックスにファイルを追加する。
 
@@ -14,9 +37,11 @@ git
 add <path>
 ```
 
-### オプション
+#### オプション
 
 <details><summary>-A</summary>
+
+##### -A
 
 gitで管理してないファイルも含めてインデックスに追加する。
 
@@ -110,10 +135,12 @@ push <url_alias> [<branch_name>]
 
 <details><summary>clone</summary>
 
+### clone
+
 リモートレポジトリを端末上にダウンロードする。
 
 ```bash
-clone remote_url
+clone <remote_url>
 ```
 
 </details>
@@ -356,7 +383,7 @@ rm <path>
 
  フォルダを指定するときにつける。
 
-```sql
+```bash
 -r
 ```
 
@@ -366,10 +393,139 @@ rm <path>
 
 インデックスからのみ削除し、ワーキングツリーから削除しない。
 
-```sql
+```bash
 --cached
 ```
 
 </details>
 
 </details>
+
+<details><summary>config</summary>
+
+### config
+
+設定ファイルの設定の表示や編集をする。
+
+```bash
+config [<name> [<value>]]
+```
+
+#### パラメータ
+
+<details><summary>&lt;name&gt;</summary>
+
+##### &lt;name&gt;
+
+設定項目
+
+|項目|説明|
+|:---|:---|
+|color.ui|Gitの色分け、デフォルトは(auto)|
+|core.editor|コミットメッセージなどの編集に用いるエディタ|
+|user.name|ユーザー名|
+|user.email|Eメールアドレス|
+
+</details>
+
+<details><summary>&lt;value&gt;</summary>
+
+##### $lt;value&gt;
+
+設定する項目の値。
+
+</details>
+
+#### オプション
+
+<details><summary>--system</summary>
+
+##### --system
+
+全ユーザーの全レポジトリの設定ファイル。
+
+設定ファイルのパスは`/etc/gitconfig`
+
+```bash
+--system
+```
+
+</details>
+
+<details><summary>--global</summary>
+
+##### --global
+
+ユーザーの全レポジトリの設定ファイル。
+
+設定ファイルのパスは`~/.gitconfig`
+
+```bash
+--global
+```
+
+</details>
+
+<details><summary>--local</summary>
+
+##### --local
+
+リポジトリ単体の設定ファイル。これがデフォルトです。
+
+設定ファイルのパスは`<project_name>/.git/config`
+
+```bash
+--local
+```
+
+</details>
+
+<details><summary>-l</summary>
+
+##### -l
+
+設定値をすべて表示する。
+
+```bash
+-l
+```
+
+</details>
+
+<details><summary>-e</summary>
+
+##### -e
+
+設定ファイルをエディタで直接編集する。
+
+</details>
+
+</details>
+
+<details><summary>status</summary>
+
+### status
+
+ワーキングツリーの状態を表示する。
+
+```bash
+status
+```
+
+</details>
+
+## 備考
+
+<details><summary>ワーキングツリーの状態</summary>
+
+### ワーキングツリーの状態
+
+|状態|説明|
+|:---|:---|
+|Untracked|インデックスツリーに入ってない(addされていない)|
+|Staged|インデックスツリーに入っていてローカルレポジトリにない|
+|Unmodified|ローカルレポジトリにあって、ワーキングツリーと差分がない|
+|Modified|ローカルレポジトリにあって、ワーキングツリーと差分がある|
+
+</details>
+
