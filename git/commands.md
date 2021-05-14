@@ -47,6 +47,8 @@ init [<directory_name>]
 
 <details><summary>&lt;directory_name&gt;</summary>
 
+##### &lt;directory_name&gt;
+
 新しいディレクトリを作成し、そこにレポジトリを作成する。
 
 </details>
@@ -289,6 +291,18 @@ merge <branch_name>
 
 デフォルトです。
 
+ファストフォワードとは、ブランチが枝分かれしたときから、
+
+現在のブランチがコミットしていないとき、
+
+マージするブランチのすべてのコミットを現在のブランチ
+
+に反映させます。枝分かれしてから、現在のブランチが
+
+コミットされた場合は、マージするブランチのHEADのみを
+
+現在のブランチに反映させます。
+
 </details>
 
 <details><summary>--no-ff</summary>
@@ -297,7 +311,9 @@ merge <branch_name>
 
 マージコミットします。
 
-つけることで分岐の履歴が残ります。
+つまり、常に現在のブランチにはマージするブランチの
+
+HEADのみが反映されます。
 
 </details>
 
@@ -329,6 +345,8 @@ rebase <branch_name>
 
 <details><summary>reset</summary>
 
+### reset
+
 ワークツリーやインデックス、ローカルレポジトリの変更を
 
 指定したコミット位置になるまで取り消しできる。
@@ -337,9 +355,11 @@ rebase <branch_name>
 reset [<commit_id>] [<path>]
 ```
 
-### オプション
+#### オプション
 
 <details><summary>--soft</summary>
+
+##### --soft
 
 ローカルレポジトリのみをリセットする。
 
@@ -351,6 +371,8 @@ reset [<commit_id>] [<path>]
 
 <details><summary>--mixed</summary>
 
+##### --mixed
+
 デフォルトのオプションでローカルレポジトリとインデックスまでリセットする。
 
 ```bash
@@ -361,6 +383,8 @@ reset [<commit_id>] [<path>]
 
 <details><summary>--hard</summary>
 
+##### --hard
+
 ローカルレポジトリとインデックスとワークツリーまでリセットする。
 
 ```bash
@@ -369,27 +393,35 @@ reset [<commit_id>] [<path>]
 
 </details>
 
-### パラメータ
+#### パラメータ
 
-<details><summary>commit_id</summary>
+<details><summary>&lt;commit_id&gt;</summary>
+
+##### &lt;commit_id&gt;
 
 戻りたい過去のコミットID
 
-#### 備考
+###### 備考
 
 <details><summary>HEAD</summary>
 
+###### HEAD
+
 現在のコミットidのエイリアス。`@`も同じ。
 
-##### 備考
+###### 備考
 
 <details><summary>HEAD^</summary>
+
+###### HEAD^
 
 語尾に`^`をつけることで一個前のコミットになる。
 
 </details>
 
 <details><summary>HEAD~n</summary>
+
+###### HEAD~n
 
 `n`個前のコミット
 
@@ -403,15 +435,19 @@ reset [<commit_id>] [<path>]
 
 <details><summary>branch</summary>
 
+### branch
+
 ブランチを作成する。引数を省略すると、現在のブランチを表示
 
 ```bash
 branch [<branch_name>]
 ```
 
-### オプション
+#### オプション
 
 <details><summary>-m</summary>
+
+##### -m
 
 ブランチ名を変更する。
 
@@ -421,7 +457,19 @@ branch [<branch_name>]
 
 </details>
 
+<details><summary>-M</summary>
+
+現在のブランチ名を変更する。
+
+```bash
+-M <new_branch_name>
+```
+
+</details>
+
 <details><summary>-d</summary>
+
+##### -d
 
 指定したマージ済みブランチを削除
 
@@ -517,7 +565,7 @@ rm <alias>
 
 <details><summary>rm</summary>
 
-#### rm
+### rm
 
 インデックスやワークツリーからファイルを削除する。
 
@@ -525,9 +573,11 @@ rm <alias>
 rm <path>
 ```
 
-### オプション
+##### オプション
 
 <details><summary>-r</summary>
+
+##### -r
 
  フォルダを指定するときにつける。
 
@@ -538,6 +588,8 @@ rm <path>
 </details>
 
 <details><summary>--cached</summary>
+
+##### --cached
 
 インデックスからのみ削除し、ワーキングツリーから削除しない。
 
@@ -578,7 +630,7 @@ config [<name> [<value>]]
 
 <details><summary>&lt;value&gt;</summary>
 
-##### $lt;value&gt;
+##### &lt;value&gt;
 
 設定する項目の値。
 
@@ -744,33 +796,62 @@ tag [<tag_name>]
 
 </details>
 
-## 備考
+<details><summary>fork</summary>
 
-<details><summary>ワーキングツリーの状態</summary>
+### fork
 
-### ワーキングツリーの状態
+クローンしたリポジトリを自分のリポジトリとしてフォークする。
 
-|状態|説明|
-|:---|:---|
-|Untracked|インデックスツリーに入ってない(addされていない)|
-|Staged|インデックスツリーに入っていてローカルレポジトリにない|
-|Unmodified|ローカルレポジトリにあって、ワーキングツリーと差分がない|
-|Modified|ローカルレポジトリにあって、ワーキングツリーと差分がある|
+```bash
+fork
+```
 
 </details>
 
-<details><summary>git flow</summary>
+<details><summary>diff</summary>
 
-### git flow
+### diff
 
-ブランチの構成
+ワーキングツリーやインデックスやレポジトリや
 
-|branch|説明|
-|:---|:---|
-|main|プロダクトとしてリリースするためのブランチ、リリースしたらタグ付けする。|
-|develop|開発ブランチ、コードが安定したらreleaseにマージする。リリース前は個のブランチが最新のバージョンとなる。|
-|feature|機能の追加をし、developにマージする。基本的にここで作業する。|
-|hotfix|リリース後のクリティカルなバグフィックスなど現在のバージョンに対する緊急の変更用|
-|release|mainにマージする前に機能追加中のコードや未使用のコードを削除し、きれいな状態にしてから、mainとdevelopにマージする。|
+コミットの差分を表示する。
+
+```bash
+diff [<from> [<to>]]
+```
+
+#### オプション
+
+<details><summary>--cached</summary>
+
+##### --cached
+
+インデックスへの変更を表示する
+
+</details>
+
+<details><summary>--name-only</summary>
+
+##### --name-only
+
+変更のあったファイル名だけを表示する。
+
+</details>
+
+<details><summary>--name-status</summary>
+
+##### --name-status
+
+変更のあったファイル名とステータスを表示する。
+
+</details>
+
+<details><summary>--stat</summary>
+
+##### --stat
+
+変更の統計情報を表示する。
+
+</details>
 
 </details>
