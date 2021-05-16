@@ -214,11 +214,132 @@ futureOfVoid.then((_) {
 
 </details>
 
+<details><summary>DON'T use a leading underscore for identifiers that aren't private</summary>
+
+#### DON'T use a leading underscore for identifiers that aren't private
+
+アンダースコアをトップレベルの宣言や、メンバーにつけることで、それらを
+
+プライベートとして判断します。なので、プライベートではないメンバには
+
+アンダースコアをつけるべきではありません。そして、
+
+ローカル変数、ローカルパラメータ、ローカル関数、ライブラリは
+
+プライベートの必要がないので、アンダースコアをつけることはありません。
+
+</details>
+
+<details><summary>DON'T use prefix letters</summary>
+
+#### DON'T use prefix letters
+
+ハンガリアン記法やその他のスキームはコンパイラがコードを理解するのに
+
+あまり役に立たなかった`BCPL`の時代に生まれました。
+
+しかし、`Dart`では必要ありません。
+
+##### 例
+
+<details><summary>good/bad</summary>
+
+```dart
+defaultTimeout  // good
+kDefaultTimeout // bad
+```
+
+</details>
+
+</details>
+
 </details>
 
 <details><summary>Ordering</summary>
 
 ### Ordering
+
+ファイルのプリアンブルを整理するために、ディレクティブが表示される順序を
+
+規定しています。
+
+<details><summary>DO place "dart:" imports before other imports</summary>
+
+#### DO place "dart:" imports before other imports
+
+##### 例
+
+<details><summary>good</summary>
+
+```dart
+import 'dart:async';
+import 'dart:html';
+
+import 'package:bar/bar.dart';
+import 'package:foo/foo.dart';
+```
+
+</details>
+
+</details>
+
+<details><summary>DO place "package:" imports before relative imports.</summary>
+
+#### DO place "package:" imports before relative imports.
+
+##### 例
+
+<details><summary>good</summary>
+
+```dart
+import 'package:bar/bar.dart';
+import 'package:foo/foo.dart';
+
+import 'util.dart';
+```
+
+</details>
+
+</details>
+
+<details><summary>DO specify exports in a separate section after all imports</summary>
+
+#### DO specify exports in a separate section after all imports
+
+##### 例
+
+<details><summary>good</summary>
+
+```dart
+import 'src/error.dart';
+import 'src/foo_bar.dart';
+
+export 'src/error.dart';
+```
+
+</details>
+
+</details>
+
+<details><summary>DO sort sections alphabetically</summary>
+
+#### DO sort sections alphabetically
+
+##### 例
+
+<details><summary>good</summary>
+
+```dart
+import 'package:bar/bar.dart';
+import 'package:foo/foo.dart';
+
+import 'foo.dart';
+import 'foo/foo.cart';
+```
+
+</details>
+
+</details>
 
 </details>
 
@@ -226,9 +347,87 @@ futureOfVoid.then((_) {
 
 ### Formatting
 
+他の言語と同じように`dart`は余分なスペースを無視します。
+
+そのスペースを利用し、`dart`の適切にフォーマットします。
+
+<details><summary>DO format your code using dart format</summary>
+
+フォーマットは面倒な作業であり、リファクリング中に時間がかかります。
+
+しかし、心配する必要はありません。`dart format`は自動フォーマットします。
+
+残りのガイドラインは`dart format`では、補完できない部分です。
+
 </details>
 
-## Document
+<details><summary>CONSIDER changing your code to make it more formatter-friendly</summary>
+
+#### CONSIDER changing your code to make it more formatter-friendly
+
+特に長い識別子、深くネストされた式、さまざまな演算子が混在している場合など、
+
+フォーマットされた出力が読みにくい場合があります。その場合は、手動で
+
+読みやすい形にしてください。
+
+</details>
+
+<details><summary>AVOID lines longer than 80 characters</summary>
+
+#### AVOID lines longer than 80 characters
+
+次の行に移動する時に、目の移動が遠くなるため、長いテキストは
+
+読みにくくなります。80文字を超える行が本当に必要な場合は、
+
+命名を短くすることを検討してください。
+
+例外として、コメントやURIで80文字をこえても良いです。
+
+また、複数行の文字列には80文字を超えても良いです。
+
+</details>
+
+<details><summary>DO use curly braces for all flow control statements</summary>
+
+#### DO use curly braces for all flow control statements
+
+すべての制御フローには中括弧を使用してください。
+
+一行に収まる文は例外として許されます。
+
+##### 例
+
+<details><summary>good</summary>
+
+###### good
+
+```dart
+if (isWeekDay) {
+    print('Bic to work');
+} else {
+    print('Go dancing or read book!');
+}
+```
+
+</details>
+
+<details><summary>exception</summary>
+
+###### exception
+
+```dart
+if (art == null) return defaultValue;
+```
+
+</details>
+
+</details>
+
+</details>
+
+## Documentation
 
 コメントのルール。
 
@@ -236,11 +435,160 @@ futureOfVoid.then((_) {
 
 ### Comments
 
+通常のコメントのルール
+
+<details><summary>DO format comments like sentences</summary>
+
+#### DO format comments like sentences
+
+最初は大文字で、最後はピリオドで終わります。
+
+##### 例
+
+<details><summary>good</summary>
+
+```dart
+// Not if there is nothing before it.
+```
+
+</details>
+
+</details>
+
+<details><summary>DON'T use block comments for documentation</summary>
+
+#### DON'T use block comments for documentation
+
+`/* ... */`はコードを一時的に避難させるためのものであり、
+
+通常、コメントは`//`を使用します。
+
+##### 例
+
+<details><summary>bad</summary>
+
+###### bad
+
+```dart
+greet(name) {
+    /* Assume we have a valid name. */
+    print('Hi, $name!');
+}
+```
+
+</details>
+
+</details>
+
 </details>
 
 <details><summary>Doc comments</summary>
 
 ### Doc comments
+
+ドキュメントのコメントのルール
+
+<details><summary>DO use /// doc comments to document members and types</summary>
+
+#### DO use /// doc comments to document members and types
+
+ドキュメント用のコメントは`///`を使用します。これにより`dartdoc`は
+
+それを見つけてドキュメント生成します。
+
+<details><summary>good</summary>
+
+```dart
+/// The number of characters in this chunk when unsplit.
+int get length => ...
+```
+
+</details>
+
+</details>
+
+<details><summary>PREFER writing doc comments for public APIs</summary>
+
+#### PREFER writing doc comments for public APIs
+
+全てのライブラリは、できる限り、変数やメンバ、定義にドキュメントをつけるべきです。
+
+</details>
+
+<details><summary>CONSIDER writing a library-level doc comment</summary>
+
+#### CONSIDER writing a library-level doc comment
+
+ライブラリレベルにドキュメントを生成する必要があります。
+
+ドキュメントには以下を含めてください。
+
+- ライブラリの目的に関する1文のようやく
+- ライブラリ全体で使用される用語の説明
+- APIを使用してウォークスルーするいくつかの完全なコードサンプル
+- 最も重要、一般的に使用されるクラス、及び関数へのリンク。
+- ライブラリが関係するドメイン上の外部参照リンク。
+
+ドキュメントは`library`ディレクティブのすぐうえに記述します。
+
+</details>
+
+<details><summary>CONSIDER writing doc comments for private APIs</summary>
+
+##### CONSIDER writing doc comments for private APIs
+
+パブリックなAPIにだけではなく、プラベートなAPIにもドキュメントを
+
+つけたほうがいいでしょう。
+
+</details>
+
+<details><summary>DO start doc comments with a single-sentence summary</summary>
+
+#### DO start doc comments with a single-sentence summary
+
+コメントはユーザー中心に考えた要約からはじめるべきです。
+
+##### 例
+
+<details><summary>good</summary>
+
+```dart
+/// Deletes the file at [path] from the file system.
+void delete(String path) {
+    ...
+}
+```
+
+</details>
+
+</details>
+
+<details><summary>DO separate the first sentence of a doc comment into its own paragraph</summary>
+
+#### DO separate the first sentence of a doc comment into its own paragraph
+
+空白行のコメントをあけることで、段落を区切ることができます。`dartdoc`は最初の空白行のコメント
+
+で要約と説明文を識別します。
+
+##### 例
+
+<details><summary>good</summary>
+
+```dart
+/// Deletes the file at [path].
+///
+/// Throws an [IOError] if the file could not be found. Throws a
+/// [PermissionError] if the file is present but could not be deleted.
+void delete(String path) {
+    ...
+}
+```
+
+</details>
+
+</details>
 
 </details>
 
