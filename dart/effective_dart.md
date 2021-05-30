@@ -590,6 +590,161 @@ void delete(String path) {
 
 </details>
 
+<details><summary>AVOID redundancy with the surrounding context<summary>
+
+### AVOID redundancy with the surrounding context
+
+周囲の情報と重複を避けるべきです。ソースコードを見て、すぐに理解できる部分は
+
+コメントに書き込む必要はありません。
+
+</details>
+
+<details><summary>PREFER starting variable, getter, or setter comments with noun phrases<summary>
+
+### PREFER starting variable, getter, or setter comments with noun phrases
+
+プロパティやゲッターにそれを説明するコメントはなるべくつけるべきです。
+
+ゲッターにつけている場合は、セッターにつける必要はありません。
+
+#### 例
+
+<details><summary>good<summary>
+
+##### good
+
+```dart
+/// The current day of the week, where `0` is Sunday.
+int weekday;
+
+/// The number of checked buttons on the page.
+int get checkedCount => ...
+```
+
+</details>
+
+</details>
+
+<details><summary>PREFER stating library or type comments with noun phrases<summary>
+
+### PREFER stating library or type comments with noun phrases
+
+ライブラリや型のコメントは名詞ではじめてください。
+
+</details>
+
+<details><summary>CONSIDER including code samples in doc comments.<summary>
+
+### CONSIDER including code samples in doc comments.
+
+人間は例から一般化するのが得意なので、一つでもコードサンプルがあると
+
+学習が容易になります。
+
+#### 例
+
+<details><summary>good<summary>
+
+```dart
+/// Returns the lesser of two numbers.
+///
+/// ```dart
+/// min(5, 3) == 3
+/// ```
+num min(num a, num b) => ...
+```
+
+</details>
+
+</details>
+
+<details><summary>DO use square brackets in doc comments to refer to in-scope identifiers<summary>
+
+### DO use square brackets in doc comments to refer to in-scope identifiers
+
+変数、メソッド、型などの名前は`[]`で囲むと`dart_doc`は名前を検索し、
+
+関連するAPIドキュメントへのリンクを作成します。カッコはオプションですが、メソッドまたは
+
+コンストラクタを参照しているときにわかりやすくなります。
+
+#### 例
+
+<details><summary>good<summary>
+
+##### good
+
+```dart
+/// Throws a [StateError] if ...
+/// similar to [anotherMethod()], but ...
+/// Similar to [Duration.inDays], but handles fractional days.
+/// To create a point from polar coordinates, use [Point.polar()].
+```
+
+</details>
+
+</details>
+
+<details><summary>DO use prose to explain parameters. return values, and exceptions<summary>
+
+### DO use prose to explain parameters. return values, and exceptions
+
+他の言語では、詳細なタグとセクションを使用して、メソッドの引数と戻り値を
+
+説明します。`Dart`は`[]`を使用してそれを強調します。
+
+#### 例
+
+<details><summary>bad<summary>
+
+```dart
+/// Defines a flag with the given name and abbreviation.
+///
+/// @param name The name of the flag.
+/// @param abbr The abbreviation for the flag.
+/// @returns The new flag.
+/// @throws ArgumentError If there is already an option with
+///     the given name or abbreviation.
+Flag addFlag(String name, String abbr) => ...
+```
+
+</details>
+
+<details><summary>good<summary>
+
+```dart
+/// Defines a flag.
+///
+/// Throws an [ArgumentError] if there is already an option named [name] or
+/// there is already an option using abbreviation [abbr]. Returns the new flag.
+Flag addFlag(String name, String abbr) => ...
+```
+
+</details>
+
+</details>
+
+<details><summary>DO put doc comments before metadata annotations<summary>
+
+### DO put doc comments before metadata annotations
+
+コメントはアノテーションの前に配置指定ください。
+
+#### 例
+
+<details><summary>good<summary>
+
+```dart
+/// A button that can be flipped on and off.
+@Component(selector: 'toggle')
+class ToggleComponent {}
+```
+
+</details>
+
+</details>
+
 </details>
 
 <details><summary>Markdown</summary>
