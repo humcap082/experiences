@@ -250,3 +250,229 @@ AとBを任意の正規表現として`A|B`はAとBのいずれかにマッチ�
 ```
 
 </details>
+
+<details><summary>&bsol;number</summary>
+
+### &bsol;number
+
+指定した番号のグループにマッチします。
+
+```
+\number
+```
+
+#### 備考
+
+<details><summary>連続しない</summary>
+
+'(.+)\1`は`the the`にマッチしますが`thethe`にはマッチしません。
+
+</details>
+
+</details>
+
+<details><summary>&bsol;A</summary>
+
+### &bsol;A
+
+文字列の先頭にマッチします。
+
+```
+\A
+```
+
+</details>
+
+<details><summary>&bsol;b</summary>
+
+### &bsol;b
+
+単語の先頭、もしくは末尾である空文字にマッチします。
+
+形式的には`\w, \W`の境界線として定義されます。
+
+`locale`モードならば、その言語の境界線として定義されます。
+
+```
+\b
+```
+
+#### 例
+
+<details><summary>foo</summary>
+
+`\bfoo\b`は`'foo`や`foo.`や`(foo)`、`bar foo baz`にマッチしますが、
+
+`foobar`や`foo3`にはマッチしません。
+
+</details>
+
+</details>
+
+<details><summary>&bsol;B</summary>
+
+### &bsol;B
+
+単語の先頭もしくは末尾でないから文字にマッチします。
+
+```
+\B
+```
+
+#### 例
+
+<details><summary>py</summary>
+
+`py\B`は`python`や`py3`や`py2`にはマッチしますが、
+
+`py`、`py.`、`py!`にはマッチしません。
+
+</details>
+
+</details>
+
+<details><summary>&bsol;d</summary>
+
+### &bsol;d
+
+`unicode`モードなら任意の10進数数字、
+
+`ASCII`モードなら`[0-9]`と等価です。
+
+```
+\d
+```
+
+</details>
+
+<details><summary>&bsol;D</summary>
+
+### &bsol;d
+
+`unicode`モードなら任意の10進数数字でない文字、
+
+`ASCII`モードなら`[^0-9]`と等価です。
+
+```
+\D
+```
+
+</details>
+
+<details><summary>&bsol;s</summary>
+
+### &bsol;s
+
+空白文字にマッチします。`[\t\n\r\f\v]`と同義です。
+
+```
+
+```
+
+</details>
+
+<details><summary>&bsol;S</summary>
+
+### &bsol;S
+
+空白文字でない文字にマッチします。`[^\t\n\r\f\v]`と同義です。
+
+```
+\S
+```
+
+</details>
+
+<details><summary>&bsol;w</summary>
+
+### &bsol;w
+
+`Unicode`モードなら単語文字にマッチします。
+
+`ASCII`なら`[a-zA-Z0-9_]`と同義です。
+
+```
+\w
+```
+
+</details>
+
+<details><summary>&bsol;W</summary>
+
+### &bsol;W
+
+単語文字ではない任意の文字にマッチします。
+
+`ASCII`モードなら`[^a-zA-Z0-9]`と等価です。
+
+</details>
+
+<details><summary>&bsol;Z</summary>
+
+### &bsol;Z
+
+文字列の末尾にマッチします。
+
+```
+\Z
+```
+
+</details>
+
+## モード
+
+<details><summary>ASCII</summary>
+
+### ASCII
+
+`\w, \W, \b, \B, \d, \D, \s, \S`に完全な`Unicode`マッチングではなく、
+
+`ASCII`限定マッチングをおこないます。
+
+</details>
+
+<details><summary>IGNORECASE</summary>
+
+### IGNORECASE
+
+大文字、小文字を区別しないマッチングをおこないます。
+
+</details>
+
+<details><summary>LOCALE</summary>
+
+### LOCALE
+
+現在のロケールに合わせたマッチングをおこないます。
+
+</details>
+
+<details><summary>MULTILINE</summary>
+
+### MULTILINE
+
+`^`は文字列の銭湯で、及び各行の先頭でマッチします。
+
+`$`は文字列の末尾、及び各行の末尾でマッチします。
+
+</details>
+
+<details><summary>DOTALL</summary>
+
+### DOTALL
+
+`.`が家業を含むあらゆる文字にマッチします。
+
+</details>
+
+<details><summary>VERBOSE</summary>
+
+正規表現にコメントを加えることができ、見た目をよくできます。
+
+これは複数行の正規表現に有効で、`#`の右側がコメントとして
+
+無視されます。
+
+</details>
+
+
