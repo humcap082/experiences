@@ -1,0 +1,51 @@
+- test-project  // プロジェクト
+    - api  // バックエンドロジックを含みます、MVCのMとCの部分
+        - controllers  // リクエストを処理するバックエンドロジック
+        - heplers  // アプリの何処からでも呼び出すことができる共通関数
+        - models  // Sailsのアプリのデータの構造
+        - policies  // アプリ内の特定のリクエストを制限するミドルウェア
+        - hooks  // 起動時やリクエストの処理まえに実行するカスタムコード
+        - responses  // アプリ全体で一貫したレスポンス
+    - assets  // 静的ファイルを保持します。
+        - dependencies // クライアント側の静的ファイルを保持する
+        - images  // 画像ファイルを保持する。
+        - js  // クライアントサイドのJavaScriptファイルを保持する
+        - styles  // cssを保持する
+            - importer.less  // cssにコンパイルするlessファイルを記述する。
+        - templates  // フロントフレームワークなどのサーバーから独立したインタフェースを保持する。
+        - .eslintrc  // assetsにおけるESlintの設定ファイル
+        - favicon.ico  // アプリケーションのWebアイコン
+    - config  // 環境固有設定を保持する。
+        - env  // 環境固有の設定を保持する。
+            - production.js   // プロダクションモードで起動した時に読み込まれる - locales  // サポートする言語の情報を保持する。
+            - de.json  // ドイツ語の情報ファイル
+            - en.json  // 英語の情報ファイル
+            - es.json  // スペイン語の情報のファイル
+            - fr.json  // フランス語の情報ファイル
+    - node_modules
+    - scripts
+    - tasks  // Gruntのタスクを保持する。
+        - config  // Gruntの設定
+        - register  // Sailsがデフォルトで実行するGruntタスクを保持する
+        - pipeline.js  // クライアントの静的ファイルをコンパイルする順番を定義します
+    - views  // ビューを保持します
+        - layouts // レイアウトを保持します。
+            - layout.ejs  // デフォルトのレイアウト
+        - pages // ページを保持します
+            - homepage.ejs  // ベースURLにアクセスした時のデフォルトのページ
+        - .eslintrc  // viewsでのESlintの設定ファイル
+        - 404.ejs  // デフォルトのNot Foundページ
+        - 500.ejs  // デフォルトのサーバーエラーページ
+    - .editorconfig  // ファイルの一貫したフォーマットを定義
+    - .eslintignore  // ESLintに無視させるファイルを記述
+    - .eslintrc  // プロジェクト全体のESLint設定ファイル
+    - .gitignore  // gitに無視させるファイルを記述
+    - .htmlhintrc  // HTMLHintの設定ファイル
+    - .lesshintrc
+    - .npmrc
+    - .sailsrc // Sailsアプリの設定ファイル
+    - .app.js  // nodeコマンドで起動するためのファイル
+    - Gruntfile.js  // Gruntにアセット管理を任せるファイル
+    - package.json  // パッケージの依存関係
+    - package-lock.json // パッケージの再帰的な依存関係
+    - README.md  // 一般情報
