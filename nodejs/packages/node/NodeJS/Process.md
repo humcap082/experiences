@@ -44,7 +44,6 @@ interface Process extends EventEmitter {
     emitWarning(warning: string | Error, type?: string, code?: string, ctor?: Function): void;
     emitWarning(warning: string | Error, options?: EmitWarningOptions): void;
 
-    env: ProcessEnv;
     exit(code?: number): never;
     exitCode?: number;
     getgid(): number;
@@ -258,6 +257,10 @@ interface Process extends EventEmitter {
 ### env
 
 環境変数をもつオブジェクト
+
+```typescript
+env: ProcessEnv;
+```
 
 #### 型
 

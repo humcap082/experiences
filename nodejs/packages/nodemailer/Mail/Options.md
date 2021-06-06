@@ -4,18 +4,8 @@
 
 ```typescript
     interface Options {
-        from?: string | Address;
-        sender?: string | Address;
-        to?: string | Address | Array<string | Address>;
-        cc?: string | Address | Array<string | Address>;
-        bcc?: string | Address | Array<string | Address>;
-        replyTo?: string | Address;
-        inReplyTo?: string | Address;
         /** Message-id list (an array or space separated string) */
         references?: string | string[];
-        subject?: string;
-        text?: string | Buffer | Readable | AttachmentLike;
-        html?: string | Buffer | Readable | AttachmentLike;
         /** Apple Watch specific HTML version of the message, same usage as with text and html */
         watchHtml?: string | Buffer | Readable | AttachmentLike;
         /** AMP4EMAIL specific HTML version of the message, same usage as with text and html. Make sure it is a full and valid AMP4EMAIL document, otherwise the displaying email client falls back to html and ignores the amp part */
@@ -65,6 +55,10 @@ All e-mail addresses can be plain 'sender@server.com'
 
 or formatted 'Sender Name <sender@server.com>'
 
+```typescript
+from?: string | Address;
+```
+
 #### 型
 
 - string
@@ -79,6 +73,10 @@ or formatted 'Sender Name <sender@server.com>'
 Comma separated list or an array of recipients e-mail addresses
 
 that will appear on the To: field
+
+```typescript
+to?: string | Address | Array<string | Address>;
+```
 
 #### 型
 
@@ -97,6 +95,10 @@ Comma separated list or an array of recipients e-mail addresses
 
 that will appear on the Cc: field
 
+```typescript
+cc?: string | Address | Array<string | Address>;
+```
+
 #### 型
 
 - string
@@ -114,6 +116,10 @@ Comma separated list or an array of recipients e-mail addresses
 
 that will appear on the Bcc: field
 
+```typescript
+bcc?: string | Address | Array<string | Address>;
+```
+
 #### 型
 
 - string
@@ -129,6 +135,10 @@ that will appear on the Bcc: field
 
 The subject of the e-mail
 
+```typescript
+subject?: string;
+```
+
 #### 型
 
 - string
@@ -140,6 +150,10 @@ The subject of the e-mail
 ### text
 
 The plaintext version of the message
+
+```typescript
+text?: string | Buffer | Readable | AttachmentLike;
+```
 
 #### 型
 
@@ -155,6 +169,10 @@ The plaintext version of the message
 ### html
 
 The HTML version of the message
+
+```typescript
+html?: string | Buffer | Readable | AttachmentLike;
+```
 
 #### 型
 
@@ -183,6 +201,10 @@ An array of attachment objects
 
 An e-mail address that will appear on the Sender: field
 
+```typescript
+sender?: string | Address;
+```
+
 #### 型
 
 - string
@@ -196,6 +218,10 @@ An e-mail address that will appear on the Sender: field
 
 An e-mail address that will appear on the Reply-To: field
 
+```typescript
+replyTo?: string | Address;
+```
+
 #### 型
 
 - string
@@ -208,6 +234,10 @@ An e-mail address that will appear on the Reply-To: field
 ### inReplayTo
 
 The message-id this message is replying
+
+```typescript
+inReplyTo?: string | Address;
+```
 
 #### 型
 

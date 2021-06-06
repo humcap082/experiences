@@ -31,12 +31,6 @@ declare class Mail<T = any> extends EventEmitter {
 
     use(step: string, plugin: Mail.PluginFunction<T>): this;
 
-    sendMail(
-        mailOptions: Mail.Options,
-        callback: (err: Error | null, info: T) => void
-    ): void;
-    sendMail(mailOptions: Mail.Options): Promise<T>;
-
     getVersionString(): string;
 
     /** Sets up proxy handler for a Nodemailer object */

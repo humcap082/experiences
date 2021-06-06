@@ -4,9 +4,6 @@ SMTPの接続情報のオブジェクトのインタフェース
 
 ```typescript
     interface Options {
-        host?: string;
-        port?: number;
-        auth?: AuthenticationType;
         /** defines if the connection should use SSL (if true) or not (if false) */
         secure?: boolean;
         /** turns off STARTTLS support if true */
@@ -51,6 +48,10 @@ SMTPの接続情報のオブジェクトのインタフェース
 
 the hostname or IP address to connect to (defaults to ‘localhost’)
 
+```typescript
+host?: string;
+```
+
 #### 型
 
 - string
@@ -63,6 +64,10 @@ the hostname or IP address to connect to (defaults to ‘localhost’)
 
 the port to connect to (defaults to 25 or 465)
 
+```typescript
+port?: number;
+```
+
 #### 型
 
 - number
@@ -74,6 +79,10 @@ the port to connect to (defaults to 25 or 465)
 ### auth
 
 defines authentication data
+
+```typescript
+auth?: AuthenticationType;
+```
 
 #### 型
 
