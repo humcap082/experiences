@@ -4,7 +4,6 @@
 
 コードのレイアウトと整理のルール。
 
-<details><summary>Identifiers</summary>
 
 ### Identifiers
 
@@ -253,10 +252,6 @@ kDefaultTimeout // bad
 
 </details>
 
-</details>
-
-<details><summary>Ordering</summary>
-
 ### Ordering
 
 ファイルのプリアンブルを整理するために、ディレクティブが表示される順序を
@@ -343,8 +338,6 @@ import 'foo/foo.cart';
 
 </details>
 
-<details><summary>Formatting</summary>
-
 ### Formatting
 
 他の言語と同じように`dart`は余分なスペースを無視します。
@@ -352,6 +345,8 @@ import 'foo/foo.cart';
 そのスペースを利用し、`dart`の適切にフォーマットします。
 
 <details><summary>DO format your code using dart format</summary>
+
+#### DO format your code using dart format
 
 フォーマットは面倒な作業であり、リファクリング中に時間がかかります。
 
@@ -425,13 +420,9 @@ if (art == null) return defaultValue;
 
 </details>
 
-</details>
-
 ## Documentation
 
 コメントのルール。
-
-<details><summary>Comments</summary>
 
 ### Comments
 
@@ -479,10 +470,6 @@ greet(name) {
 </details>
 
 </details>
-
-</details>
-
-<details><summary>Doc comments</summary>
 
 ### Doc comments
 
@@ -590,7 +577,7 @@ void delete(String path) {
 
 </details>
 
-<details><summary>AVOID redundancy with the surrounding context<summary>
+<details><summary>AVOID redundancy with the surrounding context</summary>
 
 ### AVOID redundancy with the surrounding context
 
@@ -600,7 +587,7 @@ void delete(String path) {
 
 </details>
 
-<details><summary>PREFER starting variable, getter, or setter comments with noun phrases<summary>
+<details><summary>PREFER starting variable, getter, or setter comments with noun phrases</summary>
 
 ### PREFER starting variable, getter, or setter comments with noun phrases
 
@@ -610,7 +597,7 @@ void delete(String path) {
 
 #### 例
 
-<details><summary>good<summary>
+<details><summary>good</summary>
 
 ##### good
 
@@ -626,7 +613,7 @@ int get checkedCount => ...
 
 </details>
 
-<details><summary>PREFER stating library or type comments with noun phrases<summary>
+<details><summary>PREFER stating library or type comments with noun phrases</summary>
 
 ### PREFER stating library or type comments with noun phrases
 
@@ -634,7 +621,7 @@ int get checkedCount => ...
 
 </details>
 
-<details><summary>CONSIDER including code samples in doc comments.<summary>
+<details><summary>CONSIDER including code samples in doc comments.</summary>
 
 ### CONSIDER including code samples in doc comments.
 
@@ -659,7 +646,7 @@ num min(num a, num b) => ...
 
 </details>
 
-<details><summary>DO use square brackets in doc comments to refer to in-scope identifiers<summary>
+<details><summary>DO use square brackets in doc comments to refer to in-scope identifiers</summary>
 
 ### DO use square brackets in doc comments to refer to in-scope identifiers
 
@@ -671,7 +658,7 @@ num min(num a, num b) => ...
 
 #### 例
 
-<details><summary>good<summary>
+<details><summary>good</summary>
 
 ##### good
 
@@ -686,7 +673,7 @@ num min(num a, num b) => ...
 
 </details>
 
-<details><summary>DO use prose to explain parameters. return values, and exceptions<summary>
+<details><summary>DO use prose to explain parameters. return values, and exceptions</summary>
 
 ### DO use prose to explain parameters. return values, and exceptions
 
@@ -696,7 +683,7 @@ num min(num a, num b) => ...
 
 #### 例
 
-<details><summary>bad<summary>
+<details><summary>bad</summary>
 
 ```dart
 /// Defines a flag with the given name and abbreviation.
@@ -711,7 +698,7 @@ Flag addFlag(String name, String abbr) => ...
 
 </details>
 
-<details><summary>good<summary>
+<details><summary>good</summary>
 
 ```dart
 /// Defines a flag.
@@ -725,7 +712,7 @@ Flag addFlag(String name, String abbr) => ...
 
 </details>
 
-<details><summary>DO put doc comments before metadata annotations<summary>
+<details><summary>DO put doc comments before metadata annotations</summary>
 
 ### DO put doc comments before metadata annotations
 
@@ -733,7 +720,7 @@ Flag addFlag(String name, String abbr) => ...
 
 #### 例
 
-<details><summary>good<summary>
+<details><summary>good</summary>
 
 ```dart
 /// A button that can be flipped on and off.
@@ -745,81 +732,50 @@ class ToggleComponent {}
 
 </details>
 
-</details>
-
-<details><summary>Markdown</summary>
-
 ### Markdown
 
-</details>
-
-<details><summary>Writing</summary>
-
 ### Writing
-
-</details>
 
 ## Usage
 
 動作を実装する言語の効果的な活用方法。
 
-<details><summary>Libraries</summary>
-</details>
+### Libraries
 
-<details><summary>Null</summary>
-</details>
+### Null
 
-<details><summary>Strings</summary>
-</details>
+### Strings
 
-<details><summary>Collections</summary>
-</details>
+### Collections
 
-<details><summary>Functions</summary>
-</details>
+### Functions
 
-<details><summary>Variables</summary>
-</details>
+### Variables
 
-<details><summary>Members</summary>
-</details>
+### Members
 
-<details><summary>Constructors</summary>
-</details>
+### Constructors
 
-<details><summary>Error handling</summary>
-</details>
+### Error handling
 
-<details><summary>Asynchrony</summary>
-</details>
 
 ## Design
 
 汎用的な設計ガイド。
 
-<details><summary>Names</summary>
-</details>
+### Names
 
-<details><summary>Libraries</summary>
-</details>
+### Libraries
 
-<details><summary>Classes and mixins</summary>
-</details>
+### Classes and mixins
 
-<details><summary>Constructors</summary>
-</details>
+### Constructors
 
-<details><summary>Members</summary>
-</details>
+### Types
 
-<details><summary>Types</summary>
-</details>
+### Parameters
 
-<details><summary>Parameters</summary>
-</details>
-
-<details><summary>Equality</summary>
-</details>
+### Equality
 
 ## 備考
 

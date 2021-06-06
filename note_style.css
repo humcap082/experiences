@@ -12,3 +12,7 @@ VSCode:
 details {
     padding-left: 2em;
 }
+
+details section {
+    padding-left: 2em;
+}

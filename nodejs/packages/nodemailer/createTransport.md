@@ -1,6 +1,6 @@
 # createTransport()
 
-smtpサーバーとやりとりをするオブジェクト
+smtpサーバーとやりとりをするオブジェクト[`Transporter`](Transporter.md)を作成する。
 
 ```typescript
 export function createTransport(
@@ -41,10 +41,64 @@ export function createTransport<T>(
 
 ## 引数
 
-<details><summary>transport</summary>
+<details><summary>transport</summary><section>
 
-### transpport
+### transport
 
-SMTPの設定を渡す。
+SMTPの接続情報のオブジェクトもしくは接続URLもしくはプラグインインスタンスです。
 
-</details>
+#### 型
+
+- [SMTPTransport](SMTPTransport.md)
+- [SMTPTransport.Options](SMTPTransport/Options.md)
+- string
+- [SMTPPool](SMTPPool.md)
+- [SMTPPool.Options](SMTPPool/Options.md)
+- [SendmailTransport](SendmailTransport.md)
+- [SendmailTransport.Options](SendmailTransport/Options.md)
+- [StreamTransport](StreamTransport.md)
+- [StreamTransport.Options](StreamTransport/Options.md)
+- [JsonTransport](JsonTransport.md)
+- [JsonTransport.Options](JsonTransport/Options.md)
+- [SESTransport](SESTransport.md)
+- [SESTransport.Options](SESTransport/Options.md)
+- [Transport&lt;T&gt;](Transport.md)
+- [TransportOptions](TransportOptions.md)
+
+#### デフォルト
+
+必須
+
+</section></details>
+
+<details><summary>defaults</summary><section>
+
+### defaults
+
+デフォルトの値を定義するオブジェクトです。
+
+#### 型
+
+- [SMTPTransport.Options](SMTPTransport/Options.md)
+- [SMTPPool.Options](SMTPPool/Options.md)
+- [SendmailTransport.Options](SendmailTransport/Options.md)
+- [StreamTransport.Options](StreamTransport/Options.md)
+- [JsonTransport.Options](JsonTransport/Options.md)
+- [SESTransport.Options](SESTransport/Options.md)
+- [TransportOptions](TransportOptions.md)
+
+#### デフォルト
+
+null
+
+</section></details>
+
+## 戻り値
+
+- [Transporter](Transporter.md)&lt;T&gt;
+- [Transporter](Transporter.md)&lt;[SMTPTransport.SentMessageInfo](SMTPTransport/SentMessageInfo.md)&gt;
+- [Transporter](Transporter.md)&lt;[SMTPPool.SentMessageInfo](SMTPPool/SentMessageInfo.md)&gt;
+- [Transporter](Transporter.md)&lt;[SendmailTransport.SentMessageInfo](SendmailTransport/SentMessageInfo.md)&gt;
+- [Transporter](Transporter.md)&lt;[StreamTransport.SentMessageInfo](StreamTransport/SentMessageInfo.md)&gt;
+- [Transporter](Transporter.md)&lt;[JSONTransport.SentMessageInfo](JSONTransport/SentMessageInfo.md)&gt;
+- [Transporter](Transporter.md)&lt;[SESTransport.SentMessageInfo](SESTransport/SentMessageInfo.md)&gt;
