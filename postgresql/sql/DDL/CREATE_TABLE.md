@@ -36,27 +36,27 @@ CREATE [TEMP | UNLOGGED] TABLE [IF NOT EXISTS] <table_name> {
 
 ## パラメータ
 
-<details><summary>table_name</summary>
+<details><summary>table_name</summary><section>
 
 作成するテーブル名
 
-</details>
+</section></details>
 
-<details><summary>column_name</summary>
+<details><summary>column_name</summary><section>
 
 テーブルに作成する列名
 
-</details>
+</section></details>
 
-<details><summary>data_type</summary>
+<details><summary>data_type</summary><section>
 
 列のデータ型
 
-</details>
+</section></details>
 
 ## 句
 
-<details><summary>TEMP</summary>
+<details><summary>TEMP</summary><section>
 
 一時テーブルとする。`TEMPORARY`でもよい。
 
@@ -70,9 +70,9 @@ CREATE [TEMP | UNLOGGED] TABLE [IF NOT EXISTS] <table_name> {
 TEMP
 ```
 
-</details>
+</section></details>
 
-<details><summary>UNLOGGED</summary>
+<details><summary>UNLOGGED</summary><section>
 
 ログをとらないテーブルとする。
 
@@ -82,9 +82,9 @@ TEMP
 UNLOGGED
 ```
 
-</details>
+</section></details>
 
-<details><summary>IF NOT EXISTS</summary>
+<details><summary>IF NOT EXISTS</summary><section>
 
 同じ名前のテーブルが存在していてもエラーになりません。
 
@@ -94,9 +94,9 @@ UNLOGGED
 IF NOT EXISTS
 ```
 
-</details>
+</section></details>
 
-<details><summary>COLLATE</summary>
+<details><summary>COLLATE</summary><section>
 
 文字列の比較やソートの照合順を指定します。`text, varchar, char`などの文字列の列に定義できます。
 
@@ -106,7 +106,7 @@ IF NOT EXISTS
 COLLATE "<collation>"
 ```
 
-<details><summary>collation</summary>
+<details><summary>collation</summary><section>
 
 照合順序
 
@@ -117,11 +117,11 @@ COLLATE "<collation>"
 |POSIX|ASCIIに準拠|
 |ucs_basic|Unicodeに準拠|
 
-</details>
+</section></details>
 
-</details>
+</section></details>
 
-<details><summary>CONSTRAINT</summary>
+<details><summary>CONSTRAINT</summary><section>
 
 列制約、テーブル制約の名前。列や、テーブルにかけられた制約に名前を指定できる。
 
@@ -133,9 +133,9 @@ COLLATE "<collation>"
 CONSTRAINT <constraint_name>
 ```
 
-</details>
+</section></details>
 
-<details><summary>NULL</summary>
+<details><summary>NULL</summary><section>
 
 その列が`NULL`をもてることを指定する。これがデフォルト。
 
@@ -146,15 +146,15 @@ CONSTRAINT <constraint_name>
 
 ### 句
 
-<details><summary>NOT</summary>
+<details><summary>NOT</summary><section>
 
 その列が`NULL`をもてないことを指定する。
 
-</details>
+</section></details>
 
-</details>
+</section></details>
 
-<details><summary>CHECK</summary>
+<details><summary>CHECK</summary><section>
 
 検査制約を指定する。
 
@@ -172,17 +172,17 @@ CHECK (<expression>) [NO INHERIT]
 
 ### パラメータ
 
-<details><summary>expression</summary>
+<details><summary>expression</summary><section>
 
 真偽値を返す条件を記述します。列制約の場合は、その列のみを参照でき、
 
 テーブル制約として指定された場合は、そのテーブルの列を参照できる。
 
-</details>
+</section></details>
 
 ### 句
 
-<details><summary>NO INHERIT</summary>
+<details><summary>NO INHERIT</summary><section>
 
 この句を含む場合、子テーブルには制約が伝搬しない。
 
@@ -190,11 +190,11 @@ CHECK (<expression>) [NO INHERIT]
 NO INHERIT
 ```
 
-</details>
+</section></details>
 
-</details>
+</section></details>
 
-<details><summary>DEFAULT</summary>
+<details><summary>DEFAULT</summary><section>
 
 その列にデフォルトの値が割り当てられる。値が設定されなかった場合に
 
@@ -208,17 +208,17 @@ DEFAULT <default_expr>
 
 ### パラメータ
 
-<details><summary>default_expr</summary>
+<details><summary>default_expr</summary><section>
 
 デフォルトになる値。変数は含められず、サブクエリも、他の列の値も
 
 含めることもできない。
 
-</details>
+</section></details>
 
-</details>
+</section></details>
 
-<details><summary>GENERATED</summary>
+<details><summary>GENERATED</summary><section>
 
 ユーザーは列の値を指定できず、自動的に値を生成する列になる。
 
@@ -231,17 +231,17 @@ GENERATED {
 
 ### パラメータ
 
-<details><summary>generation_expr</summary>
+<details><summary>generation_expr</summary><section>
 
 自動的に生成する値の式。そのテーブルの他の列を参照することができます。
 
 使用される演算子や関数はイミュータブルでなければなりません。
 
-</details>
+</section></details>
 
 ### 句
 
-<details><summary>ALWAYS</summary>
+<details><summary>ALWAYS</summary><section>
 
 行を挿入時に`INSERT`に`OVERRIDING SYSTEM VALUE`を指定しないと、
 
@@ -251,9 +251,9 @@ GENERATED {
 ALWAYS
 ```
 
-</details>
+</section></details>
 
-<details><summary>BY DEFAULT</summary>
+<details><summary>BY DEFAULT</summary><section>
 
 行を挿入時に`INSERT`に`OVERRIDING USER VALUE`を指定しないと
 
@@ -263,9 +263,9 @@ ALWAYS
 BY DEFAULT
 ```
 
-</details>
+</section></details>
 
-<details><summary>AS IDENTITY</summary>
+<details><summary>AS IDENTITY</summary><section>
 
 シーケンスと暗示的に紐づけられ、シーケンスからとられた値が自動的にはいる。
 
@@ -275,17 +275,17 @@ AS IDENTITY [(<sequence_options>)]
 
 #### パラメータ
 
-<details><summary>sequence_options</summary>
+<details><summary>sequence_options</summary><section>
 
 `CREATE SEQUENCE`に使用されるオプション句を指定できる。
 
-</details>
+</section></details>
 
-</details>
+</section></details>
 
-</details>
+</section></details>
 
-<details><summary>UNIQUE</summary>
+<details><summary>UNIQUE</summary><section>
 
 一意性制約を設ける。一意性制約では`NULL`値は等しいとみなされません。
 
@@ -300,7 +300,7 @@ UNIQUE (<column_name>[, ...]) [INCLUDE] -- テーブル制約
 
 ### 句
 
-<details><summary>INCLUDE</summary>
+<details><summary>INCLUDE</summary><section>
 
 一意でない列を明示的に指定することができる。
 
@@ -308,11 +308,11 @@ UNIQUE (<column_name>[, ...]) [INCLUDE] -- テーブル制約
 INCLUDE (<column_name>[, ...])
 ```
 
-</details>
+</section></details>
 
-</details>
+</section></details>
 
-<details><summary>PRIMARY KEY</summary>
+<details><summary>PRIMARY KEY</summary><section>
 
 主キー制約を設ける。主キー制約は一意であり、非`NULL`である必要があり、
 
@@ -327,7 +327,7 @@ PRIMARY KEY (<column_name>[, ...]) [INCLUDE] -- 表制約
 
 ### 句
 
-<details><summary>INCLUDE</summary>
+<details><summary>INCLUDE</summary><section>
 
 一意でない列を明示的に指定することができる。
 
@@ -335,11 +335,11 @@ PRIMARY KEY (<column_name>[, ...]) [INCLUDE] -- 表制約
 INCLUDE (<column_name>[, ...])
 ```
 
-</details>
+</section></details>
 
-</details>
+</section></details>
 
-<details><summary>REFERENCES</summary>
+<details><summary>REFERENCES</summary><section>
 
 外部キー制約を設ける。一時テーブルとの間に外部キー制約を設けることはできない。
 
@@ -349,23 +349,23 @@ REFERENCES <ref_table> [(<ref_column>)] [MATCH] [ON DELETE] [ON UPDATE]
 
 ### パラメータ
 
-<details><summary>ref_table</summary>
+<details><summary>ref_table</summary><section>
 
 被参照テーブル。
 
-</details>
+</section></details>
 
-<details><summary>ref_column</summary>
+<details><summary>ref_column</summary><section>
 
 被参照列。省略した場合は、被参照テーブルの主キーになる。
 
 被参照列は主キー制約もしくは一意性制約が設けられてる必要があります。
 
-</details>
+</section></details>
 
 ### 句
 
-<details><summary>MATCH</summary>
+<details><summary>MATCH</summary><section>
 
 照合型を指定する。
 
@@ -375,7 +375,7 @@ MATCH {FULL | PARTIAL | SIMPLE}
 
 #### 句
 
-<details><summary>FULL</summary>
+<details><summary>FULL</summary><section>
 
 複数、外部キーがあるとき、一部が`NULL`であることを許可しない。
 
@@ -387,9 +387,9 @@ MATCH {FULL | PARTIAL | SIMPLE}
 FULL
 ```
 
-</details>
+</section></details>
 
-<details><summary>SIMPLE</summary>
+<details><summary>SIMPLE</summary><section>
 
 外部キーに`NULL`があることを許可します。これがデフォルトです。
 
@@ -399,17 +399,17 @@ FULL
 SIMPLE
 ```
 
-</details>
+</section></details>
 
-<details><summary>PARTIAL</summary>
+<details><summary>PARTIAL</summary><section>
 
 まだ実装されていません。
 
-</details>
+</section></details>
 
-</details>
+</section></details>
 
-<details><summary>ON DELETE</summary>
+<details><summary>ON DELETE</summary><section>
 
 被参照行が削除された場合の動作を指定する。
 
@@ -419,7 +419,7 @@ ON DELETE {NO ACTION | RESTRICT | CASCADE | SET NULL | SET DEFAULT}
 
 ### 句
 
-<details><summary>NO ACTION</summary>
+<details><summary>NO ACTION</summary><section>
 
 エラーを発生させる。デフォルトの動作。制約の検査と同時に行われる。
 
@@ -427,9 +427,9 @@ ON DELETE {NO ACTION | RESTRICT | CASCADE | SET NULL | SET DEFAULT}
 NO ACTION
 ```
 
-</details>
+</section></details>
 
-<details><summary>RESTRICT</summary>
+<details><summary>RESTRICT</summary><section>
 
 エラーを発生させる。制約の検査を同時に行われるが、検査を遅延することはできない。
 
@@ -437,9 +437,9 @@ NO ACTION
 RESTRICT
 ```
 
-</details>
+</section></details>
 
-<details><summary>CASCADE</summary>
+<details><summary>CASCADE</summary><section>
 
 被参照行が削除されたとき、参照している行すべてを削除する。
 
@@ -447,9 +447,9 @@ RESTRICT
 CASCADE
 ```
 
-</details>
+</section></details>
 
-<details><summary>SET NULL</summary>
+<details><summary>SET NULL</summary><section>
 
 外部キー列を`NULL`にします。
 
@@ -457,9 +457,9 @@ CASCADE
 SET NULL
 ```
 
-</details>
+</section></details>
 
-<details><summary>SET DEFAULT</summary>
+<details><summary>SET DEFAULT</summary><section>
 
 外部キー列をデフォルト値にします。設定されたデフォルトの値が
 
@@ -469,11 +469,11 @@ SET NULL
 SET DEFAULT
 ```
 
-</details>
+</section></details>
 
-</details>
+</section></details>
 
-<details><summary>ON UPDATE</summary>
+<details><summary>ON UPDATE</summary><section>
 
 被参照列が更新された場合の動作を指定する。
 
@@ -483,7 +483,7 @@ ON DELETE {NO ACTION | RESTRICT | CASCADE | SET NULL | SET DEFAULT}
 
 #### 句
 
-<details><summary>RESTRICT</summary>
+<details><summary>RESTRICT</summary><section>
 
 エラーを発生させる。制約の検査を同時に行われるが、検査を遅延することはできない。
 
@@ -491,9 +491,9 @@ ON DELETE {NO ACTION | RESTRICT | CASCADE | SET NULL | SET DEFAULT}
 RESTRICT
 ```
 
-</details>
+</section></details>
 
-<details><summary>CASCADE</summary>
+<details><summary>CASCADE</summary><section>
 
 値を更新します。
 
@@ -501,9 +501,9 @@ RESTRICT
 CASCADE
 ```
 
-</details>
+</section></details>
 
-<details><summary>SET NULL</summary>
+<details><summary>SET NULL</summary><section>
 
 外部キー列を`NULL`にします。
 
@@ -511,9 +511,9 @@ CASCADE
 SET NULL
 ```
 
-</details>
+</section></details>
 
-<details><summary>SET DEFAULT</summary>
+<details><summary>SET DEFAULT</summary><section>
 
 外部キー列をデフォルト値にします。設定されたデフォルトの値が
 
@@ -523,13 +523,13 @@ SET NULL
 SET DEFAULT
 ```
 
-</details>
+</section></details>
 
-</details>
+</section></details>
 
-</details>
+</section></details>
 
-<details><summary>DEFERRABLE</summary>
+<details><summary>DEFERRABLE</summary><section>
 
 制約を遅延させることが可能になる。
 
@@ -545,7 +545,7 @@ SET DEFAULT
 
 ### 句
 
-<details><summary>NOT</summary>
+<details><summary>NOT</summary><section>
 
 制約を遅延させることができなくなる。これがデフォルトです。
 
@@ -553,11 +553,11 @@ SET DEFAULT
 NOT
 ```
 
-</details>
+</section></details>
 
-</details>
+</section></details>
 
-<details><summary>INITIALLY</summary>
+<details><summary>INITIALLY</summary><section>
 
 制約が遅延可能なとき、制約検査を行うデフォルトのタイミングを指定します。
 
@@ -567,7 +567,7 @@ INITIALLY {IMMEDIATE | DEFERRED}
 
 ### 句
 
-<details><summary>IMMEDIATE</summary>
+<details><summary>IMMEDIATE</summary><section>
 
 各文の実行後すぐに検査します。これがデフォルトです。
 
@@ -575,9 +575,9 @@ INITIALLY {IMMEDIATE | DEFERRED}
 IMMEDIATE
 ```
 
-</details>
+</section></details>
 
-<details><summary>DEFERRED</summary>
+<details><summary>DEFERRED</summary><section>
 
 トランザクションの終了時に検査されます。
 
@@ -585,11 +585,11 @@ IMMEDIATE
 DEFERRED
 ```
 
-</details>
+</section></details>
 
-</details>
+</section></details>
 
-<details><summary>EXCLUDE</summary>
+<details><summary>EXCLUDE</summary><section>
 
 吐いた制約を設けます。
 
@@ -605,33 +605,33 @@ EXCLUDE [USING] ({<exclude_element> WITH}[, ...]) <index_parameters> [WHERE]
 
 ### 句
 
-<details><summary>USING</summary>
+<details><summary>USING</summary><section>
 
 ```sql
 USING <index_method>
 ```
 
-</details>
+</section></details>
 
-<details><summary>WITH</summary>
+<details><summary>WITH</summary><section>
 
 ```sql
 WITH <operator>[, ...]
 ```
 
-</details>
+</section></details>
 
-<details><summary>WHERE</summary>
+<details><summary>WHERE</summary><section>
 
 ```sql
 WHERE (<predicate>)
 ```
 
-</details>
+</section></details>
 
-</details>
+</section></details>
 
-<details><summary>FOREIGN KEY</summary>
+<details><summary>FOREIGN KEY</summary><section>
 
 外部キーを複数の列をセットで指定するとき、テーブル制約の
 
@@ -644,17 +644,17 @@ FOREIGN KEY (<column_name>[, ...])
 
 ### パラメータ
 
-<details><summary>ref_column</summary>
+<details><summary>ref_column</summary><section>
 
 非参照列キー、指定しなかった場合は、主キーが自動的に
 
 割り当てられる。
 
-</details>
+</section></details>
 
-</details>
+</section></details>
 
-<details><summary>INHERITS</summary>
+<details><summary>INHERITS</summary><section>
 
 テーブルの全ての列を継承する。通常のテーブルと外部テーブルを指定できます。
 
@@ -670,9 +670,9 @@ FOREIGN KEY (<column_name>[, ...])
 INHERITS (<parent_table>[, ...])
 ```
 
-</details>
+</section></details>
 
-<details><summary>PARTITION BY</summary>
+<details><summary>PARTITION BY</summary><section>
 
 パーティションキーを作成します。
 
@@ -687,27 +687,27 @@ PARTITION BY {RANGE | LIST | HASH}
 
 ### パラメータ
 
-<details><summary>column_name</summary>
+<details><summary>column_name</summary><section>
 
 パーティションキーに含める列
 
-</details>
+</section></details>
 
-<details><summary>expression</summary>
+<details><summary>expression</summary><section>
 
 パーティションキーに含める式
 
-</details>
+</section></details>
 
-<details><summary>op_class</summary>
+<details><summary>op_class</summary><section>
 
 インデックスメソッド。省略した場合、`btree`インデックスになる。
 
-</details>
+</section></details>
 
 ### 句
 
-<details><summary>RANGE</summary>
+<details><summary>RANGE</summary><section>
 
 範囲パーティション。異なるパーティションの範囲が被らないようにある。
 
@@ -717,9 +717,9 @@ PARTITION BY {RANGE | LIST | HASH}
 RANGE
 ```
 
-</details>
+</section></details>
 
-<details><summary>LIST</summary>
+<details><summary>LIST</summary><section>
 
 リストパーティション。指定した列だけでパーティションを作成する。
 
@@ -729,9 +729,9 @@ RANGE
 LIST
 ```
 
-</details>
+</section></details>
 
-<details><summary>HASH</summary>
+<details><summary>HASH</summary><section>
 
 ハッシュパーティション。ハッシュインデックスを使用します。
 
@@ -739,11 +739,11 @@ LIST
 HASH
 ```
 
-</details>
+</section></details>
 
-</details>
+</section></details>
 
-<details><summary>AS</summary>
+<details><summary>AS</summary><section>
 
 問い合わせ文の結果からテーブルを作成します。
 
@@ -755,7 +755,7 @@ AS <query> [WITH DATA]
 
 ### 句
 
-<details><summary>WITH DATA</summary>
+<details><summary>WITH DATA</summary><section>
 
 データも一緒に新しいテーブルにコピーします。
 
@@ -767,7 +767,7 @@ WITH [NO] DATA
 
 #### 句
 
-<details><summary>NO</summary>
+<details><summary>NO</summary><section>
 
 データはコピーせず、構造だけコピーします。
 
@@ -775,13 +775,13 @@ WITH [NO] DATA
 NO
 ```
 
-</details>
+</section></details>
 
-</details>
+</section></details>
 
-</details>
+</section></details>
 
-<details><summary>PARTITION OF</summary>
+<details><summary>PARTITION OF</summary><section>
 
 指定した親テーブルのパーティションテーブルを作成する。
 
@@ -809,15 +809,15 @@ PARTITION OF <parent_table>
 
 ### パラメータ
 
-<details><summary>parent_table</summary>
+<details><summary>parent_table</summary><section>
 
 パーティションキーが作成されているテーブル
 
-</details>
+</section></details>
 
 ### 句
 
-<details><summary>FOR VALUES</summary>
+<details><summary>FOR VALUES</summary><section>
 
 ```sql
 {FOR VALUES {IN | FROM | TO | WITH} | DEFAULT}
@@ -825,43 +825,43 @@ PARTITION OF <parent_table>
 
 #### 句
 
-<details><summary>IN</summary>
+<details><summary>IN</summary><section>
 
 ```sql
 IN (<partition_bound_expr>[, ...])
 ```
 
-</details>
+</section></details>
 
-<details><summary>FROM</summary>
+<details><summary>FROM</summary><section>
 
 ```sql
 FROM ({<partition_bound_expr> | MINVALUE | MAXVALUE}[, ...])
 ```
 
-</details>
+</section></details>
 
-<details><summary>TO</summary>
+<details><summary>TO</summary><section>
 
 ```sql
 TO ({<partition_bound_expr> | MINVALUE | MAXVALUE}[, ...])
 ```
 
-</details>
+</section></details>
 
-<details><summary>WITH</summary>
+<details><summary>WITH</summary><section>
 
 ```sql
 WITH (MODULUS <numeric_literal>, REMAINDER <numeric_literal>)
 ```
 
-</details>
+</section></details>
 
-</details>
+</section></details>
 
-</details>
+</section></details>
 
-<details><summary>OF</summary>
+<details><summary>OF</summary><section>
 
 型付きテーブルを作成する。
 
@@ -886,9 +886,9 @@ OF <type_name>
     )]
     {FOR VALUES | DEFAULT}
 ```
-</details>
+</section></details>
 
-<details><summary>LIKE</summary>
+<details><summary>LIKE</summary><section>
 
 指定したテーブルの列名、データ型、制約を新しいテーブルに
 
@@ -902,15 +902,15 @@ LIKE <source_table> [EXCLUDING | INCLUDING]
 
 ### パラメータ
 
-<details><summary>source_table</summary>
+<details><summary>source_table</summary><section>
 
 コピーするテーブル。
 
-</details>
+</section></details>
 
 ### 句
 
-<details><summary>EXCLUDING</summary>
+<details><summary>EXCLUDING</summary><section>
 
 追加属性をコピーしない。これはデフォルトです。
 
@@ -918,9 +918,9 @@ LIKE <source_table> [EXCLUDING | INCLUDING]
 EXCLUDING
 ```
 
-</details>
+</section></details>
 
-<details><summary>INCLUDING</summary>
+<details><summary>INCLUDING</summary><section>
 
 ```sql
 INCLUDING {
@@ -936,11 +936,11 @@ INCLUDING {
 }
 ```
 
-</details>
+</section></details>
 
-</details>
+</section></details>
 
-<details><summary>USING</summary>
+<details><summary>USING</summary><section>
 
 テーブルアクセスメソッドを指定します。
 
@@ -948,9 +948,9 @@ INCLUDING {
 USING <method>
 ```
 
-</details>
+</section></details>
 
-<details><summary>WITH</summary>
+<details><summary>WITH</summary><section>
 
 この句はテーブルまたはインデックスに対するオプションの
 
@@ -960,9 +960,9 @@ USING <method>
 WITH ({<storage_parameter[= <value>]>}[, ...])
 ```
 
-</details>
+</section></details>
 
-<details><summary>ON COMMIT</summary>
+<details><summary>ON COMMIT</summary><section>
 
 トランザクション終了時のテーブルの動作を指定する。
 
@@ -972,13 +972,13 @@ ON COMMIT {PRESERVE ROWS | DELETE ROWS | DROP}
 
 ### 句
 
-<details><summary>PRESERVE ROWS</summary>
+<details><summary>PRESERVE ROWS</summary><section>
 
 特別な動作は実行しません。これがデフォルトです。
 
-</details>
+</section></details>
 
-<details><summary>DELETE ROWS</summary>
+<details><summary>DELETE ROWS</summary><section>
 
 すべての行が削除される。
 
@@ -986,9 +986,9 @@ ON COMMIT {PRESERVE ROWS | DELETE ROWS | DROP}
 DELETE ROWS
 ```
 
-</details>
+</section></details>
 
-<details><summary>DROP</summary>
+<details><summary>DROP</summary><section>
 
 テーブルが削除される。
 
@@ -996,11 +996,11 @@ DELETE ROWS
 DROP
 ```
 
-</details>
+</section></details>
 
-</details>
+</section></details>
 
-<details><summary>TABLESPACE</summary>
+<details><summary>TABLESPACE</summary><section>
 
 インデックスを作成するテーブル空間を作成します。
 
@@ -1010,4 +1010,4 @@ DROP
 TABLESPACE <tablespace_name>
 ```
 
-</details>
+</section></details>
